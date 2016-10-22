@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rudky4/PA165---Liquor-bottles-registry.svg?branch=master)](https://travis-ci.org/rudky4/PA165---Liquor-bottles-registry)
+
 # Liquor bottles registry
 
 Info: Development in progress.
