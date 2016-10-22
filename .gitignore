@@ -1,0 +1,42 @@
+# Intellij
+###################
+.idea
+*.iml
+
+# NetBeans #
+############
+nbactions.xml
+nb-configuration.xml
+catalog.xml
+
+# Maven #
+#########
+target
+
+# Logs and databases #
+######################
+*.log
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+
