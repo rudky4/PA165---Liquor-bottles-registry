@@ -55,7 +55,12 @@ public class BottleTypeDAOTest {
 
     @Test
     public void searchExistingBottleType() {
-        Assert.assertNotNull(bottleTypeDAO.getBottleTypeById(morgan.getId()));
+        BottleType b = bottleTypeDAO.getBottleTypeById(morgan.getId());
+        Assert.assertNotNull(b);
+        Assert.assertEquals(b, morgan);
+        Assert.assertEquals(b.getName(), morgan.getName());
+        Assert.assertEquals(b.getSize(), morgan.getSize());
+        Assert.assertEquals(b.getVolume(), morgan.getVolume());
     }
 
     @Test
