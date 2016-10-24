@@ -6,7 +6,7 @@ import cz.muni.fi.pa165.enums.PersonRole;
 import java.util.List;
 
 /**
- * @author jakub
+ * @author Jakub Fiser
  *         24/10/2016
  */
 public interface PersonDAO {
