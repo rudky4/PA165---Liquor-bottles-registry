@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * @author jakub
+ * @author Jakub Fiser
  *         24/10/2016
  */
 @Repository

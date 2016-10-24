@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 /**
- * @author jakub
+ * @author Jakub Fiser
  *         24/10/2016
  */
 @ContextConfiguration(classes = PersistenceContext.class)

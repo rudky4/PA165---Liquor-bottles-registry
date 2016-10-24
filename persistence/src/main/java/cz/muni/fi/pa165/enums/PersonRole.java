@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.enums;
 
 /**
- * @author jakub
+ * @author Jakub Fiser
  *         24/10/2016
  */
 public enum PersonRole {
