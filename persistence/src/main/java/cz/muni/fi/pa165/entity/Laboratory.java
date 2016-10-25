@@ -25,8 +25,8 @@ public class Laboratory {
         return id;
     }
     
-    public String setName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
