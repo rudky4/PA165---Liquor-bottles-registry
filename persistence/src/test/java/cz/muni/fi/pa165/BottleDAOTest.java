@@ -2,6 +2,7 @@ package cz.muni.fi.pa165;
 
 import cz.muni.fi.pa165.config.PersistenceContext;
 import cz.muni.fi.pa165.dao.BottleDAO;
+import cz.muni.fi.pa165.dao.BottleDAOImpl;
 import cz.muni.fi.pa165.entity.Bottle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,13 +20,10 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author mhajas
  */
-@ContextConfiguration(classes = PersistenceContext.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
-public class BottleDAOTest {
+public class BottleDAOTest extends AbstractDAOTest{
 
     @Autowired
-    private BottleDAO bottleDAO;
+    private BottleDAOImpl bottleDAO;
 
     @Test
     public void createBottleTest() {

@@ -23,8 +23,8 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories
-@ComponentScan(basePackageClasses = {BottleDAO.class})
+@EnableJpaRepositories(basePackageClasses = {BottleDAO.class})
+//@ComponentScan(basePackageClasses = {BottleDAO.class})
 public class PersistenceContext {
 
     @Bean

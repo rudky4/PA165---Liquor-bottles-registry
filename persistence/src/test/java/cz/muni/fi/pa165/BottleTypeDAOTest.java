@@ -19,10 +19,7 @@ import java.math.BigDecimal;
  * @author Jakub Fiser
  *         24/10/2016
  */
-@ContextConfiguration(classes = PersistenceContext.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
-public class BottleTypeDAOTest {
+public class BottleTypeDAOTest extends AbstractDAOTest {
 
     @Autowired
     private BottleTypeDAO bottleTypeDAO;

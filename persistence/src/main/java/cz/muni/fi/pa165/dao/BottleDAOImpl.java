@@ -1,43 +1,35 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Bottle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author mhajas
  */
 @Repository
-public class BottleDAOImpl implements BottleDAO {
+public class BottleDAOImpl {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
-    public void createBottle(Bottle bottle) {
-        entityManager.persist(bottle);
+    @Autowired
+    private BottleDAO bottleDAO;
+
+    public void createBottle(Bottle b) {
+        bottleDAO.save(b);
     }
 
-    @Override
-    public Collection<Bottle> getAllBottles() {
-        return entityManager.createQuery("Select b From Bottle b", Bottle.class).getResultList();
+    public List<Bottle> getAllBottles() {
+        return bottleDAO.findAll();
     }
 
-    @Override
-    public Bottle getBottleById(Long id) {
-        return entityManager.find(Bottle.class, id);
-    }
 
-    @Override
-    public void updateBottle(Bottle bottle) {
-        entityManager.merge(bottle);
-    }
-
-    @Override
-    public void deleteBottle(Bottle bottle) {
-        entityManager.remove(bottle);
-    }
 }

@@ -2,59 +2,52 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.PersonRole;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Jakub Fiser
  *         24/10/2016
  */
 @Repository
-public class PersonDAOImpl implements PersonDAO {
+public class PersonDAOImpl {
 
     @PersistenceContext
     private EntityManager em;
 
-    @Override
+    @Autowired
+    private PersonDAO personDAO;
+
     public void createPerson(Person person) {
-        em.persist(person);
+        personDAO.save(person);
     }
 
-    @Override
     public Person updatePerson(Person person) {
-        return em.merge(person);
+        return personDAO.save(person);
     }
 
-    @Override
     public void deletePerson(Person person) {
-        em.remove(person);
+        personDAO.delete(person);
     }
 
-    @Override
     public Person findById(long id) {
-        return em.find(Person.class, id);
+        return personDAO.findOne(id);
     }
 
-    @Override
     public Person findByLogin(String login) {
-        return em.createNamedQuery(Person.FIND_BY_LOGIN, Person.class)
-                .setParameter(Person.PARAMETER_LOGIN, login)
-                .getSingleResult();
+        return personDAO.findByLogin(login);
     }
 
-    @Override
     public List<Person> findAll() {
-        return em.createNamedQuery(Person.FIND_ALL, Person.class)
-                .getResultList();
+        return personDAO.findAll();
     }
 
-    @Override
     public List<Person> getPersonsOfRole(PersonRole role) {
-        return em.createNamedQuery(Person.FIND_BY_ROLE, Person.class)
-                .setParameter(Person.PARAMETER_ROLE, role)
-                .getResultList();
+        return personDAO.findByRole(role);
     }
 }
