@@ -53,7 +53,7 @@ public class PersonDAOTest {
         personDAO.createPerson(person2);
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test(expected = javax.validation.ValidationException.class)
     public void createNullLogin() {
         person1.setLogin(null);
         personDAO.updatePerson(person1);
@@ -69,7 +69,7 @@ public class PersonDAOTest {
         List<Person> persons = new ArrayList<>(personDAO.findAll());
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test(expected = javax.validation.ValidationException.class)
     public void createNullName() {
         person1.setName(null);
         personDAO.updatePerson(person1);

@@ -25,7 +25,7 @@ public class Person {
     public static final String PARAMETER_ROLE = "role";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
 
     @Column(nullable = false)
