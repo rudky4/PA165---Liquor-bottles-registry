@@ -24,7 +24,7 @@ public class Bottle {
     @NotNull
     private Date produced;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private BottleType bottleType;
 
     public Long getId() {

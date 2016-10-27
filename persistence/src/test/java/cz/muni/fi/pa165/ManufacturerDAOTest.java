@@ -38,10 +38,10 @@ public class ManufacturerDAOTest {
         originalManufacturer.setName("Manufacturer");
         manufacturerDAO.createManufacturer(originalManufacturer);
 
-        List<Manufacturer> Manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
-        assertEquals(1, Manufacturers.size());
+        List<Manufacturer> manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        assertEquals(1, manufacturers.size());
 
-        Manufacturer persistManufacturer = Manufacturers.get(0);
+        Manufacturer persistManufacturer = manufacturers.get(0);
         assertEquals(originalManufacturer.getName(), persistManufacturer.getName());
         assertTrue(originalManufacturer.equals(persistManufacturer));
         assertTrue(persistManufacturer.equals(originalManufacturer));
@@ -57,10 +57,13 @@ public class ManufacturerDAOTest {
         originalManufacturer2.setName("Manufacturer2");
         manufacturerDAO.createManufacturer(originalManufacturer2);
 
+        
         List<Manufacturer> manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
         assertEquals(2, manufacturers.size());
-        assertFalse(originalManufacturer1.equals(originalManufacturer2));
-        assertFalse(originalManufacturer2.equals(originalManufacturer1));
+
+        Manufacturer persistManufacturer1 = manufacturers.get(0);
+        Manufacturer persistManufacturer2 = manufacturers.get(1);
+        assertFalse(persistManufacturer1.equals(persistManufacturer2));
     }
 
     @Test(expected = javax.validation.ConstraintViolationException.class)
