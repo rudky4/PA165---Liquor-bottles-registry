@@ -73,6 +73,7 @@ public class BottleDAOTest {
   
         List<Bottle> bottles = new ArrayList<>(bottleDAO.getAllBottles());
     }
+
     
     @Test(expected = javax.persistence.PersistenceException.class)
         public void createNotUniqeStickerIDBottleTest() {
@@ -115,6 +116,15 @@ public class BottleDAOTest {
     public void deleteBottleTest() {
         bottleDAO.deleteBottle(b1);
         Assert.assertEquals(bottleDAO.getAllBottles().size(), 1);
+    }
+    
+    @Test(expected = javax.persistence.PersistenceException.class)
+    public void setNullBottleTypeTest() {
+        dzama_rhum = null;
+        b1.setBottleType(dzama_rhum);
+        bottleDAO.updateBottle(b1);
+  
+        List<Bottle> bottles = new ArrayList<>(bottleDAO.getAllBottles());
     }
     
 }
