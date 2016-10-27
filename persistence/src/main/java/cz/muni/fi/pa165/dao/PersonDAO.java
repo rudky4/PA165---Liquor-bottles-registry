@@ -4,10 +4,8 @@ import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.PersonRole;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Jakub Fiser
@@ -15,12 +13,11 @@ import java.util.Optional;
  */
 public interface PersonDAO extends CrudRepository<Person, Long> {
 
-
-    Person findByLogin(@Param("login") String login);
+    Person findByLogin(@Param(Person.PARAMETER_LOGIN) String login);
 
     List<Person> findAll();
 
-    List<Person> findByRole(@Param("role") PersonRole role);
+    List<Person> findByRole(@Param(Person.PARAMETER_ROLE) PersonRole role);
 
     Person findOne(Long id);
 }

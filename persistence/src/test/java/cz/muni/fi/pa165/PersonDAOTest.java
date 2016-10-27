@@ -1,20 +1,12 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.config.PersistenceContext;
-import cz.muni.fi.pa165.dao.PersonDAO;
 import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.PersonRole;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,13 +15,7 @@ import org.junit.Before;
 /**
  * @author Martin Sumera
  */
-@ContextConfiguration(classes = PersistenceContext.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
-public class PersonDAOTest {
-
-    @Autowired
-    private PersonDAO personDAO;
+public class PersonDAOTest extends AbstractDAOTest {
 
     private Person person1;
 
@@ -49,38 +35,35 @@ public class PersonDAOTest {
         person2.setPassword("password2");
         person2.setRole(PersonRole.CUSTOMER);
 
-        personDAO.createPerson(person1);
-        personDAO.createPerson(person2);
+        personDAO.save(person1);
+        personDAO.save(person2);
     }
 
     @Test(expected = javax.validation.ValidationException.class)
     public void createNullLogin() {
         person1.setLogin(null);
-        personDAO.updatePerson(person1);
-
-        List<Person> persons = new ArrayList<>(personDAO.findAll());
+        personDAO.save(person1);
+        personDAO.findAll();
     }
 
     @Test(expected = javax.validation.ConstraintViolationException.class)
     public void createNullPassword() {
         person1.setPassword(null);
-        personDAO.updatePerson(person1);
-
-        List<Person> persons = new ArrayList<>(personDAO.findAll());
+        personDAO.save(person1);
+        personDAO.findAll();
     }
 
     @Test(expected = javax.validation.ValidationException.class)
     public void createNullName() {
         person1.setName(null);
-        personDAO.updatePerson(person1);
-
-        List<Person> persons = new ArrayList<>(personDAO.findAll());
+        personDAO.save(person1);
+        personDAO.findAll();
     }
 
 
     @Test
     public void createPersonTest() {
-        List<Person> actual = new ArrayList<>(personDAO.findAll());
+        List<Person> actual = personDAO.findAll();
 
         assertEquals(2, actual.size());
         Person person = actual.get(0);
@@ -94,7 +77,7 @@ public class PersonDAOTest {
 
     @Test
     public void searchExistingPersonTest() {
-        Person person = personDAO.findById(person1.getId());
+        Person person = personDAO.findOne(person1.getId());
         Assert.assertNotNull(person);
         Assert.assertEquals(person, person1);
         assertTrue(person1.equals(person));
@@ -103,18 +86,18 @@ public class PersonDAOTest {
 
     @Test
     public void searchNonExistingPersonTest() {
-        Assert.assertNull(personDAO.findById(Long.MAX_VALUE));
+        Assert.assertNull(personDAO.findOne(Long.MAX_VALUE));
     }
 
     @Test
     public void searchPersonByRoleTest() {
-        List<Person> persons = new ArrayList<>(personDAO.getPersonsOfRole(PersonRole.CUSTOMER));
+        List<Person> persons = personDAO.findByRole(PersonRole.CUSTOMER);
         assertEquals(1, persons.size());
 
-        persons = new ArrayList<>(personDAO.getPersonsOfRole(PersonRole.MANUFACTURER));
+        persons = personDAO.findByRole(PersonRole.MANUFACTURER);
         assertEquals(1, persons.size());
 
-        persons = new ArrayList<>(personDAO.getPersonsOfRole(PersonRole.POLICE));
+        persons = personDAO.findByRole(PersonRole.POLICE);
         assertEquals(0, persons.size());
     }
 
@@ -135,7 +118,7 @@ public class PersonDAOTest {
         person1.setLogin(newLogin);
         person1.setPassword(newPassword);
 
-        personDAO.updatePerson(person1);
+        personDAO.save(person1);
 
         Person person = personDAO.findByLogin(person1.getLogin());
         Assert.assertNotNull(person);
@@ -146,7 +129,7 @@ public class PersonDAOTest {
 
     @Test
     public void deletePersonTest() {
-        personDAO.deletePerson(person1);
+        personDAO.delete(person1);
         Assert.assertEquals(personDAO.findAll().size(), 1);
     }
 

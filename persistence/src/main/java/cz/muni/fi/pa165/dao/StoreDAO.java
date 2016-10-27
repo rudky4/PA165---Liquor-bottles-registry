@@ -1,21 +1,14 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Store;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Martin Sumera
  */
-public interface StoreDAO {
+public interface StoreDAO extends CrudRepository<Store, Long> {
 
-    void createStore(Store store);
-
-    Collection<Store> getAllStores();
-
-    Store getStoreById(Long id);
-
-    void updateStore(Store store);
-
-    void deleteStore(Store store);
+    List<Store> findAll();
 }

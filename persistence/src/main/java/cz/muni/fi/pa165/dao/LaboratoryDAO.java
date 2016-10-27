@@ -1,20 +1,14 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Laboratory;
-import java.util.Collection;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
  * @author rk
  * @date 2016-10-25
  */
-public interface LaboratoryDAO {
-    void createLaboratory(Laboratory laboratory);
-
-    Collection<Laboratory> getAllLaboratories();
-
-    Laboratory getLaboratoryById(Long id);
-
-    void updateLaboratory(Laboratory laboratory);
-
-    void deleteLaboratory(Laboratory laboratory);
+public interface LaboratoryDAO extends CrudRepository<Laboratory, Long> {
+    List<Laboratory> findAll();
 }

@@ -1,21 +1,15 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.BottleType;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author mhajas
  */
-public interface BottleTypeDAO {
-    void createBottleType(BottleType bottleType);
+public interface BottleTypeDAO extends CrudRepository<BottleType, Long> {
 
-    Collection<BottleType> getAllBottleTypes();
-
-    BottleType getBottleTypeById(Long id);
-
-    void updateBottleType(BottleType bottleType);
-
-    void deleteBottleType(BottleType bottleType);
+    List<BottleType> findAll();
 }
 

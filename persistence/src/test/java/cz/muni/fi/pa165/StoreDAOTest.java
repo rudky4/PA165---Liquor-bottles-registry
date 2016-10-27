@@ -1,18 +1,12 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.config.PersistenceContext;
-import cz.muni.fi.pa165.dao.StoreDAO;
 import cz.muni.fi.pa165.entity.Store;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -20,13 +14,7 @@ import java.util.List;
  * @author Jakub Fiser
  *         27/10/2016
  */
-@ContextConfiguration(classes = PersistenceContext.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
-public class StoreDAOTest {
-
-    @Autowired
-    private StoreDAO storeDAO;
+public class StoreDAOTest extends AbstractDAOTest {
 
     private Store store;
 
@@ -34,12 +22,12 @@ public class StoreDAOTest {
     public void initTest() {
         store = new Store();
         store.setName("Store 1");
-        storeDAO.createStore(store);
+        storeDAO.save(store);
     }
 
     @Test
     public void createStoreTest() {
-        List<Store> stores = new ArrayList<>(storeDAO.getAllStores());
+        List<Store> stores = storeDAO.findAll();
 
         Assert.assertEquals(1, stores.size());
 
@@ -52,23 +40,23 @@ public class StoreDAOTest {
     @Test(expected = javax.validation.ConstraintViolationException.class)
     public void createNullNameStoreTest() {
         Store store2 = new Store();
-        storeDAO.createStore(store2);
+        storeDAO.save(store2);
 
-        storeDAO.getAllStores();
+        storeDAO.findAll();
     }
 
-    @Test(expected = javax.persistence.PersistenceException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void createNonUniqueNameStoreTest() {
         Store store2 = new Store();
         store2.setName(store.getName());
-        storeDAO.createStore(store2);
+        storeDAO.save(store2);
 
-        storeDAO.getAllStores();
+        storeDAO.findAll();
     }
 
     @Test
     public void searchExistingStoreTest() {
-        Store store2 = storeDAO.getStoreById(store.getId());
+        Store store2 = storeDAO.findOne(store.getId());
 
         Assert.assertNotNull(store2);
         Assert.assertEquals(store, store2);
@@ -79,9 +67,9 @@ public class StoreDAOTest {
     public void updateStoreTest() {
         String newName = "newName";
         store.setName(newName);
-        storeDAO.updateStore(store);
+        storeDAO.save(store);
 
-        Store updatedStore = storeDAO.getStoreById(store.getId());
+        Store updatedStore = storeDAO.findOne(store.getId());
 
         Assert.assertEquals(store, updatedStore);
         Assert.assertEquals(store.getName(), updatedStore.getName());
@@ -90,9 +78,9 @@ public class StoreDAOTest {
 
     @Test
     public void deleteStoreTest() {
-        int sizeWith = storeDAO.getAllStores().size();
-        storeDAO.deleteStore(store);
+        int sizeWith = storeDAO.findAll().size();
+        storeDAO.delete(store);
 
-        Assert.assertEquals(sizeWith, storeDAO.getAllStores().size() + 1);
+        Assert.assertEquals(sizeWith, storeDAO.findAll().size() + 1);
     }
 }

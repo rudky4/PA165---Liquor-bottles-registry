@@ -1,18 +1,12 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.config.PersistenceContext;
-import cz.muni.fi.pa165.dao.BottleTypeDAO;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.enums.AlcoholType;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.math.BigDecimal;
 
@@ -21,9 +15,6 @@ import java.math.BigDecimal;
  *         24/10/2016
  */
 public class BottleTypeDAOTest extends AbstractDAOTest {
-
-    @Autowired
-    private BottleTypeDAO bottleTypeDAO;
 
     private BottleType morgan;
     private BottleType amundsen;
@@ -42,66 +33,66 @@ public class BottleTypeDAOTest extends AbstractDAOTest {
         amundsen.setType(AlcoholType.VODKA);
         amundsen.setVolume(BigDecimal.valueOf(37.5));
 
-        bottleTypeDAO.createBottleType(morgan);
-        bottleTypeDAO.createBottleType(amundsen);
+        bottleTypeDAO.save(morgan);
+        bottleTypeDAO.save(amundsen);
     }
 
     @Test
     public void createBottleTypeTest() {
-        Assert.assertEquals(bottleTypeDAO.getAllBottleTypes().size(), 2);
+        Assert.assertEquals(bottleTypeDAO.findAll().size(), 2);
     }
 
-    @Test(expected = javax.persistence.PersistenceException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void createNullNameBottleTypeTest() {
         BottleType bottleType = new BottleType();
         bottleType.setName(null);
         bottleType.setSize(BigDecimal.TEN);
         bottleType.setVolume(BigDecimal.TEN);
         bottleType.setType(AlcoholType.COGNAC);
-        bottleTypeDAO.createBottleType(bottleType);
+        bottleTypeDAO.save(bottleType);
 
-        bottleTypeDAO.getAllBottleTypes();
+        bottleTypeDAO.findAll();
     }
 
-    @Test(expected = javax.persistence.PersistenceException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void createNullVolumeBottleTypeTest() {
         BottleType bottleType = new BottleType();
         bottleType.setName("Name");
         bottleType.setSize(BigDecimal.TEN);
         bottleType.setVolume(null);
         bottleType.setType(AlcoholType.COGNAC);
-        bottleTypeDAO.createBottleType(bottleType);
+        bottleTypeDAO.save(bottleType);
 
-        bottleTypeDAO.getAllBottleTypes();
+        bottleTypeDAO.findAll();
     }
 
-    @Test(expected = javax.persistence.PersistenceException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void createNullSizeBottleTypeTest() {
         BottleType bottleType = new BottleType();
         bottleType.setName("Name");
         bottleType.setSize(null);
         bottleType.setVolume(BigDecimal.TEN);
         bottleType.setType(AlcoholType.COGNAC);
-        bottleTypeDAO.createBottleType(bottleType);
+        bottleTypeDAO.save(bottleType);
 
-        bottleTypeDAO.getAllBottleTypes();
+        bottleTypeDAO.findAll();
     }
 
-    @Test(expected = javax.persistence.PersistenceException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void createNonUniqueBottleTypeTest() {
         BottleType bottleType = new BottleType();
         bottleType.setName(morgan.getName());
         bottleType.setSize(morgan.getSize());
         bottleType.setVolume(morgan.getVolume());
         bottleType.setType(AlcoholType.COGNAC);
-        bottleTypeDAO.createBottleType(bottleType);
+        bottleTypeDAO.save(bottleType);
 
-        bottleTypeDAO.getAllBottleTypes();
+        bottleTypeDAO.findAll();
     }
 
     @Test
     public void searchExistingBottleType() {
-        BottleType b = bottleTypeDAO.getBottleTypeById(morgan.getId());
+        BottleType b = bottleTypeDAO.findOne(morgan.getId());
         Assert.assertNotNull(b);
         Assert.assertEquals(b, morgan);
         Assert.assertEquals(b.getName(), morgan.getName());
@@ -111,15 +102,15 @@ public class BottleTypeDAOTest extends AbstractDAOTest {
 
     @Test
     public void searchNonExistingBottleTypeTest() {
-        Assert.assertNull(bottleTypeDAO.getBottleTypeById(Long.MAX_VALUE));
+        Assert.assertNull(bottleTypeDAO.findOne(Long.MAX_VALUE));
     }
 
     @Test
     public void updateBottleTypeTest() {
         morgan.setSize(BigDecimal.valueOf(500));
-        bottleTypeDAO.updateBottleType(morgan);
+        bottleTypeDAO.save(morgan);
 
-        BottleType after = bottleTypeDAO.getBottleTypeById(morgan.getId());
+        BottleType after = bottleTypeDAO.findOne(morgan.getId());
 
         Assert.assertNotNull(after);
         Assert.assertEquals(after, morgan);
@@ -128,7 +119,7 @@ public class BottleTypeDAOTest extends AbstractDAOTest {
 
     @Test
     public void deleteBottleTypeTest() {
-        bottleTypeDAO.deleteBottleType(amundsen);
-        Assert.assertEquals(bottleTypeDAO.getAllBottleTypes().size(), 1);
+        bottleTypeDAO.delete(amundsen);
+        Assert.assertEquals(bottleTypeDAO.findAll().size(), 1);
     }
 }
