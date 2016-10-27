@@ -24,7 +24,7 @@ public class Bottle {
     @NotNull
     private Date produced;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private BottleType bottleType;
 
     public Long getId() {
