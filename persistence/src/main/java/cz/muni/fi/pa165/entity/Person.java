@@ -88,11 +88,20 @@ public class Person {
             return false;
         }
         Person p = (Person)obj;
-        return name.equals(p.getName()) && login.equals(p.getLogin());
+        if(role != null ? !role.equals(p.getRole()) : p.getRole() != null ||
+                name != null ? !name.equals(p.getName()) : p.getName() != null ||
+                password != null ? !password.equals(p.getPassword()) : p.getPassword() != null) {
+            return false;
+        }
+        return (login != null ? login.equals(p.getLogin()) : p.getLogin() == null);
     }
 
     @Override
     public int hashCode() {
-        return login.hashCode() * 21 + name.hashCode();
+        int result = 31 * (login != null ? login.hashCode() : 0);
+        result += 21 * (name != null ? name.hashCode() : 0);
+        result += 11 * (password != null ? password.hashCode() : 0);
+        result += (role != null ? role.hashCode() : 0);
+        return result;
     }
 }
