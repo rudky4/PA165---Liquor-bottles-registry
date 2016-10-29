@@ -21,6 +21,7 @@ import java.util.List;
 import org.junit.Assert;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 
 /**
@@ -110,6 +111,22 @@ public class BottleDAOTest {
     @Test
     public void searchNonexistingBottleTest() {
         Assert.assertNull(bottleDAO.getBottleById(Long.MAX_VALUE));
+    }
+    
+    @Test
+    public void updateBottleTest() {
+        b1.setProduced(new Date(123)); 
+        b1.setStickerID("ID9");
+        b1.setToxic(true);
+        
+        bottleDAO.updateBottle(b1);
+        List<Bottle> bottles = new ArrayList<>(bottleDAO.getAllBottles());
+        
+        Bottle updatedBottle = bottles.get(0);
+
+        assertEquals(updatedBottle.getProduced(), new Date(123));
+        assertEquals(updatedBottle.getStickerID(), "ID9");
+        assertTrue(updatedBottle.isToxic());
     }
     
     @Test
