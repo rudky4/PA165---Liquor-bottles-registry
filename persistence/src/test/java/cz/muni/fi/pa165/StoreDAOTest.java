@@ -90,9 +90,8 @@ public class StoreDAOTest {
 
     @Test
     public void deleteStoreTest() {
-        int sizeWith = storeDAO.getAllStores().size();
         storeDAO.deleteStore(store);
 
-        Assert.assertEquals(sizeWith, storeDAO.getAllStores().size() + 1);
+        Assert.assertNull(storeDAO.getStoreById(store.getId()));
     }
 }
