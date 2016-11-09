@@ -39,7 +39,7 @@ public class Laboratory {
             return false;
         }
         Laboratory lab = (Laboratory)obj;
-        return name.equals(lab.getName());
+        return (name != null ? name.equals(lab.getName()) : lab.getName() == null);
     }
 
     @Override

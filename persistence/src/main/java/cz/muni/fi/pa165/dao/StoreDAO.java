@@ -10,5 +10,9 @@ import java.util.List;
  */
 public interface StoreDAO extends CrudRepository<Store, Long> {
 
+    /**
+     * Provide list of all existing stores
+     * @return all stores
+     */
     List<Store> findAll();
 }

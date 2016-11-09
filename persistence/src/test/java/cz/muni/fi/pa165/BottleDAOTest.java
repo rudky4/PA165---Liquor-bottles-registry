@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.Assert;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 
 import javax.validation.ConstraintViolationException;
@@ -97,9 +98,33 @@ public class BottleDAOTest extends AbstractDAOTest {
     }
 
     @Test
+    public void updateBottleTest() {
+        b1.setProduced(new Date(123)); 
+        b1.setStickerID("ID9");
+        b1.setToxic(true);
+        
+        bottleDAO.save(b1);
+        List<Bottle> bottles = bottleDAO.findAll();
+        
+        Bottle updatedBottle = bottles.get(0);
+
+        assertEquals(updatedBottle.getProduced(), new Date(123));
+        assertEquals(updatedBottle.getStickerID(), "ID9");
+        assertTrue(updatedBottle.isToxic());
+    }
+    
+    @Test
     public void deleteBottleTest() {
         bottleDAO.delete(b1);
         Assert.assertEquals(bottleDAO.findAll().size(), 1);
     }
 
+    @Test(expected = DataIntegrityViolationException.class)
+    public void setNullBottleTypeTest() {
+        dzama_rhum = null;
+        b1.setBottleType(dzama_rhum);
+        bottleDAO.save(b1);
+  
+        List<Bottle> bottles = bottleDAO.findAll();
+    }
 }

@@ -10,6 +10,9 @@ import java.util.List;
  */
 public interface ManufacturerDAO extends CrudRepository<Manufacturer, Long> {
 
+    /**
+     * Provide list of all existing manufacturers
+     * @return all manufacturers
+     */
     List<Manufacturer> findAll();
-
 }

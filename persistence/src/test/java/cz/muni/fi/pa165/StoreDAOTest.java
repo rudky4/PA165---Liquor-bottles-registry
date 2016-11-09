@@ -78,9 +78,8 @@ public class StoreDAOTest extends AbstractDAOTest {
 
     @Test
     public void deleteStoreTest() {
-        int sizeWith = storeDAO.findAll().size();
         storeDAO.delete(store);
 
-        Assert.assertEquals(sizeWith, storeDAO.findAll().size() + 1);
+        Assert.assertNull(storeDAO.findOne(store.getId()));
     }
 }

@@ -10,6 +10,10 @@ import java.util.List;
  */
 public interface BottleTypeDAO extends CrudRepository<BottleType, Long> {
 
+    /**
+     * Get all bottle types from database
+     * @return List of all types
+     */
     List<BottleType> findAll();
 }
 

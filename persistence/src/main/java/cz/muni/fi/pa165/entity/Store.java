@@ -46,14 +46,7 @@ public class Store {
         }
 
         Store otherStore = (Store) other;
-        if (getId() != otherStore.getId()) {
-            return false;
-        }
-        if (getName() != null ? !getName().equals(otherStore.getName()) : otherStore.getName() != null) {
-            return false;
-        }
-
-        return true;
+        return (getName() != null ? getName().equals(otherStore.getName()) : otherStore.getName() == null);
     }
 
     @Override

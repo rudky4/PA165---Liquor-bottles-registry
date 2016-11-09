@@ -11,6 +11,10 @@ import java.util.List;
 @org.springframework.stereotype.Repository
 public interface BottleDAO extends CrudRepository<Bottle, Long> {
 
+    /**
+     * Get all bottles from database
+     * @return List of bottles
+     */
     List<Bottle> findAll();
 }
 

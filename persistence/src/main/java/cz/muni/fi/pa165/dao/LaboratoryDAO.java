@@ -10,5 +10,10 @@ import java.util.List;
  * @date 2016-10-25
  */
 public interface LaboratoryDAO extends CrudRepository<Laboratory, Long> {
+
+    /**
+     * Provide collection of Laboratories
+     * @return all Laboratories
+     */
     List<Laboratory> findAll();
 }
