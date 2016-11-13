@@ -46,17 +46,10 @@ public class Manufacturer {
         }
 
         Manufacturer otherManufacturer = (Manufacturer) other;
-        if (getId() != otherManufacturer.getId()) {
-            return false;
-        }
-        if (getName() != null ?
-                !getName().equals(otherManufacturer.getName())
+        return (getName() != null ?
+                getName().equals(otherManufacturer.getName())
                 :
-                otherManufacturer.getName() != null) {
-            return false;
-        }
-
-        return true;
+                otherManufacturer.getName() == null);
     }
 
     @Override

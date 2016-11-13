@@ -1,44 +1,28 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.config.PersistenceContext;
-import cz.muni.fi.pa165.dao.ManufacturerDAO;
 import cz.muni.fi.pa165.entity.Manufacturer;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.springframework.test.annotation.DirtiesContext;
 /**
  *
  * @author rk + ms
  * @date 2016-10-27
  */
-@ContextConfiguration(classes = PersistenceContext.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@Transactional
-public class ManufacturerDAOTest {
-
-    @Autowired
-    private ManufacturerDAO manufacturerDAO;
-
+public class ManufacturerDAOTest extends AbstractDAOTest {
     @Test
     public void createManufacturerTest() {
         Manufacturer originalManufacturer = new Manufacturer();
         originalManufacturer.setName("Manufacturer");
-        manufacturerDAO.createManufacturer(originalManufacturer);
+        manufacturerDAO.save(originalManufacturer);
 
-        List<Manufacturer> manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        List<Manufacturer> manufacturers = manufacturerDAO.findAll();
         assertEquals(1, manufacturers.size());
 
         Manufacturer persistManufacturer = manufacturers.get(0);
@@ -51,14 +35,14 @@ public class ManufacturerDAOTest {
     public void createTwoManufacturerTest() {
         Manufacturer originalManufacturer1 = new Manufacturer();
         originalManufacturer1.setName("Manufacturer1");
-        manufacturerDAO.createManufacturer(originalManufacturer1);
+        manufacturerDAO.save(originalManufacturer1);
 
         Manufacturer originalManufacturer2 = new Manufacturer();
         originalManufacturer2.setName("Manufacturer2");
-        manufacturerDAO.createManufacturer(originalManufacturer2);
+        manufacturerDAO.save(originalManufacturer2);
 
         
-        List<Manufacturer> manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        List<Manufacturer> manufacturers = manufacturerDAO.findAll();
         assertEquals(2, manufacturers.size());
 
         Manufacturer persistManufacturer1 = manufacturers.get(0);
@@ -69,38 +53,37 @@ public class ManufacturerDAOTest {
     @Test(expected = javax.validation.ConstraintViolationException.class)
     public void createManufacturerWithNullName() {
         Manufacturer manufacturer = new Manufacturer();
-        manufacturerDAO.createManufacturer(manufacturer);
+        manufacturerDAO.save(manufacturer);
 
-        List<Manufacturer> manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        manufacturerDAO.findAll();
     }
 
-    @Test(expected = javax.persistence.PersistenceException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void createNotUniqueName() {
         Manufacturer originalManufacturer1 = new Manufacturer();
         originalManufacturer1.setName("Manufacturer");
-        manufacturerDAO.createManufacturer(originalManufacturer1);
+        manufacturerDAO.save(originalManufacturer1);
 
         Manufacturer originalManufacturer2 = new Manufacturer();
         originalManufacturer2.setName("Manufacturer");
-        manufacturerDAO.createManufacturer(originalManufacturer2);
-
-        List<Manufacturer> Manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        manufacturerDAO.save(originalManufacturer2);
+        manufacturerDAO.findAll();
     }
 
     @Test
     public void updateManufacturer() {
         Manufacturer originalManufacturer = new Manufacturer();
         originalManufacturer.setName("firstName");
-        manufacturerDAO.createManufacturer(originalManufacturer);
+        manufacturerDAO.save(originalManufacturer);
 
-        List<Manufacturer> Manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        List<Manufacturer> Manufacturers = manufacturerDAO.findAll();
         assertEquals(1, Manufacturers.size());
 
         Manufacturer Manufacturer = Manufacturers.get(0);
         Manufacturer.setName("newName");
-        manufacturerDAO.updateManufacturer(Manufacturer);
+        manufacturerDAO.save(Manufacturer);
 
-        List<Manufacturer> newManufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        List<Manufacturer> newManufacturers = manufacturerDAO.findAll();
         assertEquals(1, newManufacturers.size());
 
         Manufacturer updatedManufacturer = newManufacturers.get(0);
@@ -111,14 +94,14 @@ public class ManufacturerDAOTest {
     public void removeManufacturer() {
         Manufacturer originalManufacturer = new Manufacturer();
         originalManufacturer.setName("Manufacturer");
-        manufacturerDAO.createManufacturer(originalManufacturer);
+        manufacturerDAO.save(originalManufacturer);
 
-        List<Manufacturer> Manufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        List<Manufacturer> Manufacturers = manufacturerDAO.findAll();
         assertEquals(1, Manufacturers.size());
 
-        manufacturerDAO.deleteManufacturer(Manufacturers.get(0));
+        manufacturerDAO.delete(Manufacturers.get(0));
 
-        List<Manufacturer> emptyManufacturers = new ArrayList<>(manufacturerDAO.getAllManufacturers());
+        List<Manufacturer> emptyManufacturers = manufacturerDAO.findAll();
         assertEquals(0, emptyManufacturers.size());
     }
 
@@ -126,13 +109,13 @@ public class ManufacturerDAOTest {
     public void getManufacturerById() {
         Manufacturer originalManufacturer = new Manufacturer();
         originalManufacturer.setName("Manufacturer");
-        manufacturerDAO.createManufacturer(originalManufacturer);
+        manufacturerDAO.save(originalManufacturer);
 
         Manufacturer differentManufacturer = new Manufacturer();
         differentManufacturer.setName("differentManufacturer");
-        manufacturerDAO.createManufacturer(differentManufacturer);
+        manufacturerDAO.save(differentManufacturer);
 
-        Manufacturer Manufacturer = manufacturerDAO.getManufacturerById(originalManufacturer.getId());
+        Manufacturer Manufacturer = manufacturerDAO.findOne(originalManufacturer.getId());
         assertEquals("Expected different manufacturer", Manufacturer.getName(), originalManufacturer.getName());
     }
 

@@ -1,43 +1,18 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Manufacturer;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by martin on 26/10/16.
  */
-public interface ManufacturerDAO {
+public interface ManufacturerDAO extends CrudRepository<Manufacturer, Long> {
 
     /**
-     * Create new manufacturer
-     * @param Manufacturer
+     * Provide list of all existing manufacturers
+     * @return all manufacturers
      */
-    void createManufacturer(Manufacturer Manufacturer);
-
-    /**
-     * Provide collection of all existing manufacturers
-     * @return
-     */
-    Collection<Manufacturer> getAllManufacturers();
-
-    /**
-     * Provide specific manufacturer with given id
-     * @param id
-     * @return
-     */
-    Manufacturer getManufacturerById(Long id);
-
-    /**
-     * Update existing manufacturer
-     * @param Manufacturer
-     */
-    void updateManufacturer(Manufacturer Manufacturer);
-
-    /**
-     * Delete existing manufacturer
-     * @param Manufacturer
-     */
-    void deleteManufacturer(Manufacturer Manufacturer);
-
+    List<Manufacturer> findAll();
 }

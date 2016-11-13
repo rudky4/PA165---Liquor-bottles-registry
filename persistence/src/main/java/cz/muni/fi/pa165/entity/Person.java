@@ -19,8 +19,8 @@ import javax.validation.constraints.Size;
 public class Person {
 
     public static final String FIND_ALL = "findAll";
-    public static final String FIND_BY_LOGIN = "findByLogin";
-    public static final String FIND_BY_ROLE = "findByRole";
+    public static final String FIND_BY_LOGIN = "Person.findByLogin";
+    public static final String FIND_BY_ROLE = "Person.findByRole";
     public static final String PARAMETER_LOGIN = "login";
     public static final String PARAMETER_ROLE = "role";
 
