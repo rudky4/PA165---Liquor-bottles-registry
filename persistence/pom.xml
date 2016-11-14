@@ -15,6 +15,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>cz.fi.muni.pa165</groupId>
+            <artifactId>liquor-bottles-registry-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
