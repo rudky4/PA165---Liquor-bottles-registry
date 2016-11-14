@@ -1,21 +1,20 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Bottle;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author mhajas
  */
-public interface BottleDAO {
-    void createBottle(Bottle bottle);
+@org.springframework.stereotype.Repository
+public interface BottleDAO extends CrudRepository<Bottle, Long> {
 
-    Collection<Bottle> getAllBottles();
-
-    Bottle getBottleById(Long id);
-
-    void updateBottle(Bottle bottle);
-
-    void deleteBottle(Bottle bottle);
+    /**
+     * Get all bottles from database
+     * @return List of bottles
+     */
+    List<Bottle> findAll();
 }
 

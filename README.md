@@ -17,3 +17,12 @@ The customers are interested in how many bottles of which liquor type are curren
 Police can obtain the statistics of the toxic bottles for each store and producer.
 
 
+## Installation
+
+This project is build using maven.
+
+**Usage:** `mvn clean install`
+
+
+## Project webpage
+https://rudky4.github.io/PA165---Liquor-bottles-registry/ (in development)
