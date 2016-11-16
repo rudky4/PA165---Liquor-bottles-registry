@@ -9,7 +9,6 @@ import java.util.List;
  * @author Jakub Fiser
  * @date 14/11/2016
  */
-@Service
 public interface PersonService {
     void registerPerson(Person person, String unencryptedPassword);
     void changePassword(Person person, String newPassword);

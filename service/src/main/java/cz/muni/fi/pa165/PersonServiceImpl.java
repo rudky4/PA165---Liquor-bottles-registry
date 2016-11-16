@@ -4,17 +4,22 @@ import cz.muni.fi.pa165.dao.PersonDAO;
 import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.PersonRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
  * @author Jakub Fiser
  * @date 14/11/2016
  */
+@Service
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
+    @Inject
     private PersonDAO personDAO;
+
+
 
     @Override
     public void registerPerson(Person person, String unencryptedPassword) {
