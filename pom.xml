@@ -24,7 +24,9 @@
     </build>
 
     <modules>
+        <module>api</module>
         <module>persistence</module>
+        <module>service</module>
     </modules>
 
     <dependencyManagement>
