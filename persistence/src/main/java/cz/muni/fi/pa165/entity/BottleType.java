@@ -14,16 +14,23 @@ import java.math.BigDecimal;
 })
 public class BottleType {
 
-    public AlcoholType type;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private BigDecimal volume;
+
     @Column(nullable = false)
     private BigDecimal size;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Manufacturer manufacturedBy;
+
+    public AlcoholType type;
 
     public Long getId() {
         return id;
@@ -63,6 +70,14 @@ public class BottleType {
 
     public void setType(AlcoholType type) {
         this.type = type;
+    }
+
+    public Manufacturer getManufacturedBy() {
+        return manufacturedBy;
+    }
+
+    public void setManufacturedBy(Manufacturer manufacturedBy) {
+        this.manufacturedBy = manufacturedBy;
     }
 
     @Override

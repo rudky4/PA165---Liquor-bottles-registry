@@ -10,19 +10,9 @@ import javax.validation.constraints.Size;
  * @author Jakub Fiser
  *         24/10/2016
  */
-@NamedQueries({
-        @NamedQuery(name=Person.FIND_ALL, query="SELECT p FROM Person p"),
-        @NamedQuery(name=Person.FIND_BY_LOGIN, query="SELECT p FROM Person p WHERE p.login = :login"),
-        @NamedQuery(name=Person.FIND_BY_ROLE, query="SELECT p FROM Person p WHERE p.role = :role")
-})
+
 @Entity
 public class Person {
-
-    public static final String FIND_ALL = "findAll";
-    public static final String FIND_BY_LOGIN = "Person.findByLogin";
-    public static final String FIND_BY_ROLE = "Person.findByRole";
-    public static final String PARAMETER_LOGIN = "login";
-    public static final String PARAMETER_ROLE = "role";
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
