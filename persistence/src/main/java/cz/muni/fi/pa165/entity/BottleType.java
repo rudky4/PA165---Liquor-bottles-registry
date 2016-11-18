@@ -14,16 +14,20 @@ import java.math.BigDecimal;
 })
 public class BottleType {
 
-    public AlcoholType type;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private BigDecimal volume;
+
     @Column(nullable = false)
     private BigDecimal size;
+
+    public AlcoholType type;
 
     public Long getId() {
         return id;

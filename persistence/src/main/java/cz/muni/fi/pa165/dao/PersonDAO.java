@@ -20,7 +20,7 @@ public interface PersonDAO extends CrudRepository<Person, Long> {
      * @param login Login to search.
      * @return Person with specified login or null.
      */
-    Person findByLogin(@Param(Person.PARAMETER_LOGIN) String login);
+    Person findByLogin(String login);
 
     /**
      * Method to retrieve all persons from the database.
@@ -33,5 +33,5 @@ public interface PersonDAO extends CrudRepository<Person, Long> {
      * @param role Role to search.
      * @return List of persons with given role.
      */
-    List<Person> findByRole(@Param(Person.PARAMETER_ROLE) PersonRole role);
+    List<Person> findByRole(PersonRole role);
 }

@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author Martin Sumera
@@ -17,6 +18,12 @@ public class Manufacturer {
     @NotNull
     private String name;
 
+    @OneToMany
+    private List<Person> persons;
+
+    @OneToMany
+    private List<BottleType> typesProduced;
+
     public Long getId() {
         return id;
     }
@@ -31,6 +38,22 @@ public class Manufacturer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+
+    public List<BottleType> getTypesProduced() {
+        return typesProduced;
+    }
+
+    public void setTypesProduced(List<BottleType> typesProduced) {
+        this.typesProduced = typesProduced;
     }
 
     @Override

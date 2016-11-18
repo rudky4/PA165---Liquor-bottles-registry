@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.configuration.ServiceConfiguration;
+import cz.muni.fi.pa165.config.ServiceConfiguration;
 
 import cz.muni.fi.pa165.service.BeanMappingService;
 import org.junit.runner.RunWith;
