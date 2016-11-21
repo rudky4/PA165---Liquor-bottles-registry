@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.configuration;
 
-import cz.muni.fi.pa165.PersonServiceImpl;
+import cz.muni.fi.pa165.service.PersonServiceImpl;
 import cz.muni.fi.pa165.config.PersistenceContext;
 import cz.muni.fi.pa165.facade.PersonFacadeImpl;
 import org.dozer.DozerBeanMapper;
