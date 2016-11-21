@@ -1,7 +1,6 @@
-package cz.muni.fi.pa165.configuration;
+package cz.muni.fi.pa165.config;
 
-import cz.muni.fi.pa165.PersonServiceImpl;
-import cz.muni.fi.pa165.config.PersistenceContext;
+import cz.muni.fi.pa165.service.PersonServiceImpl;
 import cz.muni.fi.pa165.facade.PersonFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -15,7 +14,7 @@ import org.springframework.context.annotation.Import;
  * @date 16/11/2016
  */
 @Configuration
-@Import(PersistenceContext.class)
+@Import(PersistenceConfiguration.class)
 @ComponentScan(basePackageClasses = {PersonServiceImpl.class, PersonFacadeImpl.class})
 public class ServiceConfiguration {
 

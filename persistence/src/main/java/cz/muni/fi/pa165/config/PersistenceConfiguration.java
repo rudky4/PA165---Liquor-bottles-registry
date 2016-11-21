@@ -25,7 +25,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = {BottleDAO.class})
 //@ComponentScan(basePackageClasses = {BottleDAO.class})
-public class PersistenceContext {
+public class PersistenceConfiguration {
 
     @Bean
     public JpaTransactionManager transactionManager() {

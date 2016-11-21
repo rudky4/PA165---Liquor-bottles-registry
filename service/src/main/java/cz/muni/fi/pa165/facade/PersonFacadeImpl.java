@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.BeanMappingService;
-import cz.muni.fi.pa165.PersonService;
+import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.PersonService;
 import cz.muni.fi.pa165.dto.PersonDTO;
 import cz.muni.fi.pa165.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

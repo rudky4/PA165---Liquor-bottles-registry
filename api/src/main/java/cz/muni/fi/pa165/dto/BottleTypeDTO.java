@@ -1,34 +1,20 @@
-package cz.muni.fi.pa165.entity;
+package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.enums.AlcoholType;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
  * @author mhajas
  */
-@Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"name", "volume", "size"})
-})
-public class BottleType {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+public class BottleTypeDTO {
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private BigDecimal volume;
 
-    @Column(nullable = false)
     private BigDecimal size;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Manufacturer manufacturedBy;
 
     public AlcoholType type;
 
@@ -72,23 +58,15 @@ public class BottleType {
         this.type = type;
     }
 
-    public Manufacturer getManufacturedBy() {
-        return manufacturedBy;
-    }
-
-    public void setManufacturedBy(Manufacturer manufacturedBy) {
-        this.manufacturedBy = manufacturedBy;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
         if (o == null)
             return false;
-        if (!(o instanceof BottleType))
+        if (!(o instanceof BottleTypeDTO))
             return false;
-        BottleType other = (BottleType) o;
+        BottleTypeDTO other = (BottleTypeDTO) o;
         if (getName() != null ? !getName().equals(other.getName()) : other.getName() != null) return false;
         if (getVolume() != null ? !getVolume().equals(other.getVolume()) : other.getVolume() != null) return false;
         if (getSize() != null ? !getSize().equals(other.getSize()) : other.getSize() != null) return false;
@@ -101,5 +79,16 @@ public class BottleType {
         result = 31 * result + (getVolume() != null ? getVolume().hashCode() : 0);
         result = 31 * result + (getSize() != null ? getSize().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BottleTypeDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", volume=" + volume +
+                ", size=" + size +
+                ", type=" + type +
+                '}';
     }
 }
