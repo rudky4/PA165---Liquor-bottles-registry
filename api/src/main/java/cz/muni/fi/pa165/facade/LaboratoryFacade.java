@@ -24,4 +24,6 @@ public interface LaboratoryFacade {
     boolean isPersonInLaboratory(PersonDTO person);
 
     List<BottleDTO> findAllBottlesToCheck();
+    
+    boolean isBottleToBeChecked(BottleDTO bottle);
 }
