@@ -11,6 +11,7 @@ import java.util.List;
  * @date 2016-11-18
  */
 public interface LaboratoryService {
+    void createLaboratory(Laboratory laboratory);
     
     List<Laboratory> findAll();
 

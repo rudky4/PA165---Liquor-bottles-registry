@@ -11,6 +11,7 @@ import javax.inject.Inject;
 /**
  *
  * @author rk
+ * @date 2016-11-22
  */
 public class LaboratoryServiceImpl implements LaboratoryService{
     @Inject
@@ -23,36 +24,36 @@ public class LaboratoryServiceImpl implements LaboratoryService{
 
     @Override
     public List<Laboratory> findAll() {
+        return laboratoryDAO.findAll();
     }
 
     @Override
     public Laboratory findById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return laboratoryDAO.findOne(id);
     }
 
     @Override
     public Laboratory findByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return laboratoryDAO.findByName(name);
     }
 
     @Override
     public List<Person> findAllPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return laboratoryDAO.findAllPersonsInLaboratory();
     }
 
     @Override
     public boolean isPersonInLaboratory(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null != laboratoryDAO.isPersonInLaboratory(person.getId());
     }
 
     @Override
     public List<Bottle> findAllBottlesToCheck() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return laboratoryDAO.findAllBottlesToCheck();
     }
 
     @Override
     public boolean isBottleToBeChecked(Bottle bottle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+        return null != laboratoryDAO.isBottleToBeChecked(bottle.getId());
+    }   
 }
