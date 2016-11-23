@@ -18,7 +18,7 @@ public class Manufacturer {
     @NotNull
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "manufacturer")
     private List<Person> persons;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manufacturedBy")
