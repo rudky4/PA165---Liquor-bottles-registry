@@ -26,13 +26,4 @@ public interface StoreDAO extends CrudRepository<Store, Long> {
      * @return Store
      */
     Store findByName(String name);
-    
-    @Query("select store.persons from Store store") 
-    List<Person> findAllPersonsInStore();
-    
-    @Query("select store.bottles from Store store")
-    List<Bottle> findAllBottlesInStore();
-    
-    @Query("select b from Store store join store.bottles b where b.id = ?1")
-    Bottle isBottleInStore(Long id_bottle);
 }

@@ -18,10 +18,4 @@ public interface StoreFacade {
     StoreDTO findById(Long id);
     
     StoreDTO findByName(String name);
-    
-    List<PersonDTO> findAllPersonsInStore();
-    
-    List<BottleDTO> findAllBottlesInStore();
-    
-    boolean isBottleInStore(BottleDTO bottle);
 }

@@ -6,8 +6,6 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.StoreDAO;
-import cz.muni.fi.pa165.entity.Bottle;
-import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.entity.Store;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,19 +37,4 @@ public class StoreServiceImpl implements StoreService{
     public Store findByName(String name) {
         return storeDAO.findByName(name);
     }
-
-    @Override
-    public List<Person> findAllPersonsInStore() {
-        return storeDAO.findAllPersonsInStore();
-    }
-
-    @Override
-    public List<Bottle> findAllBottlesInStore() {
-        return storeDAO.findAllBottlesInStore();
-    }
-
-    @Override
-    public boolean isBottleInStore(Bottle bottle) {
-        return null != storeDAO.isBottleInStore(bottle.getId());
-    }    
 }

@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.entity.Bottle;
-import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.entity.Store;
 import java.util.List;
 
@@ -18,10 +16,4 @@ public interface StoreService {
     Store findById(Long id);
     
     Store findByName(String name);
-    
-    List<Person> findAllPersonsInStore();
-
-    List<Bottle> findAllBottlesInStore();
-    
-    boolean isBottleInStore(Bottle bottle);
 }

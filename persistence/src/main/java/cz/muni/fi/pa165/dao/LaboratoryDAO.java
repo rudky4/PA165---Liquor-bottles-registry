@@ -27,13 +27,4 @@ public interface LaboratoryDAO extends CrudRepository<Laboratory, Long> {
      * @return Laboratory
      */
     Laboratory findByName(String name);
-    
-    @Query("select lab.persons from Laboratory lab") 
-    List<Person> findAllPersonsInLaboratory();
-    
-    @Query("select lab.bottlesToCheck from Laboratory lab")
-    List<Bottle> findAllBottlesToCheck();
-    
-    @Query("select b from Laboratory lab join lab.bottlesToCheck b where b.id = ?1")
-    Bottle isBottleToBeChecked(Long id_bottle);
 }

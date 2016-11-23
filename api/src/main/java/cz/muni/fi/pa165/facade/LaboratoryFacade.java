@@ -18,10 +18,4 @@ public interface LaboratoryFacade {
     LaboratoryDTO findById(Long id);
     
     LaboratoryDTO findByName(String name);
-    
-    List<PersonDTO> findAllPersonsInLaboratory();
-
-    List<BottleDTO> findAllBottlesToCheck();
-    
-    boolean isBottleToBeChecked(BottleDTO bottle);
 }

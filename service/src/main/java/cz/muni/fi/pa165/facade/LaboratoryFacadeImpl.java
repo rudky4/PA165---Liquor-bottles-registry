@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.LaboratoryDTO;
-import cz.muni.fi.pa165.dto.PersonDTO;
-import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Laboratory;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.LaboratoryService;
@@ -41,20 +38,5 @@ public class LaboratoryFacadeImpl implements LaboratoryFacade {
     @Override
     public LaboratoryDTO findByName(String name) {
          return beanMappingService.mapTo(laboratoryService.findByName(name), LaboratoryDTO.class);
-    }
-
-    @Override
-    public List<PersonDTO> findAllPersonsInLaboratory() {
-        return beanMappingService.mapTo(laboratoryService.findAllPersonsInLaboratory(), PersonDTO.class);       
-    }
-
-    @Override
-    public List<BottleDTO> findAllBottlesToCheck() {
-        return beanMappingService.mapTo(laboratoryService.findAllBottlesToCheck(), BottleDTO.class);
-    }
-
-    @Override
-    public boolean isBottleToBeChecked(BottleDTO bottle) {
-        return laboratoryService.isBottleToBeChecked(beanMappingService.mapTo(bottle, Bottle.class));
     }    
 }

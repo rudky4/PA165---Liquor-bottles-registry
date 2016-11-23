@@ -1,9 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.LaboratoryDAO;
-import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Laboratory;
-import cz.muni.fi.pa165.entity.Person;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,20 +33,5 @@ public class LaboratoryServiceImpl implements LaboratoryService{
     @Override
     public Laboratory findByName(String name) {
         return laboratoryDAO.findByName(name);
-    }
-
-    @Override
-    public List<Person> findAllPersonsInLaboratory() {
-        return laboratoryDAO.findAllPersonsInLaboratory();
-    }
-
-    @Override
-    public List<Bottle> findAllBottlesToCheck() {
-        return laboratoryDAO.findAllBottlesToCheck();
-    }
-
-    @Override
-    public boolean isBottleToBeChecked(Bottle bottle) {
-        return null != laboratoryDAO.isBottleToBeChecked(bottle.getId());
     }   
 }
