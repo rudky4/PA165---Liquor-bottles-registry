@@ -22,7 +22,7 @@ public class Laboratory {
     @NotNull
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "laboratory")
     private List<Person> persons;
 
     @OneToMany
