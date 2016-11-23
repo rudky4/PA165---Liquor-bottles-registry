@@ -61,8 +61,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     public void markAllProducedBottlesSinceDateAsToxic(Manufacturer manufacturer, Date date) {
         Collection<Bottle> bottles = bottleService.getAllBottlesFromManufacturerSinceDate(manufacturer, date);
         for (Bottle bottle : bottles) {
-            bottle.setToxic(true);
-            bottleService.update(bottle);
+            bottleService.setToxic(bottle);
         }
     }
 }

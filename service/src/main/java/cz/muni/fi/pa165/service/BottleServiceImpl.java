@@ -46,11 +46,6 @@ public class BottleServiceImpl implements BottleService {
     }
 
     @Override
-    public void update(Bottle bottle) {
-        bottleDAO.save(bottle);
-    }
-
-    @Override
     public List<Bottle> findByBottleType(BottleType type) {
         return bottleDAO.findByBottleType(type);
     }
