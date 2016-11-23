@@ -23,7 +23,7 @@ public interface StoreFacade {
     
     boolean isPersonInStore(PersonDTO person);
 
-    List<BottleDTO> findAllBottles();
+    List<BottleDTO> findAllBottlesInStore();
     
     boolean isBottleInStore(BottleDTO bottle);
 }

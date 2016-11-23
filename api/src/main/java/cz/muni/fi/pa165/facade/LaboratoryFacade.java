@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2016-11-22
  */
 public interface LaboratoryFacade {
-    void createLaboratory(LaboratoryDTO type);
+    void createLaboratory(LaboratoryDTO laboratory);
     
     List<LaboratoryDTO> findAll();
 
@@ -19,9 +19,9 @@ public interface LaboratoryFacade {
     
     LaboratoryDTO findByName(String name);
     
-    List<PersonDTO> findAllPersons();
+    List<PersonDTO> findAllPersonsInLaboratory();
     
-    boolean isPersonInLaboratory(Long id_person);
+    boolean isPersonInLaboratory(PersonDTO person);
 
     List<BottleDTO> findAllBottlesToCheck();
     

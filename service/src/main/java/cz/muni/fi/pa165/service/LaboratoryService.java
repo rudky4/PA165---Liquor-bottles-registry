@@ -19,7 +19,7 @@ public interface LaboratoryService {
     
     Laboratory findByName(String name);
     
-    List<Person> findAllPersons();
+    List<Person> findAllPersonsInLaboratory();
     
     boolean isPersonInLaboratory(Person person);
 

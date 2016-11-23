@@ -34,7 +34,6 @@ public class BottleTypeFacadeImpl implements BottleTypeFacade {
     @Override
     public List<BottleTypeDTO> findByAlcoholType(AlcoholType type) {
         return beanMappingService.mapTo(bottleTypeService.findByAlcoholType(type), BottleTypeDTO.class);
-
     }
 
     @Override

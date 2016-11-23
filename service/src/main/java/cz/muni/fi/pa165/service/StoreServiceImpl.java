@@ -51,7 +51,7 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
-    public List<Bottle> findAllBottles() {
+    public List<Bottle> findAllBottlesInStore() {
         return storeDAO.findAllBottlesInStore();
     }
 

@@ -38,7 +38,7 @@ public class LaboratoryServiceImpl implements LaboratoryService{
     }
 
     @Override
-    public List<Person> findAllPersons() {
+    public List<Person> findAllPersonsInLaboratory() {
         return laboratoryDAO.findAllPersonsInLaboratory();
     }
 

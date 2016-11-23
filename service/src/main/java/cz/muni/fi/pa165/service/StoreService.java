@@ -23,7 +23,7 @@ public interface StoreService {
     
     boolean isPersonInStore(Person person);
 
-    List<Bottle> findAllBottles();
+    List<Bottle> findAllBottlesInStore();
     
     boolean isBottleInStore(Bottle bottle);
 }
