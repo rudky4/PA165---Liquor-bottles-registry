@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
+import cz.muni.fi.pa165.entity.Manufacturer;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,8 @@ public interface BottleService {
     List<Bottle> getAllToxicBottles();
 
     List<Bottle> findByBottleType(BottleType type);
+
+    List<Bottle> getAllBottlesFromManufacturerSinceDate(Manufacturer manufacturer, Date date);
 
     boolean isToxic(Long id);
 

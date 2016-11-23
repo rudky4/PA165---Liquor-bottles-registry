@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
+import cz.muni.fi.pa165.entity.Manufacturer;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Date;
@@ -24,6 +26,12 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
     List<Bottle> findByBottleType(BottleType bottleType);
 
     List<Bottle> findByToxic(boolean toxic);
+
+    @Query("SELECT b FROM Bottle b " +
+            "INNER JOIN b.bottleType bt " +
+            "INNER JOIN bt.manufacturedBy m " +
+            "WHERE bt.id=b.bottleType AND bt.manufacturedBy=:manufacturerId AND ?2=?2")
+    List<Bottle> getAllBottlesFromManufacturerSinceDate(Long manufacturerId, Date date);
 
     Bottle findByStickerID(String id);
 }

@@ -25,6 +25,7 @@ public class Bottle {
     private Date produced;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "bottleType_id")
     private BottleType bottleType;
 
     public Long getId() {
