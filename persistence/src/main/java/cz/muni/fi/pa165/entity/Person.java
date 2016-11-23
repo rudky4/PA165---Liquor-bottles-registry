@@ -130,7 +130,7 @@ public class Person {
         Person p = (Person)obj;
         if(role != null ? !role.equals(p.getRole()) : p.getRole() != null ||
                 name != null ? !name.equals(p.getName()) : p.getName() != null ||
-                passwordHash != null ? !passwordHash.equals(p.getPasswordHash()) : p.getPasswordHash() != null) {
+                email != null ? !email.equals(p.getEmail()) : p.getEmail() != null) {
             return false;
         }
         return (login != null ? login.equals(p.getLogin()) : p.getLogin() == null);
@@ -140,7 +140,7 @@ public class Person {
     public int hashCode() {
         int result = 31 * (login != null ? login.hashCode() : 0);
         result += 19 * (name != null ? name.hashCode() : 0);
-        result += 11 * (passwordHash != null ? passwordHash.hashCode() : 0);
+        result += 11 * (email != null ? email.hashCode() : 0);
         result += (role != null ? role.hashCode() : 0);
         return result;
     }
