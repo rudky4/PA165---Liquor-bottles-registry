@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * @author Martin Sumera
@@ -35,6 +36,12 @@ public class ManufacturerFacadeImpl implements ManufacturerFacade {
     public Collection<ManufacturerDTO> findAll() {
         Collection<Manufacturer> manufacturers = manufacturerService.findAll();
         return manufacturers == null ? null : beanMappingService.mapTo(manufacturers, ManufacturerDTO.class);
+    }
+
+    @Override
+    public void markAllProducedBottlesSinceDateAsToxic(ManufacturerDTO manufacturerDTO, Date date) {
+        Manufacturer manufacturer = beanMappingService.mapTo(manufacturerDTO, Manufacturer.class);
+        manufacturerService.markAllProducedBottlesSinceDateAsToxic(manufacturer, date);
     }
 
     @Override

@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.service;
 
+import cz.muni.fi.pa165.dto.ManufacturerDTO;
 import cz.muni.fi.pa165.entity.Manufacturer;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * @author Martin Sumera
@@ -10,6 +12,8 @@ import java.util.Collection;
 public interface ManufacturerService {
 
     void createManufacturer(Manufacturer manufacturer);
+
+    void markAllProducedBottlesSinceDateAsToxic(Manufacturer manufacturer, Date date);
 
     Collection<Manufacturer> findAll();
 

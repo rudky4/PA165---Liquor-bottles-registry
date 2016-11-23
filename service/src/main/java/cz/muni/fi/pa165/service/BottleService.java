@@ -32,6 +32,8 @@ public interface BottleService {
 
     void setToxic(Bottle bottle);
 
+    void update(Bottle bottle);
+
     Bottle findById(Long id);
 
     Bottle findByStickerId(String id);
