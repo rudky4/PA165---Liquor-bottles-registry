@@ -30,9 +30,6 @@ public interface LaboratoryDAO extends CrudRepository<Laboratory, Long> {
     
     @Query("select lab.persons from Laboratory lab") 
     List<Person> findAllPersonsInLaboratory();
-
-    @Query("select p from Laboratory lab join lab.persons p where p.id = ?1")
-    Person isPersonInLaboratory(Long id_person);
     
     @Query("select lab.bottlesToCheck from Laboratory lab")
     List<Bottle> findAllBottlesToCheck();

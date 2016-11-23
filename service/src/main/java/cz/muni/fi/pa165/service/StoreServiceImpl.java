@@ -46,11 +46,6 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
-    public boolean isPersonInStore(Person person) {
-        return null != storeDAO.findPersonInStore(person.getId());
-    }
-
-    @Override
     public List<Bottle> findAllBottlesInStore() {
         return storeDAO.findAllBottlesInStore();
     }

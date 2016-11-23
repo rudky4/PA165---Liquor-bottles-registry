@@ -20,8 +20,6 @@ public interface StoreService {
     Store findByName(String name);
     
     List<Person> findAllPersonsInStore();
-    
-    boolean isPersonInStore(Person person);
 
     List<Bottle> findAllBottlesInStore();
     

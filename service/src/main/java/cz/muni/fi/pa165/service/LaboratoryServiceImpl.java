@@ -43,11 +43,6 @@ public class LaboratoryServiceImpl implements LaboratoryService{
     }
 
     @Override
-    public boolean isPersonInLaboratory(Person person) {
-        return null != laboratoryDAO.isPersonInLaboratory(person.getId());
-    }
-
-    @Override
     public List<Bottle> findAllBottlesToCheck() {
         return laboratoryDAO.findAllBottlesToCheck();
     }

@@ -9,7 +9,6 @@ import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.PersonDTO;
 import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.entity.Bottle;
-import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.entity.Store;
 import java.util.List;
 
@@ -52,11 +51,6 @@ public class StoreFacadeImpl implements StoreFacade{
     @Override
     public List<PersonDTO> findAllPersonsInStore() {
         return beanMappingService.mapTo(storeService.findAllPersonsInStore(), PersonDTO.class);       
-    }
-
-    @Override
-    public boolean isPersonInStore(PersonDTO person) {
-        return storeService.isPersonInStore(beanMappingService.mapTo(person, Person.class)); 
     }
 
     @Override

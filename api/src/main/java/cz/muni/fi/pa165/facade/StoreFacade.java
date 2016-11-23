@@ -21,8 +21,6 @@ public interface StoreFacade {
     
     List<PersonDTO> findAllPersonsInStore();
     
-    boolean isPersonInStore(PersonDTO person);
-
     List<BottleDTO> findAllBottlesInStore();
     
     boolean isBottleInStore(BottleDTO bottle);

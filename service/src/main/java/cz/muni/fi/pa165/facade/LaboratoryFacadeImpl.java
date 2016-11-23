@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.dto.LaboratoryDTO;
 import cz.muni.fi.pa165.dto.PersonDTO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Laboratory;
-import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.LaboratoryService;
 import java.util.List;
@@ -47,11 +46,6 @@ public class LaboratoryFacadeImpl implements LaboratoryFacade {
     @Override
     public List<PersonDTO> findAllPersonsInLaboratory() {
         return beanMappingService.mapTo(laboratoryService.findAllPersonsInLaboratory(), PersonDTO.class);       
-    }
-
-    @Override
-    public boolean isPersonInLaboratory(PersonDTO person) {
-        return laboratoryService.isPersonInLaboratory(beanMappingService.mapTo(person, Person.class)); 
     }
 
     @Override

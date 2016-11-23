@@ -90,26 +90,4 @@ public class LaboratoryDaoTest extends AbstractDAOTest {
         List<Laboratory> actual = laboratoryDAO.findAll();
         assertEquals("Number of Laboratories in database should be 0", 0, actual.size());
     }
-
-    @Test
-    public void getPersonInLabByIdTest() {
-        Laboratory lab = new Laboratory();
-        Person person = new Person();
-        person.setName("name1");
-        person.setLogin("login1");
-        person.setPassword("password1");
-        person.setRole(PersonRole.POLICE);
-        personDAO.save(person);
-        long id = personDAO.findAll().get(0).getId();
-        
-        lab.setName("SPECIAL LAB");
-        
-        List<Person> persons = Arrays.asList(person);
-        
-        lab.setPersons(persons);
-        
-        laboratoryDAO.save(lab);
-        
-        assertEquals(person,laboratoryDAO.isPersonInLaboratory(id));     
-    }
 }

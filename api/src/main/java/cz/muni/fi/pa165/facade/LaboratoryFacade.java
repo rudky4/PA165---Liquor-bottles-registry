@@ -20,8 +20,6 @@ public interface LaboratoryFacade {
     LaboratoryDTO findByName(String name);
     
     List<PersonDTO> findAllPersonsInLaboratory();
-    
-    boolean isPersonInLaboratory(PersonDTO person);
 
     List<BottleDTO> findAllBottlesToCheck();
     
