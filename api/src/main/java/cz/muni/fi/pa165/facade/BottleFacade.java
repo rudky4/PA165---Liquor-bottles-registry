@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
-import cz.muni.fi.pa165.dto.ManufacturerDTO;
 
 import java.util.Date;
 import java.util.List;
