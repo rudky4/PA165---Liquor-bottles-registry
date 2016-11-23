@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.dao.BottleTypeDAO;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.enums.AlcoholType;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author mhajas
  */
+@Service
 public class BottleTypeServiceImpl implements BottleTypeService {
 
     @Inject
