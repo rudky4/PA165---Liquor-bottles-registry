@@ -49,8 +49,8 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public boolean hasToxicProduction(Manufacturer manufacturer) {
-        for (Bottle bottle : bottleService.getAllToxicBottles()) {
-            if (bottle.getBottleType().getManufacturedBy().getId() == manufacturer.getId()) {
+        for (Bottle bottle : bottleService.getAllBottlesFromManufacturer(manufacturer)) {
+            if (bottle.isToxic()) {
                 return true;
             }
         };

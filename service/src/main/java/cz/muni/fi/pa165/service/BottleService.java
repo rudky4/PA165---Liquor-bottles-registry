@@ -22,6 +22,8 @@ public interface BottleService {
 
     List<Bottle> findByBottleType(BottleType type);
 
+    List<Bottle> getAllBottlesFromManufacturer(Manufacturer manufacturer);
+
     List<Bottle> getAllBottlesFromManufacturerFromDate(Manufacturer manufacturer, Date date);
 
     boolean isToxic(Long id);

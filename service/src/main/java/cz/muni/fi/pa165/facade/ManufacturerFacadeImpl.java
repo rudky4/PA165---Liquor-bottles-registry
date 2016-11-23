@@ -23,7 +23,7 @@ public class ManufacturerFacadeImpl implements ManufacturerFacade {
     @Inject
     private ManufacturerService manufacturerService;
 
-    @Autowired
+    @Inject
     private BeanMappingService beanMappingService;
 
     @Override
