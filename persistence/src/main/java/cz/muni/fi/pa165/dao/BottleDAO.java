@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,9 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
             "WHERE bt.id=b.bottleType " +
             "AND bt.manufacturedBy=:manufacturerId " +
             "AND b.produced>=:date")
-    List<Bottle> getAllBottlesFromManufacturerFromDate(Long manufacturerId, Date date);
+    List<Bottle> getAllBottlesFromManufacturerFromDate(
+            @Param("manufacturerId") Manufacturer manufacturer,
+            @Param("date") Date date);
 
     Bottle findByStickerID(String id);
 }
