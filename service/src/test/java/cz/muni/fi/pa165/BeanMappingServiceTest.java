@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.dao.PersonDAO;
 import cz.muni.fi.pa165.dto.PersonDTO;
 import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.PersonRole;
@@ -27,7 +26,7 @@ public class BeanMappingServiceTest extends AbstractServiceTest {
         personDTO = new PersonDTO();
 
         person.setName("Michal");
-        person.setPassword("StrongPassword");
+        person.setPasswordHash("StrongPassword");
         person.setLogin("mitko501");
         person.setRole(PersonRole.MANUFACTURER);
 
@@ -57,7 +56,7 @@ public class BeanMappingServiceTest extends AbstractServiceTest {
         PersonDTO personDTO2 = new PersonDTO();
 
         person2.setName("Rudolf");
-        person2.setPassword("StrongerPassword");
+        person2.setPasswordHash("StrongerPassword");
         person2.setLogin("rudky4");
         person2.setRole(PersonRole.CUSTOMER);
 

@@ -23,6 +23,13 @@ public interface PersonDAO extends CrudRepository<Person, Long> {
     Person findByLogin(String login);
 
     /**
+     * Method searches the database for Person with given email.
+     * @param email Email to search.
+     * @return Person with specified email or null.
+     */
+    Person findByEmail(String email);
+
+    /**
      * Method to retrieve all persons from the database.
      * @return List of all persons.
      */
