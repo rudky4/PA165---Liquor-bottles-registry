@@ -41,8 +41,8 @@ public class BottleServiceImpl implements BottleService {
     }
 
     @Override
-    public List<Bottle> getAllBottlesFromManufacturerSinceDate(Manufacturer manufacturer, Date date) {
-        return bottleDAO.getAllBottlesFromManufacturerSinceDate(manufacturer.getId(), date);
+    public List<Bottle> getAllBottlesFromManufacturerFromDate(Manufacturer manufacturer, Date date) {
+        return bottleDAO.getAllBottlesFromManufacturerFromDate(manufacturer.getId(), date);
     }
 
     @Override

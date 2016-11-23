@@ -59,7 +59,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public void markAllProducedBottlesSinceDateAsToxic(Manufacturer manufacturer, Date date) {
-        Collection<Bottle> bottles = bottleService.getAllBottlesFromManufacturerSinceDate(manufacturer, date);
+        Collection<Bottle> bottles = bottleService.getAllBottlesFromManufacturerFromDate(manufacturer, date);
         for (Bottle bottle : bottles) {
             bottleService.setToxic(bottle);
         }

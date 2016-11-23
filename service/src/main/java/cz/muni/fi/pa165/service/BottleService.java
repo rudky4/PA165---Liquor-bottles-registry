@@ -22,7 +22,7 @@ public interface BottleService {
 
     List<Bottle> findByBottleType(BottleType type);
 
-    List<Bottle> getAllBottlesFromManufacturerSinceDate(Manufacturer manufacturer, Date date);
+    List<Bottle> getAllBottlesFromManufacturerFromDate(Manufacturer manufacturer, Date date);
 
     boolean isToxic(Long id);
 

@@ -33,7 +33,7 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
             "WHERE bt.id=b.bottleType " +
             "AND bt.manufacturedBy=:manufacturerId " +
             "AND b.produced>=:date")
-    List<Bottle> getAllBottlesFromManufacturerSinceDate(Long manufacturerId, Date date);
+    List<Bottle> getAllBottlesFromManufacturerFromDate(Long manufacturerId, Date date);
 
     Bottle findByStickerID(String id);
 }
