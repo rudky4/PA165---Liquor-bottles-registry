@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dao.BottleTypeDAO;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.enums.AlcoholType;
@@ -11,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -24,7 +22,6 @@ import static org.mockito.Mockito.when;
 /**
  * @author Martin Sumera
  */
-@ContextConfiguration(classes = ServiceConfiguration.class)
 public class BottleTypeServiceTest extends AbstractServiceTest {
 
     @Mock
@@ -38,6 +35,10 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
 
     private BottleType secondBottleType;
 
+    private List<BottleType> bottleTypeList;
+
+    private List<BottleType> emptyList = Collections.emptyList();
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -49,11 +50,14 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
         secondBottleType = new BottleType();
         secondBottleType.setName("name2");
         secondBottleType.setType(AlcoholType.VODKA);
+
+        bottleTypeList = new ArrayList<>();
+        bottleTypeList.add(firstBottleType);
+        bottleTypeList.add(secondBottleType);
     }
 
     @Test
-    public void findAll_withEmptyList_returnsEmptyList() {
-        ArrayList<BottleType> emptyList = new ArrayList<>();
+    public void findAllWithEmptyListReturnsEmptyList() {
         when(bottleTypeDAO.findAll()).thenReturn(emptyList);
 
         List<BottleType> bottleTypes = bottleTypeService.findAll();
@@ -62,20 +66,15 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void findAll_withNonEmptyList_returnsNonEmptyList() {
-        ArrayList<BottleType> list = new ArrayList<>();
-        list.add(firstBottleType);
-        list.add(secondBottleType);
-
-        when(bottleTypeDAO.findAll()).thenReturn(list);
+    public void findAllWithNonEmptyListReturnsNonEmptyList() {
+        when(bottleTypeDAO.findAll()).thenReturn(bottleTypeList);
 
         List<BottleType> bottleTypes = bottleTypeService.findAll();
-        assertEquals(bottleTypes, list);
+        assertEquals(bottleTypes, bottleTypeList);
     }
 
     @Test
-    public void findByType_withEmptyList_returnsEmptyList() {
-        ArrayList<BottleType> emptyList = new ArrayList<>();
+    public void findByTypeWithEmptyListReturnsEmptyList() {
         when(bottleTypeDAO.findByType(AlcoholType.RUM)).thenReturn(emptyList);
 
         List<BottleType> bottleRumTypes = bottleTypeService.findByAlcoholType(AlcoholType.RUM);
@@ -83,21 +82,17 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void findByType_withNonEmptyList_returnsNonEmptyList() {
-        ArrayList<BottleType> list = new ArrayList<>();
-        list.add(firstBottleType);
-        list.add(secondBottleType);
-        when(bottleTypeDAO.findByType(AlcoholType.VODKA)).thenReturn(list);
+    public void findByTypeWithNonEmptyListReturnsNonEmptyList() {
+        when(bottleTypeDAO.findByType(AlcoholType.VODKA)).thenReturn(bottleTypeList);
 
         List<BottleType> bottleVodkaTypes = bottleTypeService.findByAlcoholType(AlcoholType.VODKA);
-        assertEquals(bottleVodkaTypes, list);
+        assertEquals(bottleVodkaTypes, bottleTypeList);
     }
 
     @Test
-    public void findWithHigherVolume_withEmptyList_returnsEmptyList() {
+    public void findWithHigherVolumeWithEmptyListReturnsEmptyList() {
         BigDecimal volume = new BigDecimal(80);
 
-        ArrayList<BottleType> emptyList = new ArrayList<>();
         when(bottleTypeDAO.findByVolumeGreaterThanEqual(volume)).thenReturn(emptyList);
 
         List<BottleType> bottlesWithHigherVolumes = bottleTypeService.findWithHigherVolume(volume);
@@ -105,23 +100,19 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void findWithHigherVolume_withNonEmptyList_returnsNonEmptyList() {
+    public void findWithHigherVolumeWithNonEmptyListReturnsNonEmptyList() {
         BigDecimal volume = new BigDecimal(40);
 
-        ArrayList<BottleType> list = new ArrayList<>();
-        list.add(firstBottleType);
-        list.add(secondBottleType);
-        when(bottleTypeDAO.findByVolumeGreaterThanEqual(volume)).thenReturn(list);
+        when(bottleTypeDAO.findByVolumeGreaterThanEqual(volume)).thenReturn(bottleTypeList);
 
         List<BottleType> bottlesWithHigherVolumes = bottleTypeService.findWithHigherVolume(volume);
-        assertEquals(bottlesWithHigherVolumes, list);
+        assertEquals(bottlesWithHigherVolumes, bottleTypeList);
     }
 
     @Test
-    public void findWithSize_withEmptyList_returnsEmptyList() {
+    public void findWithSizeWithEmptyListReturnsEmptyList() {
         BigDecimal size = new BigDecimal(1);
 
-        ArrayList<BottleType> emptyList = new ArrayList<>();
         when(bottleTypeDAO.findBySize(size)).thenReturn(emptyList);
 
         List<BottleType> bottlesWithSize = bottleTypeService.findBySize(size);
@@ -129,20 +120,17 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void findWithSize_withNonEmptyList_returnsNonEmptyList() {
+    public void findWithSizeWithNonEmptyListReturnsNonEmptyList() {
         BigDecimal size = new BigDecimal(1);
 
-        ArrayList<BottleType> list = new ArrayList<>();
-        list.add(firstBottleType);
-        list.add(secondBottleType);
-        when(bottleTypeDAO.findBySize(size)).thenReturn(list);
+        when(bottleTypeDAO.findBySize(size)).thenReturn(bottleTypeList);
 
         List<BottleType> bottlesWithSize = bottleTypeService.findBySize(size);
-        assertEquals(bottlesWithSize, list);
+        assertEquals(bottlesWithSize, bottleTypeList);
     }
 
     @Test
-    public void findById_withWrongId_returnsNull() {
+    public void findByIdWithWrongIdReturnsNull() {
         Long id = 0l;
         when(bottleTypeDAO.findOne(id)).thenReturn(null);
 
@@ -151,7 +139,7 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void findById_withCorrectId_returnsBottle() {
+    public void findByIdWithCorrectIdReturnsBottle() {
         Long id = 0l;
         when(bottleTypeDAO.findOne(id)).thenReturn(firstBottleType);
 
@@ -160,7 +148,7 @@ public class BottleTypeServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void createBottleType_willNotCrash() {
+    public void createBottleTypeWillNotCrash() {
         bottleTypeService.createBottleType(firstBottleType);
         verify(bottleTypeDAO).save(firstBottleType);
     }
