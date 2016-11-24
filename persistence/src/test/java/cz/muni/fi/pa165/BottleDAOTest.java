@@ -120,20 +120,20 @@ public class BottleDAOTest extends AbstractDAOTest {
         manufacturer.setName("name");
         manufacturerDAO.save(manufacturer);
 
-        BottleType bt = new BottleType();
-        bt.setName("Vodka Amundsen");
-        bt.setSize(BigDecimal.valueOf(1000));
-        bt.setType(AlcoholType.VODKA);
-        bt.setVolume(BigDecimal.valueOf(37.5));
-        bt.setManufacturedBy(manufacturer);
-        bottleTypeDAO.save(bt);
+        BottleType bottleType = new BottleType();
+        bottleType.setName("Vodka Amundsen");
+        bottleType.setSize(BigDecimal.valueOf(1000));
+        bottleType.setType(AlcoholType.VODKA);
+        bottleType.setVolume(BigDecimal.valueOf(37.5));
+        bottleType.setManufacturedBy(manufacturer);
+        bottleTypeDAO.save(bottleType);
 
-        Bottle b = new Bottle();
-        b.setToxic(false);
-        b.setStickerID("ID1123");
-        b.setProduced(new Date());
-        b.setBottleType(bt);
-        bottleDAO.save(b);
+        Bottle bottle = new Bottle();
+        bottle.setToxic(false);
+        bottle.setStickerID("ID1123");
+        bottle.setProduced(new Date());
+        bottle.setBottleType(bottleType);
+        bottleDAO.save(bottle);
 
         List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturerFromDate(manufacturer, new Date(1));
 
