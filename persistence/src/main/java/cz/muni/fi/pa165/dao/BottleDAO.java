@@ -31,8 +31,7 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
     @Query("SELECT b FROM Bottle b " +
             "INNER JOIN b.bottleType bt " +
             "INNER JOIN bt.manufacturedBy m " +
-            "WHERE bt.id=b.bottleType " +
-            "AND bt.manufacturedBy=:manufacturer " +
+            "WHERE bt.manufacturedBy=:manufacturer " +
             "AND b.produced>=:date")
     List<Bottle> getAllBottlesFromManufacturerFromDate(
             @Param("manufacturer") Manufacturer manufacturer,
@@ -41,8 +40,7 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
     @Query("SELECT b FROM Bottle b " +
             "INNER JOIN b.bottleType bt " +
             "INNER JOIN bt.manufacturedBy m " +
-            "WHERE bt.id=b.bottleType " +
-            "AND bt.manufacturedBy=:manufacturer")
+            "WHERE bt.manufacturedBy=:manufacturer")
     List<Bottle> getAllBottlesFromManufacturer(
             @Param("manufacturer") Manufacturer manufacturer);
 
