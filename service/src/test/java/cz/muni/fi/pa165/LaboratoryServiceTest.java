@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class LaboratoryServiceTest extends AbstractServiceTest {
 
     @Mock
-    LaboratoryDAO laboratoryDAO;
+    private LaboratoryDAO laboratoryDAO;
 
     @InjectMocks
     @Autowired

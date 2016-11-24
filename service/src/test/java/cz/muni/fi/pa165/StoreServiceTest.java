@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class StoreServiceTest extends AbstractServiceTest {
 
     @Mock
-    StoreDAO storeDAO;
+    private StoreDAO storeDAO;
 
     @InjectMocks
     @Autowired
