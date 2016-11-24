@@ -28,6 +28,7 @@ public class BottleType {
     private BigDecimal size;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturedBy;
 
     public AlcoholType type;

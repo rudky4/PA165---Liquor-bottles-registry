@@ -2,6 +2,7 @@ package cz.muni.fi.pa165;
 
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
+import cz.muni.fi.pa165.entity.Manufacturer;
 import cz.muni.fi.pa165.enums.AlcoholType;
 
 import java.math.BigDecimal;
@@ -112,6 +113,81 @@ public class BottleDAOTest extends AbstractDAOTest {
         assertEquals(updatedBottle.getStickerID(), "ID9");
         assertTrue(updatedBottle.isToxic());
     }
+
+    @Test
+    public void getAllBottlesFromManufacturerFromDateWithOne() {
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setName("name");
+        manufacturerDAO.save(manufacturer);
+
+        BottleType bottleType = new BottleType();
+        bottleType.setName("Vodka Amundsen");
+        bottleType.setSize(BigDecimal.valueOf(1000));
+        bottleType.setType(AlcoholType.VODKA);
+        bottleType.setVolume(BigDecimal.valueOf(37.5));
+        bottleType.setManufacturedBy(manufacturer);
+        bottleTypeDAO.save(bottleType);
+
+        Bottle bottle = new Bottle();
+        bottle.setToxic(false);
+        bottle.setStickerID("ID1123");
+        bottle.setProduced(new Date());
+        bottle.setBottleType(bottleType);
+        bottleDAO.save(bottle);
+
+        List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturerFromDate(manufacturer, new Date(1));
+
+        assertEquals(bottles.size(), 1);
+    }
+
+    @Test
+    public void getAllBottlesFromManufacturerWithMany() {
+        Manufacturer manufacturer1 = createManufacturer("nameadsdas");
+        Manufacturer manufacturer2 = createManufacturer("differentfdsfdsdwq");
+        Manufacturer manufacturer3 = createManufacturer("differentfdsfdsdwqdas");
+
+        // Valid data
+        Bottle first = createBottleWithBottleType(manufacturer1, new Date(11111), "2");
+        Bottle second = createBottleWithBottleType(manufacturer1, new Date(111111), "22");
+        Bottle third = createBottleWithBottleType(manufacturer1, new Date(8011111), "222");
+        Bottle fourth = createBottleWithBottleType(manufacturer1, new Date(90), "2222");
+
+        // Invalid data
+        createBottleWithBottleType(manufacturer2, new Date(50), "22222");
+        createBottleWithBottleType(manufacturer2, new Date(50), "2222222");
+        createBottleWithBottleType(manufacturer3, new Date(190), "222222222");
+
+        List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturer(manufacturer1);
+
+        assertEquals(4, bottles.size());
+        assertTrue(bottles.contains(first));
+        assertTrue(bottles.contains(second));
+        assertTrue(bottles.contains(third));
+        assertTrue(bottles.contains(fourth));
+    }
+
+    @Test
+    public void getAllBottlesFromManufacturerFromDateWithMany() {
+        Manufacturer manufacturer1 = createManufacturer("name");
+        Manufacturer manufacturer2 = createManufacturer("different");
+
+        // Valid data
+        Bottle first = createBottleWithBottleType(manufacturer1, new Date(11111), "1");
+        Bottle second = createBottleWithBottleType(manufacturer1, new Date(111111), "11");
+        Bottle third = createBottleWithBottleType(manufacturer1, new Date(8011111), "111");
+
+        // Invalid data
+        createBottleWithBottleType(manufacturer1, new Date(90), "1111");
+        createBottleWithBottleType(manufacturer2, new Date(50), "111111");
+        createBottleWithBottleType(manufacturer2, new Date(190), "11111111");
+
+        List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturerFromDate(manufacturer1, new Date(100));
+
+        assertEquals(3, bottles.size());
+        assertTrue(bottles.contains(first));
+        assertTrue(bottles.contains(second));
+        assertTrue(bottles.contains(third));
+    }
     
     @Test
     public void deleteBottleTest() {
@@ -126,5 +202,31 @@ public class BottleDAOTest extends AbstractDAOTest {
         bottleDAO.save(b1);
   
         List<Bottle> bottles = bottleDAO.findAll();
+    }
+
+    private Manufacturer createManufacturer(String name) {
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setName(name);
+        manufacturerDAO.save(manufacturer);
+        return manufacturer;
+    }
+
+    private Bottle createBottleWithBottleType(Manufacturer manufacture, Date date, String uniqueId) {
+        BottleType bottleType = new BottleType();
+        bottleType.setName(uniqueId);
+        bottleType.setSize(BigDecimal.valueOf(1000));
+        bottleType.setType(AlcoholType.RUM);
+        bottleType.setVolume(BigDecimal.valueOf(37.5));
+        bottleType.setManufacturedBy(manufacture);
+        bottleTypeDAO.save(bottleType);
+
+        Bottle bottle = new Bottle();
+        bottle.setToxic(false);
+        bottle.setStickerID(uniqueId);
+        bottle.setProduced(date);
+        bottle.setBottleType(bottleType);
+        bottleDAO.save(bottle);
+
+        return bottle;
     }
 }
