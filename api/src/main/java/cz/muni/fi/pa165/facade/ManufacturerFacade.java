@@ -2,8 +2,8 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.ManufacturerDTO;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Martin Sumera
@@ -18,7 +18,7 @@ public interface ManufacturerFacade {
 
     boolean hasToxicProduction(ManufacturerDTO manufacturer);
 
-    Collection<ManufacturerDTO> findAll();
+    List<ManufacturerDTO> findAll();
 
     ManufacturerDTO findById(Long id);
 

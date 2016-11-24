@@ -1,14 +1,13 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.ManufacturerDAO;
-import cz.muni.fi.pa165.dto.ManufacturerDTO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Manufacturer;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Martin Sumera
@@ -28,7 +27,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public Collection<Manufacturer> findAll() {
+    public List<Manufacturer> findAll() {
         return manufacturerDAO.findAll();
     }
 
@@ -59,7 +58,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public void markAllProducedBottlesSinceDateAsToxic(Manufacturer manufacturer, Date date) {
-        Collection<Bottle> bottles = bottleService.getAllBottlesFromManufacturerFromDate(manufacturer, date);
+        List<Bottle> bottles = bottleService.getAllBottlesFromManufacturerFromDate(manufacturer, date);
         for (Bottle bottle : bottles) {
             bottleService.setToxic(bottle);
         }

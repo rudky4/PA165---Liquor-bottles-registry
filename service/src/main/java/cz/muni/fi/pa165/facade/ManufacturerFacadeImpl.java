@@ -1,17 +1,15 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.ManufacturerDTO;
 import cz.muni.fi.pa165.entity.Manufacturer;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.ManufacturerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Martin Sumera
@@ -33,8 +31,8 @@ public class ManufacturerFacadeImpl implements ManufacturerFacade {
     }
 
     @Override
-    public Collection<ManufacturerDTO> findAll() {
-        Collection<Manufacturer> manufacturers = manufacturerService.findAll();
+    public List<ManufacturerDTO> findAll() {
+        List<Manufacturer> manufacturers = manufacturerService.findAll();
         return manufacturers == null ? null : beanMappingService.mapTo(manufacturers, ManufacturerDTO.class);
     }
 
