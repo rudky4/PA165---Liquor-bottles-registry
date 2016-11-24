@@ -15,4 +15,11 @@ public interface StoreDAO extends CrudRepository<Store, Long> {
      * @return all stores
      */
     List<Store> findAll();
+    
+    /**
+     * 
+     * @param name of store to be found
+     * @return Store
+     */
+    Store findByName(String name);
 }

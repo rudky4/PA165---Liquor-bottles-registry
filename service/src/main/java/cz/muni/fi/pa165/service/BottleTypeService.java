@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.enums.AlcoholType;
 

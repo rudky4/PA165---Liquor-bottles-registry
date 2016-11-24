@@ -1,28 +1,18 @@
-package cz.muni.fi.pa165.entity;
+package cz.muni.fi.pa165.dto;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * @author Martin Sumera
+ *
+ * @author rk
+ * @date 2016-11-22
  */
-@Entity
-public class Store {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+public class StoreDTO {
     private Long id;
-
-    @Column(nullable = false, unique = true)
-    @NotNull
     private String name;
-
-    @OneToMany(mappedBy = "store")
-    private List<Person> persons;
-
-    @OneToMany
-    private List<Bottle> bottles;
+    
+    private List<PersonDTO> persons;
+    private List<BottleDTO> bottles;
 
     public Long getId() {
         return id;
@@ -40,22 +30,22 @@ public class Store {
         this.name = name;
     }
 
-    public List<Person> getPersons() {
+    public List<PersonDTO> getPersons() {
         return persons;
     }
 
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<PersonDTO> persons) {
         this.persons = persons;
     }
 
-    public List<Bottle> getBottles() {
+    public List<BottleDTO> getBottles() {
         return bottles;
     }
 
-    public void setBottles(List<Bottle> bottles) {
+    public void setBottles(List<BottleDTO> bottles) {
         this.bottles = bottles;
     }
-
+    
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -64,16 +54,21 @@ public class Store {
         if (other == null) {
             return false;
         }
-        if (!(other instanceof Store)) {
+        if (!(other instanceof StoreDTO)) {
             return false;
         }
 
-        Store otherStore = (Store) other;
+        StoreDTO otherStore = (StoreDTO) other;
         return (getName() != null ? getName().equals(otherStore.getName()) : otherStore.getName() == null);
     }
 
     @Override
     public int hashCode() {
         return name.hashCode() * 21;
-    } 
+    }    
+
+    @Override
+    public String toString() {
+        return "StoreDTO{" + "id=" + id + ", name=" + name + ", persons=" + persons + ", bottles=" + bottles + '}';
+    }    
 }

@@ -1,11 +1,14 @@
 package cz.muni.fi.pa165;
 
 import cz.muni.fi.pa165.entity.Laboratory;
+import cz.muni.fi.pa165.entity.Person;
+import cz.muni.fi.pa165.enums.PersonRole;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.validation.ValidationException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -87,5 +90,4 @@ public class LaboratoryDaoTest extends AbstractDAOTest {
         List<Laboratory> actual = laboratoryDAO.findAll();
         assertEquals("Number of Laboratories in database should be 0", 0, actual.size());
     }
-
 }

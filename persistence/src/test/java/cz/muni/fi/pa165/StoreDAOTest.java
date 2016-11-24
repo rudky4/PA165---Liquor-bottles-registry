@@ -37,10 +37,10 @@ public class StoreDAOTest extends AbstractDAOTest {
         Assert.assertEquals(store.getName(), persistStore.getName());
     }
 
-    @Test(expected = javax.validation.ConstraintViolationException.class)
+    @Test(expected = javax.validation.ValidationException.class)
     public void createNullNameStoreTest() {
-        Store store2 = new Store();
-        storeDAO.save(store2);
+        Store store = new Store();
+        storeDAO.save(store);
 
         storeDAO.findAll();
     }
