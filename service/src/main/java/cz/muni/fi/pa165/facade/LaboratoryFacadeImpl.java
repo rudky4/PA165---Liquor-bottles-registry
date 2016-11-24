@@ -27,16 +27,19 @@ public class LaboratoryFacadeImpl implements LaboratoryFacade {
 
     @Override
     public List<LaboratoryDTO> findAll() {
-         return beanMappingService.mapTo(laboratoryService.findAll(), LaboratoryDTO.class);
+        List<Laboratory> labs = laboratoryService.findAll();
+        return labs == null ? null : beanMappingService.mapTo(labs, LaboratoryDTO.class);
     }
 
     @Override
     public LaboratoryDTO findById(Long id) {
-         return beanMappingService.mapTo(laboratoryService.findById(id), LaboratoryDTO.class);     
+        Laboratory lab = laboratoryService.findById(id);
+        return lab == null ? null : beanMappingService.mapTo(lab, LaboratoryDTO.class);       
     }
 
     @Override
     public LaboratoryDTO findByName(String name) {
-         return beanMappingService.mapTo(laboratoryService.findByName(name), LaboratoryDTO.class);
+        Laboratory lab = laboratoryService.findByName(name);
+        return lab == null ? null : beanMappingService.mapTo(lab, LaboratoryDTO.class);  
     }    
 }

@@ -32,16 +32,19 @@ public class StoreFacadeImpl implements StoreFacade{
 
     @Override
     public List<StoreDTO> findAll() {
-        return beanMappingService.mapTo(storeService.findAll(), StoreDTO.class);
+        List<Store> stores = storeService.findAll();
+        return stores == null ? null : beanMappingService.mapTo(stores, StoreDTO.class);
     }
 
     @Override
-    public StoreDTO findById(Long id) {
-       return beanMappingService.mapTo(storeService.findById(id), StoreDTO.class);               
+    public StoreDTO findById(Long id) {        
+        Store store = storeService.findById(id);
+        return store == null ? null : beanMappingService.mapTo(store, StoreDTO.class);              
     }
 
     @Override
     public StoreDTO findByName(String name) {
-        return beanMappingService.mapTo(storeService.findByName(name), StoreDTO.class);
+        Store store = storeService.findByName(name);
+        return store == null ? null : beanMappingService.mapTo(store, StoreDTO.class);  
     } 
 }

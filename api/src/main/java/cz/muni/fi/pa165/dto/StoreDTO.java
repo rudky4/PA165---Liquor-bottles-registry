@@ -64,10 +64,8 @@ public class StoreDTO {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
-    }
+        return name.hashCode() * 21;
+    }    
 
     @Override
     public String toString() {
