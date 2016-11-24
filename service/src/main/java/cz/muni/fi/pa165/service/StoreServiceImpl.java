@@ -7,6 +7,8 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.StoreDAO;
 import cz.muni.fi.pa165.entity.Store;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import javax.inject.Inject;
 
@@ -14,6 +16,7 @@ import javax.inject.Inject;
  *
  * @author rk
  */
+@Service
 public class StoreServiceImpl implements StoreService{
     @Inject
     private StoreDAO storeDAO;
