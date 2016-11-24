@@ -142,22 +142,22 @@ public class BottleDAOTest extends AbstractDAOTest {
 
     @Test
     public void getAllBottlesFromManufacturerWithMany() {
-        Manufacturer original = createManufacturer("nameadsdas");
-        Manufacturer different = createManufacturer("differentfdsfdsdwq");
-        Manufacturer anotherDifferent = createManufacturer("differentfdsfdsdwqdas");
+        Manufacturer manufacturer1 = createManufacturer("nameadsdas");
+        Manufacturer manufacturer2 = createManufacturer("differentfdsfdsdwq");
+        Manufacturer manufacturer3 = createManufacturer("differentfdsfdsdwqdas");
 
         // Valid data
-        Bottle first = createBottleWithBottleType(original, new Date(11111), "2");
-        Bottle second = createBottleWithBottleType(original, new Date(111111), "22");
-        Bottle third = createBottleWithBottleType(original, new Date(8011111), "222");
-        Bottle fourth = createBottleWithBottleType(original, new Date(90), "2222");
+        Bottle first = createBottleWithBottleType(manufacturer1, new Date(11111), "2");
+        Bottle second = createBottleWithBottleType(manufacturer1, new Date(111111), "22");
+        Bottle third = createBottleWithBottleType(manufacturer1, new Date(8011111), "222");
+        Bottle fourth = createBottleWithBottleType(manufacturer1, new Date(90), "2222");
 
         // Invalid data
-        createBottleWithBottleType(different, new Date(50), "22222");
-        createBottleWithBottleType(different, new Date(50), "2222222");
-        createBottleWithBottleType(anotherDifferent, new Date(190), "222222222");
+        createBottleWithBottleType(manufacturer2, new Date(50), "22222");
+        createBottleWithBottleType(manufacturer2, new Date(50), "2222222");
+        createBottleWithBottleType(manufacturer3, new Date(190), "222222222");
 
-        List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturer(original);
+        List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturer(manufacturer1);
 
         assertEquals(4, bottles.size());
         assertTrue(bottles.contains(first));
@@ -168,20 +168,20 @@ public class BottleDAOTest extends AbstractDAOTest {
 
     @Test
     public void getAllBottlesFromManufacturerFromDateWithMany() {
-        Manufacturer original = createManufacturer("name");
-        Manufacturer different = createManufacturer("different");
+        Manufacturer manufacturer1 = createManufacturer("name");
+        Manufacturer manufacturer2 = createManufacturer("different");
 
         // Valid data
-        Bottle first = createBottleWithBottleType(original, new Date(11111), "1");
-        Bottle second = createBottleWithBottleType(original, new Date(111111), "11");
-        Bottle third = createBottleWithBottleType(original, new Date(8011111), "111");
+        Bottle first = createBottleWithBottleType(manufacturer1, new Date(11111), "1");
+        Bottle second = createBottleWithBottleType(manufacturer1, new Date(111111), "11");
+        Bottle third = createBottleWithBottleType(manufacturer1, new Date(8011111), "111");
 
         // Invalid data
-        createBottleWithBottleType(original, new Date(90), "1111");
-        createBottleWithBottleType(different, new Date(50), "111111");
-        createBottleWithBottleType(different, new Date(190), "11111111");
+        createBottleWithBottleType(manufacturer1, new Date(90), "1111");
+        createBottleWithBottleType(manufacturer2, new Date(50), "111111");
+        createBottleWithBottleType(manufacturer2, new Date(190), "11111111");
 
-        List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturerFromDate(original, new Date(100));
+        List<Bottle> bottles = bottleDAO.getAllBottlesFromManufacturerFromDate(manufacturer1, new Date(100));
 
         assertEquals(3, bottles.size());
         assertTrue(bottles.contains(first));
