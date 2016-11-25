@@ -21,7 +21,6 @@ import java.util.List;
  * @date 14/11/2016
  */
 @Service
-@Transactional
 public class PersonFacadeImpl implements PersonFacade {
 
     @Inject
@@ -77,7 +76,8 @@ public class PersonFacadeImpl implements PersonFacade {
 
     @Override
     public List<PersonDTO> findAll() {
-        return beanMappingService.mapTo(personService.findAll(), PersonDTO.class);
+        List<Person> result = personService.findAll();
+        return result == null ? null : beanMappingService.mapTo(result, PersonDTO.class);
     }
 
     @Override
