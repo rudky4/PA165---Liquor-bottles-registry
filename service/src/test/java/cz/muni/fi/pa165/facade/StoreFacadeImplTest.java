@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.facade;
 import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.entity.Store;
 import cz.muni.fi.pa165.service.StoreService;
-import cz.muni.fi.pa165.service.StoreServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -27,10 +26,10 @@ import static org.mockito.Mockito.when;
 public class StoreFacadeImplTest extends AbstractFacadeImplTest {
 
     @Mock
-    private StoreService journeyService;
+    private StoreService storeService;
 
     @InjectMocks
-    private final StoreFacadeImpl journeyFacade = new StoreFacadeImpl();
+    private final StoreFacadeImpl storeFacade = new StoreFacadeImpl();
 
     private Store store;
 
@@ -53,69 +52,69 @@ public class StoreFacadeImplTest extends AbstractFacadeImplTest {
 
     @Test
     public void testFindAll() {
-        when(journeyService.findAll()).thenReturn(Collections.singletonList(store));
+        when(storeService.findAll()).thenReturn(Collections.singletonList(store));
 
-        List<StoreDTO> stores = journeyFacade.findAll();
+        List<StoreDTO> stores = storeFacade.findAll();
 
         assertEquals(Collections.singletonList(store).get(0).getName(), stores.get(0).getName());
-        verify(journeyService).findAll();
+        verify(storeService).findAll();
         verify(beanMappingService).mapTo(Collections.singletonList(store), StoreDTO.class);
     }
 
     @Test
     public void testFindAllWithNull() {
-        when(journeyService.findAll()).thenReturn(null);
+        when(storeService.findAll()).thenReturn(null);
 
-        List<StoreDTO> stores = journeyFacade.findAll();
+        List<StoreDTO> stores = storeFacade.findAll();
 
         assertNull(stores);
-        verify(journeyService).findAll();
+        verify(storeService).findAll();
         verify(beanMappingService, never()).mapTo(any(), any());
     }
 
     @Test
     public void testFindById() {
-        when(journeyService.findById(storeId)).thenReturn(store);
+        when(storeService.findById(storeId)).thenReturn(store);
 
-        StoreDTO storeDTO =journeyFacade.findById(storeId);
+        StoreDTO storeDTO = storeFacade.findById(storeId);
 
         assertNotNull(storeDTO);
         assertEquals(store.getName(), storeDTO.getName());
-        verify(journeyService).findById(storeId);
+        verify(storeService).findById(storeId);
         verify(beanMappingService).mapTo(store, StoreDTO.class);
     }
 
     @Test
     public void testFindByIdWithNull() {
-        when(journeyService.findById(storeId)).thenReturn(null);
+        when(storeService.findById(storeId)).thenReturn(null);
 
-        StoreDTO storeDTO = journeyFacade.findById(storeId);
+        StoreDTO storeDTO = storeFacade.findById(storeId);
 
         assertNull(storeDTO);
-        verify(journeyService).findById(storeId);
+        verify(storeService).findById(storeId);
         verify(beanMappingService, never()).mapTo(any(), any());
     }
 
     @Test
     public void testFindByName() {
-        when(journeyService.findByName(storeName)).thenReturn(store);
+        when(storeService.findByName(storeName)).thenReturn(store);
 
-        StoreDTO storeDTO = journeyFacade.findByName(storeName);
+        StoreDTO storeDTO = storeFacade.findByName(storeName);
 
         assertNotNull(storeDTO);
         assertEquals(store.getName(), storeDTO.getName());
-        verify(journeyService).findByName(storeName);
+        verify(storeService).findByName(storeName);
         verify(beanMappingService).mapTo(store, StoreDTO.class);
     }
 
     @Test
     public void testFindByNameWithNull() {
-        when(journeyService.findByName(storeName)).thenReturn(null);
+        when(storeService.findByName(storeName)).thenReturn(null);
 
-        StoreDTO storeDTO = journeyFacade.findByName(storeName);
+        StoreDTO storeDTO = storeFacade.findByName(storeName);
 
         assertNull(storeDTO);
-        verify(journeyService).findByName(storeName);
+        verify(storeService).findByName(storeName);
         verify(beanMappingService, never()).mapTo(any(), any());
     }
 
@@ -123,9 +122,9 @@ public class StoreFacadeImplTest extends AbstractFacadeImplTest {
     public void testCreateStore() {
         when(beanMappingService.mapTo(storeDTO, Store.class)).thenReturn(store);
 
-        journeyFacade.createStore(storeDTO);
+        storeFacade.createStore(storeDTO);
 
-        verify(journeyService).createStore(store);
+        verify(storeService).createStore(store);
         verify(beanMappingService).mapTo(storeDTO, Store.class);
     }
 
