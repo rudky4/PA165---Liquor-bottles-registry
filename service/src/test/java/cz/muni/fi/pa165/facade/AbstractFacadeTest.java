@@ -14,7 +14,7 @@ import javax.inject.Inject;
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public abstract class AbstractFacadeImplTest {
+public abstract class AbstractFacadeTest {
 
     @Spy
     @Inject

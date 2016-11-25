@@ -24,14 +24,14 @@ import static org.mockito.Mockito.when;
 /**
  * @author Martin Sumera
  */
-public class StoreFacadeImplTest extends AbstractFacadeImplTest {
+public class StoreFacadeTest extends AbstractFacadeTest {
 
     @Mock
     private StoreService storeService;
 
     @Autowired
     @InjectMocks
-    private StoreFacadeImpl storeFacade;
+    private StoreFacade storeFacade;
 
     private Store store;
 
@@ -122,8 +122,6 @@ public class StoreFacadeImplTest extends AbstractFacadeImplTest {
 
     @Test
     public void testCreateStore() {
-        when(beanMappingService.mapTo(storeDTO, Store.class)).thenReturn(store);
-
         storeFacade.createStore(storeDTO);
 
         verify(storeService).createStore(store);
