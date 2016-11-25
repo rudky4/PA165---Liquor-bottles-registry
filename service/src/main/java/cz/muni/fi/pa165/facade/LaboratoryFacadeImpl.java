@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.Laboratory;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.LaboratoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
  * @date 2016-11-23
  */
 @Service
+@Transactional
 public class LaboratoryFacadeImpl implements LaboratoryFacade {
     @Inject
     private LaboratoryService laboratoryService;

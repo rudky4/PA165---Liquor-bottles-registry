@@ -5,6 +5,8 @@ import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.enums.AlcoholType;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.BottleTypeService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -13,6 +15,8 @@ import java.util.List;
 /**
  * @author mhajas
  */
+@Service
+@Transactional
 public class BottleTypeFacadeImpl implements BottleTypeFacade {
 
     @Inject
