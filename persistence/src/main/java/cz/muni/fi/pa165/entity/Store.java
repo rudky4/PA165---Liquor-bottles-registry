@@ -18,7 +18,7 @@ public class Store {
     @NotNull
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "store")
     private List<Person> persons;
 
     @OneToMany

@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.enums.PersonRole;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -19,6 +20,7 @@ public class Person {
     private long id;
 
     @Column(nullable = false)
+    @Pattern(regexp = "[\\p{L} ]+", message = "Invalid name.")
     @NotNull
     private String name;
 
@@ -26,13 +28,29 @@ public class Person {
     private PersonRole role;
 
     @Column(nullable = false, unique = true)
+    @Size(min = 6)
     @NotNull
     private String login;
 
     @Column(nullable = false)
-    @Size(min = 8)
     @NotNull
-    private String password;
+    private String passwordHash;
+
+    @Column(nullable = false, unique = true)
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message = "Invalid email.")
+    private String email;
+
+    @ManyToOne
+    private Store store;
+
+    @ManyToOne
+    private Manufacturer manufacturer;
+
+    @ManyToOne
+    private Laboratory laboratory;
 
     public Person() {}
 
@@ -64,12 +82,44 @@ public class Person {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public Laboratory getLaboratory() {
+        return laboratory;
+    }
+
+    public void setLaboratory(Laboratory laboratory) {
+        this.laboratory = laboratory;
     }
 
     @Override
@@ -80,7 +130,7 @@ public class Person {
         Person p = (Person)obj;
         if(role != null ? !role.equals(p.getRole()) : p.getRole() != null ||
                 name != null ? !name.equals(p.getName()) : p.getName() != null ||
-                password != null ? !password.equals(p.getPassword()) : p.getPassword() != null) {
+                email != null ? !email.equals(p.getEmail()) : p.getEmail() != null) {
             return false;
         }
         return (login != null ? login.equals(p.getLogin()) : p.getLogin() == null);
@@ -89,8 +139,8 @@ public class Person {
     @Override
     public int hashCode() {
         int result = 31 * (login != null ? login.hashCode() : 0);
-        result += 21 * (name != null ? name.hashCode() : 0);
-        result += 11 * (password != null ? password.hashCode() : 0);
+        result += 19 * (name != null ? name.hashCode() : 0);
+        result += 11 * (email != null ? email.hashCode() : 0);
         result += (role != null ? role.hashCode() : 0);
         return result;
     }

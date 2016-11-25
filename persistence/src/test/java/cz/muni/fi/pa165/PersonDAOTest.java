@@ -24,15 +24,17 @@ public class PersonDAOTest extends AbstractDAOTest {
     @Before
     public void initTest(){
         person1 = new Person();
-        person1.setName("name1");
+        person1.setName("name");
         person1.setLogin("login1");
-        person1.setPassword("password1");
+        person1.setPasswordHash("password1");
+        person1.setEmail("name1@mail.cz");
         person1.setRole(PersonRole.MANUFACTURER);
 
         person2 = new Person();
-        person2.setName("name2");
+        person2.setName("name");
         person2.setLogin("login2");
-        person2.setPassword("password2");
+        person2.setPasswordHash("password2");
+        person2.setEmail("name2@mail.cz");
         person2.setRole(PersonRole.CUSTOMER);
 
         personDAO.save(person1);
@@ -48,7 +50,7 @@ public class PersonDAOTest extends AbstractDAOTest {
 
     @Test(expected = javax.validation.ConstraintViolationException.class)
     public void createNullPassword() {
-        person1.setPassword(null);
+        person1.setPasswordHash(null);
         personDAO.save(person1);
         personDAO.findAll();
     }
@@ -70,7 +72,7 @@ public class PersonDAOTest extends AbstractDAOTest {
         assertEquals(person1.getId(), person.getId());
         assertEquals(person1.getName(), person.getName());
         assertEquals(person1.getLogin(), person.getLogin());
-        assertEquals(person1.getPassword(), person.getPassword());
+        assertEquals(person1.getPasswordHash(), person.getPasswordHash());
         assertTrue(person1.equals(person));
         assertTrue(person.equals(person1));
     }
@@ -97,7 +99,7 @@ public class PersonDAOTest extends AbstractDAOTest {
         persons = personDAO.findByRole(PersonRole.MANUFACTURER);
         assertEquals(1, persons.size());
 
-        persons = personDAO.findByRole(PersonRole.POLICE);
+        persons = personDAO.findByRole(PersonRole.LAB);
         assertEquals(0, persons.size());
     }
 
@@ -116,7 +118,7 @@ public class PersonDAOTest extends AbstractDAOTest {
         String newLogin = "newLogin";
 
         person1.setLogin(newLogin);
-        person1.setPassword(newPassword);
+        person1.setPasswordHash(newPassword);
 
         personDAO.save(person1);
 
