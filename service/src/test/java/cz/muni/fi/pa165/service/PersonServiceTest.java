@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.AbstractServiceTest;
 import cz.muni.fi.pa165.dao.PersonDAO;
 import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.PersonRole;
@@ -8,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 

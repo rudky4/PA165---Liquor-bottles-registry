@@ -1,13 +1,10 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.AbstractServiceTest;
 import cz.muni.fi.pa165.dao.BottleDAO;
 import cz.muni.fi.pa165.dao.BottleTypeDAO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.enums.AlcoholType;
-import cz.muni.fi.pa165.service.BottleService;
-import cz.muni.fi.pa165.service.BottleTypeService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
