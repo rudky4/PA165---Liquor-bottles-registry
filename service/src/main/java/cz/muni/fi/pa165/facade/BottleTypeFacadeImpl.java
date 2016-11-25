@@ -28,28 +28,33 @@ public class BottleTypeFacadeImpl implements BottleTypeFacade {
 
     @Override
     public List<BottleTypeDTO> findAll() {
-        return beanMappingService.mapTo(bottleTypeService.findAll(), BottleTypeDTO.class);
+        List<BottleType> types = bottleTypeService.findAll();
+        return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);
     }
 
     @Override
     public List<BottleTypeDTO> findByAlcoholType(AlcoholType type) {
-        return beanMappingService.mapTo(bottleTypeService.findByAlcoholType(type), BottleTypeDTO.class);
+        List<BottleType> types = bottleTypeService.findByAlcoholType(type);
+        return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);
     }
 
     @Override
     public List<BottleTypeDTO> findWithHigherVolume(BigDecimal volume) {
-        return beanMappingService.mapTo(bottleTypeService.findWithHigherVolume(volume), BottleTypeDTO.class);
+        List<BottleType> types = bottleTypeService.findWithHigherVolume(volume);
+        return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);
 
     }
 
     @Override
     public List<BottleTypeDTO> findBySize(BigDecimal size) {
-        return beanMappingService.mapTo(bottleTypeService.findBySize(size), BottleTypeDTO.class);
+        List<BottleType> types = bottleTypeService.findBySize(size);
+        return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);
 
     }
 
     @Override
     public BottleTypeDTO findById(Long id) {
-        return beanMappingService.mapTo(bottleTypeService.findById(id), BottleTypeDTO.class);
+        BottleType type = bottleTypeService.findById(id);
+        return type == null ? null : beanMappingService.mapTo(type, BottleTypeDTO.class);
     }
 }

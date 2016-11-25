@@ -29,17 +29,20 @@ public class BottleFacadeImpl implements BottleFacade {
 
     @Override
     public List<BottleDTO> findAll() {
-        return beanMappingService.mapTo(bottleService.findAll(), BottleDTO.class);
+        List<Bottle> bottles = bottleService.findAll();
+        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
     }
 
     @Override
     public List<BottleDTO> getBottlesFromDate(Date date) {
-        return beanMappingService.mapTo(bottleService.getBottlesFromDate(date), BottleDTO.class);
+        List<Bottle> bottles = bottleService.getBottlesFromDate(date);
+        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
     }
 
     @Override
     public List<BottleDTO> getAllToxicBottles() {
-        return beanMappingService.mapTo(bottleService.getAllToxicBottles(), BottleDTO.class);
+        List<Bottle> bottles = bottleService.getAllToxicBottles();
+        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
     }
 
     @Override
@@ -69,12 +72,14 @@ public class BottleFacadeImpl implements BottleFacade {
 
     @Override
     public BottleDTO findById(Long id) {
-        return beanMappingService.mapTo(bottleService.findById(id), BottleDTO.class);
+        Bottle bottle = bottleService.findById(id);
+        return bottle == null ? null : beanMappingService.mapTo(bottle, BottleDTO.class);
     }
 
     @Override
     public BottleDTO findByStickerId(String id) {
-        return beanMappingService.mapTo(bottleService.findByStickerId(id), BottleDTO.class);
+        Bottle bottle = bottleService.findByStickerId(id);
+        return beanMappingService.mapTo(bottle, BottleDTO.class);
 
     }
 }
