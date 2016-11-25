@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,8 +46,12 @@ public class PersonFacadeTest extends AbstractFacadeTest {
     private String password = "password";
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        personFacade = (PersonFacade) unwrapProxy(personFacade);
+        ReflectionTestUtils.setField(personFacade, "personService", personService);
+        ReflectionTestUtils.setField(personFacade, "beanMappingService", beanMappingService);
 
         person = new Person();
         person.setName(personName);

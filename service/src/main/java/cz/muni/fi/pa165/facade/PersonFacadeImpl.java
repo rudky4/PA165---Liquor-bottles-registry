@@ -21,6 +21,7 @@ import java.util.List;
  * @date 14/11/2016
  */
 @Service
+@Transactional
 public class PersonFacadeImpl implements PersonFacade {
 
     @Inject

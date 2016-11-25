@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.BottleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author mhajas
  */
 @Service
+@Transactional
 public class BottleFacadeImpl implements BottleFacade {
 
     @Inject

@@ -10,7 +10,10 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.aop.framework.Advised;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Collections;
 import java.util.Date;
@@ -51,8 +54,12 @@ public class BottleFacadeTest extends AbstractFacadeTest {
     private Date date = new Date();
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        bottleFacade = (BottleFacade) unwrapProxy(bottleFacade);
+        ReflectionTestUtils.setField(bottleFacade, "bottleService", bottleService);
+        ReflectionTestUtils.setField(bottleFacade, "beanMappingService", beanMappingService);
 
         bottle = new Bottle();
         bottle.setStickerID(bottleStickerId);
