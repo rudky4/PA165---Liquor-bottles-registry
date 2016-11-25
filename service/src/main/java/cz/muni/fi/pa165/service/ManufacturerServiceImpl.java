@@ -52,7 +52,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
             if (bottle.isToxic()) {
                 return true;
             }
-        };
+        }
         return false;
     }
 
