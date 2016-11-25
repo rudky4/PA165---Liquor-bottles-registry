@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.service;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
-import cz.muni.fi.pa165.AbstractServiceTest;
 import cz.muni.fi.pa165.dao.ManufacturerDAO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Manufacturer;
