@@ -66,6 +66,7 @@ public class BottleTypeFacadeTest extends AbstractFacadeTest{
 
         List<BottleTypeDTO> bottleTypes = bottleTypeFacade.findAll();
 
+        assertNotNull(bottleTypes);
         assertEquals(bottleType.getName(), bottleTypes.get(0).getName());
         verify(bottleTypeService).findAll();
         verify(beanMappingService).mapTo(Collections.singletonList(bottleType), BottleTypeDTO.class);
