@@ -66,5 +66,76 @@ public class PersonServiceTest extends AbstractServiceTest{
         personService.registerPerson(p1,"password");
         verify(personDAO).save(p1);
     }
+    
+    @Test
+    public void findAllWithEmptyListReturnsEmptyList() {
+        when(personDAO.findAll()).thenReturn(emptyList);
 
+        List<Person> bottleList = personService.findAll();
+
+        assertEquals(bottleList, emptyList);
+    }
+    
+    @Test
+    public void findAllWithNonEmptyListReturnsNonEmptyList() {
+        when(personDAO.findAll()).thenReturn(personList);
+
+        List<Person> persons = personService.findAll();
+        
+        assertEquals(personList, persons);
+    }
+    
+    @Test
+    public void findByIdWithWrongIdReturnsNull() {
+        when(personDAO.findOne(123L)).thenReturn(null);
+
+        Person bottleNull = personService.findUserById(123L);
+        
+        assertNull(bottleNull);
+    }
+
+    @Test
+    public void findByIdWithCorrectIdReturnsBottle() {
+        when(personDAO.findOne(0L)).thenReturn(p1);
+
+        Person personFirst = personService.findUserById(0L);
+        
+        assertEquals(personFirst, p1);
+    } 
+    
+    @Test
+    public void findByNameWithWrongIdReturnsNull() {
+        when(personDAO.findByLogin("wronglogin1")).thenReturn(null);
+
+        Person personNull = personService.findUserByLogin("wronglogin1");
+        
+        assertNull(personNull);
+    }
+
+    @Test
+    public void findByNameWithCorrectIdReturnsBottle() {
+        when(personDAO.findByLogin("login1")).thenReturn(p1);
+
+        Person personFirst = personService.findUserByLogin("login1");
+        
+        assertEquals(personFirst, p1);
+    }
+    
+    @Test
+    public void findByEmailWithWrongIdReturnsNull() {
+        when(personDAO.findByEmail("bad@mail.com")).thenReturn(null);
+
+        Person personNull = personService.findUserByLogin("bad.mail.com");
+        
+        assertNull(personNull);
+    }
+
+    @Test
+    public void findByEmailWithCorrectIdReturnsBottle() {
+        when(personDAO.findByLogin("name2@mail.cz")).thenReturn(p2);
+
+        Person personFirst = personService.findUserByLogin("name2@mail.cz");
+        
+        assertEquals(personFirst, p2);
+    } 
 }
