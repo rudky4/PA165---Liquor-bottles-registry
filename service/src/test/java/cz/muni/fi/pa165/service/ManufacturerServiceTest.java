@@ -132,7 +132,6 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(Collections.emptyList());
         boolean result = manufacturerService.hasToxicProduction(manufacturer1.getId());
 
-        Assert.assertNotNull(result);
         Assert.assertFalse(result);
     }
 
@@ -143,7 +142,6 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(bottleList);
         boolean result = manufacturerService.hasToxicProduction(manufacturer1.getId());
 
-        Assert.assertNotNull(result);
         Assert.assertFalse(result);
     }
 
@@ -155,7 +153,6 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(bottleList);
         boolean result = manufacturerService.hasToxicProduction(manufacturer1.getId());
 
-        Assert.assertNotNull(result);
         Assert.assertTrue(result);
     }
 
@@ -171,7 +168,6 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(bottleList);
         boolean result = manufacturerService.hasToxicProduction(manufacturer1.getId());
 
-        Assert.assertNotNull(result);
         Assert.assertFalse(result);
     }
 
@@ -182,7 +178,6 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(bottleList);
         boolean result = manufacturerService.hasToxicProduction(manufacturer1);
 
-        Assert.assertNotNull(result);
         Assert.assertTrue(result);
     }
 
@@ -191,7 +186,6 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(Collections.emptyList());
         boolean result = manufacturerService.hasToxicProduction(manufacturer1.getId());
 
-        Assert.assertNotNull(result);
         Assert.assertFalse(result);
     }
 
