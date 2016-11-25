@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,8 +29,9 @@ public class StoreFacadeImplTest extends AbstractFacadeImplTest {
     @Mock
     private StoreService storeService;
 
+    @Autowired
     @InjectMocks
-    private final StoreFacadeImpl storeFacade = new StoreFacadeImpl();
+    private StoreFacadeImpl storeFacade;
 
     private Store store;
 
@@ -56,7 +58,7 @@ public class StoreFacadeImplTest extends AbstractFacadeImplTest {
 
         List<StoreDTO> stores = storeFacade.findAll();
 
-        assertEquals(Collections.singletonList(store).get(0).getName(), stores.get(0).getName());
+        assertEquals(store.getName(), stores.get(0).getName());
         verify(storeService).findAll();
         verify(beanMappingService).mapTo(Collections.singletonList(store), StoreDTO.class);
     }
