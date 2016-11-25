@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.dao.ManufacturerDAO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.exceptions.RegisterServiceException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -43,7 +44,11 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public boolean hasToxicProduction(Long id) {
-        return hasToxicProduction(findById(id));
+        Manufacturer manufacturer = findById(id);
+        if(manufacturer == null) {
+            throw new RegisterServiceException("Manufacturer does not exist.");
+        }
+        return hasToxicProduction(manufacturer);
     }
 
     @Override

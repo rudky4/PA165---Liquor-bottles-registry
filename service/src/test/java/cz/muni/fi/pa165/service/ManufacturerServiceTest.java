@@ -7,7 +7,7 @@ import cz.muni.fi.pa165.AbstractServiceTest;
 import cz.muni.fi.pa165.dao.ManufacturerDAO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Manufacturer;
-import org.hibernate.service.spi.ServiceException;
+import cz.muni.fi.pa165.exceptions.RegisterServiceException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -156,7 +156,7 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
         Assert.assertTrue(result);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = RegisterServiceException.class)
     public void hasToxicProductionByIdNonExisting() {
         when(manufacturerDAO.findOne(manufacturer1.getId())).thenReturn(null);
         manufacturerService.hasToxicProduction(manufacturer1.getId());
@@ -166,7 +166,7 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
     public void hasToxicProductionByManufacturerFalse() {
         List<Bottle> bottleList = Arrays.asList(bottle1, bottle2);
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(bottleList);
-        boolean result = manufacturerService.hasToxicProduction(manufacturer1.getId());
+        boolean result = manufacturerService.hasToxicProduction(manufacturer1);
 
         Assert.assertFalse(result);
     }
@@ -184,7 +184,7 @@ public class ManufacturerServiceTest extends AbstractServiceTest {
     @Test
     public void hasToxicProductionByManufacturerEmpty() {
         when(bottleService.getAllBottlesFromManufacturer(manufacturer1)).thenReturn(Collections.emptyList());
-        boolean result = manufacturerService.hasToxicProduction(manufacturer1.getId());
+        boolean result = manufacturerService.hasToxicProduction(manufacturer1);
 
         Assert.assertFalse(result);
     }
