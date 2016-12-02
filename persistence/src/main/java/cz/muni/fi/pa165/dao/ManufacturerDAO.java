@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * Created by martin on 26/10/16.
+ * @author Martin Sumera
  */
 public interface ManufacturerDAO extends CrudRepository<Manufacturer, Long> {
 
@@ -15,4 +15,8 @@ public interface ManufacturerDAO extends CrudRepository<Manufacturer, Long> {
      * @return all manufacturers
      */
     List<Manufacturer> findAll();
+
+    Manufacturer findByName(String name);
+
 }
+

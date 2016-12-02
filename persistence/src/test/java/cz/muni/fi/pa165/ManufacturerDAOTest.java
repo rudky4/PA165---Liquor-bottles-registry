@@ -115,7 +115,23 @@ public class ManufacturerDAOTest extends AbstractDAOTest {
         differentManufacturer.setName("differentManufacturer");
         manufacturerDAO.save(differentManufacturer);
 
-        Manufacturer Manufacturer = manufacturerDAO.findOne(originalManufacturer.getId());
+        Manufacturer manufacturer = manufacturerDAO.findOne(originalManufacturer.getId());
+        assertEquals("Expected different manufacturer", manufacturer.getName(), originalManufacturer.getName());
+    }
+
+    @Test
+    public void getManufacturerByName() {
+        String name = "name";
+
+        Manufacturer originalManufacturer = new Manufacturer();
+        originalManufacturer.setName(name);
+        manufacturerDAO.save(originalManufacturer);
+
+        Manufacturer differentManufacturer = new Manufacturer();
+        differentManufacturer.setName("differentManufacturer");
+        manufacturerDAO.save(differentManufacturer);
+
+        Manufacturer Manufacturer = manufacturerDAO.findByName(name);
         assertEquals("Expected different manufacturer", Manufacturer.getName(), originalManufacturer.getName());
     }
 
