@@ -1,9 +1,8 @@
-package cz.muni.fi.pa165;
+package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.PersonDAO;
 import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.PersonRole;
-import cz.muni.fi.pa165.service.PersonService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.when;
  * @author rk
  * @date 2016-11-25
  */
-public class PersonServiceTest extends AbstractServiceTest{
+public class PersonServiceTest extends AbstractServiceTest {
     
     @Mock
     private PersonDAO personDAO;
@@ -32,9 +31,9 @@ public class PersonServiceTest extends AbstractServiceTest{
     @Autowired
     private PersonService personService;
 
-    private Person p1;
+    private Person person1;
 
-    private Person p2;
+    private Person person2;
 
     private List<Person> personList;
 
@@ -44,36 +43,36 @@ public class PersonServiceTest extends AbstractServiceTest{
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         
-        p1 = new Person();
-        p1.setName("name");
-        p1.setLogin("login1");
-        p1.setEmail("name1@mail.cz");
-        p1.setRole(PersonRole.MANUFACTURER);
+        person1 = new Person();
+        person1.setName("name");
+        person1.setLogin("login1");
+        person1.setEmail("name1@mail.cz");
+        person1.setRole(PersonRole.MANUFACTURER);
 
-        p2 = new Person();
-        p2.setName("name");
-        p2.setLogin("login2");
-        p2.setEmail("name2@mail.cz");
-        p2.setRole(PersonRole.CUSTOMER);
+        person2 = new Person();
+        person2.setName("name");
+        person2.setLogin("login2");
+        person2.setEmail("name2@mail.cz");
+        person2.setRole(PersonRole.CUSTOMER);
 
         personList = new ArrayList<>();
-        personList.add(p1);
-        personList.add(p2);
+        personList.add(person1);
+        personList.add(person2);
     }
 
     @Test
     public void createBottleTypeWillNotCrash() {
-        personService.registerPerson(p1,"password");
-        verify(personDAO).save(p1);
+        personService.registerPerson(person1,"password");
+        verify(personDAO).save(person1);
     }
     
     @Test
     public void findAllWithEmptyListReturnsEmptyList() {
         when(personDAO.findAll()).thenReturn(emptyList);
 
-        List<Person> bottleList = personService.findAll();
+        List<Person> persons = personService.findAll();
 
-        assertEquals(bottleList, emptyList);
+        assertEquals(persons, emptyList);
     }
     
     @Test
@@ -96,11 +95,11 @@ public class PersonServiceTest extends AbstractServiceTest{
 
     @Test
     public void findByIdWithCorrectIdReturnsBottle() {
-        when(personDAO.findOne(0L)).thenReturn(p1);
+        when(personDAO.findOne(0L)).thenReturn(person1);
 
         Person personFirst = personService.findUserById(0L);
         
-        assertEquals(personFirst, p1);
+        assertEquals(personFirst, person1);
     } 
     
     @Test
@@ -114,28 +113,30 @@ public class PersonServiceTest extends AbstractServiceTest{
 
     @Test
     public void findByNameWithCorrectIdReturnsBottle() {
-        when(personDAO.findByLogin("login1")).thenReturn(p1);
+        when(personDAO.findByLogin("login1")).thenReturn(person1);
 
         Person personFirst = personService.findUserByLogin("login1");
         
-        assertEquals(personFirst, p1);
+        assertEquals(personFirst, person1);
     }
     
     @Test
     public void findByEmailWithWrongIdReturnsNull() {
-        when(personDAO.findByEmail("bad@mail.com")).thenReturn(null);
+        final String wrongEmail = "bad@mail.com";
+        when(personDAO.findByEmail(wrongEmail)).thenReturn(null);
 
-        Person personNull = personService.findUserByLogin("bad.mail.com");
+        Person personNull = personService.findUserByLogin(wrongEmail);
         
         assertNull(personNull);
     }
 
     @Test
     public void findByEmailWithCorrectIdReturnsBottle() {
-        when(personDAO.findByLogin("name2@mail.cz")).thenReturn(p2);
+        final String correctLogin = "name2@mail.cz";
+        when(personDAO.findByLogin(correctLogin)).thenReturn(person2);
 
-        Person personFirst = personService.findUserByLogin("name2@mail.cz");
+        Person personFirst = personService.findUserByLogin(correctLogin);
         
-        assertEquals(personFirst, p2);
+        assertEquals(personFirst, person2);
     } 
 }

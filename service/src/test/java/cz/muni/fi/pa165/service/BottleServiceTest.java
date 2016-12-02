@@ -1,12 +1,10 @@
-package cz.muni.fi.pa165;
+package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.BottleDAO;
 import cz.muni.fi.pa165.dao.BottleTypeDAO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.enums.AlcoholType;
-import cz.muni.fi.pa165.service.BottleService;
-import cz.muni.fi.pa165.service.BottleTypeService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -27,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author rk
  * @date 2016-11-25
  */
-public class BottleServiceTest extends AbstractServiceTest{
+public class BottleServiceTest extends AbstractServiceTest {
     @Mock
     private BottleDAO bottleDAO;
 
@@ -42,9 +40,9 @@ public class BottleServiceTest extends AbstractServiceTest{
     @Autowired
     private BottleTypeService bottleTypeService;
     
-    private Bottle b1;
+    private Bottle bottle1;
 
-    private Bottle b2;
+    private Bottle bottle2;
 
     private List<Bottle> bottles;
 
@@ -60,21 +58,21 @@ public class BottleServiceTest extends AbstractServiceTest{
         bType.setName("DzamaRhum");
         bType.setType(AlcoholType.RUM);
                 
-        b1 = new Bottle();
-        b1.setToxic(false);
-        b1.setStickerID("ID1");
-        b1.setProduced(new Date());
-        b1.setBottleType(bType);
+        bottle1 = new Bottle();
+        bottle1.setToxic(false);
+        bottle1.setStickerID("ID1");
+        bottle1.setProduced(new Date());
+        bottle1.setBottleType(bType);
 
-        b2 = new Bottle();
-        b2.setToxic(true);
-        b2.setStickerID("ID2");
-        b2.setProduced(new Date());
-        b2.setBottleType(bType);
+        bottle2 = new Bottle();
+        bottle2.setToxic(true);
+        bottle2.setStickerID("ID2");
+        bottle2.setProduced(new Date());
+        bottle2.setBottleType(bType);
         
         bottles = new ArrayList<>();
-        bottles.add(b1);
-        bottles.add(b2);
+        bottles.add(bottle1);
+        bottles.add(bottle2);
     }
     
     @Test
@@ -92,7 +90,7 @@ public class BottleServiceTest extends AbstractServiceTest{
 
         List<Bottle> bottleList = bottleService.findAll();
         
-        assertEquals(bottleList, bottleList);
+        assertEquals(bottleList, bottles);
     }
     
     @Test
@@ -106,17 +104,15 @@ public class BottleServiceTest extends AbstractServiceTest{
 
     @Test
     public void findAllToxicWithNonEmptyListReturnsNonEmptyList() {
-        when(bottleDAO.findByToxic(true)).thenReturn(emptyList);
+        final List<Bottle> toxicBottles = Collections.singletonList(bottle2);
+        when(bottleDAO.findByToxic(true)).thenReturn(toxicBottles);
 
         List<Bottle> bottleList = bottleService.getAllToxicBottles();
-        
-        ArrayList<Bottle> toxicBottles = new ArrayList<>();
-        bottles.add(b2);
-        
+
         assertEquals(bottleList, toxicBottles);
     }
     
-        @Test
+    @Test
     public void findAllByTypeWithEmptyListReturnsEmptyList() {
         when(bottleDAO.findByBottleType(bType)).thenReturn(emptyList);
 
@@ -146,11 +142,11 @@ public class BottleServiceTest extends AbstractServiceTest{
 
     @Test
     public void findByStickerIdWithCorrectIdReturnsBottle() {
-        when(bottleDAO.findByStickerID("ID1")).thenReturn(b1);
+        when(bottleDAO.findByStickerID("ID1")).thenReturn(bottle1);
 
         Bottle bottleFirst = bottleService.findByStickerId("ID1");
         
-        assertEquals(bottleFirst, b1);
+        assertEquals(bottleFirst, bottle1);
     }    
     
     @Test
@@ -164,16 +160,16 @@ public class BottleServiceTest extends AbstractServiceTest{
 
     @Test
     public void findByIdWithCorrectIdReturnsBottle() {
-        when(bottleDAO.findOne(0L)).thenReturn(b1);
+        when(bottleDAO.findOne(0L)).thenReturn(bottle1);
 
         Bottle bottleFirst = bottleService.findById(0L);
         
-        assertEquals(bottleFirst, b1);
+        assertEquals(bottleFirst, bottle1);
     }
 
     @Test
     public void createBottleTypeWillNotCrash() {
-        bottleService.createBottle(b1);
-        verify(bottleDAO).save(b1);
+        bottleService.createBottle(bottle1);
+        verify(bottleDAO).save(bottle1);
     }
 }
