@@ -8,10 +8,10 @@ import cz.muni.fi.pa165.service.BottleService;
 import cz.muni.fi.pa165.service.BottleTypeService;
 import cz.muni.fi.pa165.service.ManufacturerService;
 import cz.muni.fi.pa165.service.TimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
@@ -25,13 +25,13 @@ import java.util.List;
 @Transactional
 public class InitializerImpl implements Initializer {
 
-    @Autowired
+    @Inject
     private BottleService bottleService;
-    @Autowired
+    @Inject
     private BottleTypeService bottleTypeService;
-    @Autowired
+    @Inject
     private ManufacturerService manufacturerService;
-    @Autowired
+    @Inject
     private TimeService timeService;
 
     @Override
