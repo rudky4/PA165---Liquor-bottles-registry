@@ -1,0 +1,12 @@
+<h1>List of bottles</h1>
+
+<ul class="bottle-list">
+    <li ng-repeat="bottle in bottles">
+        <h2>{{bottle.stickerID}}</h2>
+        <p>{{bottle.produced}}</p>
+        <p>Name: {{bottle.bottleType.name}}</p>
+        <p>Size: {{bottle.bottleType.size}}</p>
+        <p>Type: {{bottle.bottleType.type}}</p>
+        <p>Manufactured by: {{bottle.bottleType.manufacturedBy}}</p>
+    </li>
+</ul>

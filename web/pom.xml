@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>liquor-bottles-registry-rest</artifactId>
+    <artifactId>liquor-bottles-registry-web</artifactId>
     <packaging>war</packaging>
-    <name>Rest layer</name>
+    <name>Rest + angular layer</name>
 
     <build>
         <plugins>
@@ -20,7 +20,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <path>/pa165/rest</path>
+                    <path>/pa165</path>
                 </configuration>
             </plugin>
         </plugins>

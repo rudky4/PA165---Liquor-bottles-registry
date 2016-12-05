@@ -13,7 +13,6 @@ public class ManufacturerDTO {
 
     private List<PersonDTO> persons;
 
-    private List<BottleTypeDTO> typesProduced;
 
     public Long getId() {
         return id;
@@ -39,13 +38,7 @@ public class ManufacturerDTO {
         this.persons = persons;
     }
 
-    public List<BottleTypeDTO> getTypesProduced() {
-        return typesProduced;
-    }
 
-    public void setTypesProduced(List<BottleTypeDTO> typesProduced) {
-        this.typesProduced = typesProduced;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -57,17 +50,14 @@ public class ManufacturerDTO {
 
         boolean isNameEqual = name != null ? name.equals(m.getName()) : m.getName() == null;
         boolean isPersonsEqual = persons != null ? persons.equals(m.getPersons()) : m.getPersons() == null;
-        boolean isTypesProducedEqual = typesProduced != null ?
-                typesProduced.equals(m.getTypesProduced()) : m.getTypesProduced() == null;
 
-        return isNameEqual && isPersonsEqual && isTypesProducedEqual;
+        return isNameEqual && isPersonsEqual;
     }
 
     @Override
     public int hashCode() {
         int result = 31 * (name != null ? name.hashCode() : 0);
         result += 21 * (persons != null ? persons.hashCode() : 0);
-        result += 11 * (typesProduced != null ? typesProduced.hashCode() : 0);
         return result;
     }
 
@@ -75,9 +65,7 @@ public class ManufacturerDTO {
     public String toString() {
         return "ManufacturerDTO{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", persons=" + persons.toString() +
-                ", typesProduced=" + typesProduced.toString() + '}';
+                ", name='" + name;
     }
 
 }

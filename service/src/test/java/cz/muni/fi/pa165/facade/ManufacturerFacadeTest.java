@@ -77,7 +77,7 @@ public class ManufacturerFacadeTest extends AbstractFacadeTest {
 
         assertEquals(manufacturer.getName(), resultManufacturer.getName());
         assertEquals(manufacturer.getId(), resultManufacturer.getId());
-        assertNull(resultManufacturer.getTypesProduced());
+        //assertNull(resultManufacturer.getTypesProduced());
         assertNull(resultManufacturer.getPersons());
     }
 
@@ -91,7 +91,7 @@ public class ManufacturerFacadeTest extends AbstractFacadeTest {
         assertEquals(result.getId(), manufacturer.getId());
         assertEquals(result.getName(), manufacturer.getName());
         assertNull(result.getPersons());
-        assertNull(result.getTypesProduced());
+        //assertNull(result.getTypesProduced());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class ManufacturerFacadeTest extends AbstractFacadeTest {
         assertEquals(result.getName(), manufacturer.getName());
         assertEquals(result.getId(), manufacturer.getId());
         assertNull(result.getPersons());
-        assertNull(result.getTypesProduced());
+        //assertNull(result.getTypesProduced());
     }
 
     @Test
