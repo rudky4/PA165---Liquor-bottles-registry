@@ -6,12 +6,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import cz.muni.fi.config.SampleDataConfiguration;
 import cz.muni.fi.pa165.controllers.BottleTypeController;
+import cz.muni.fi.pa165.dto.LaboratoryDTO;
+import cz.muni.fi.pa165.dto.ManufacturerDTO;
+import cz.muni.fi.pa165.dto.PersonDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
+import cz.muni.fi.pa165.mixin.LaboratoryDTOMixin;
+import cz.muni.fi.pa165.mixin.ManufacturerDTOMixin;
+import cz.muni.fi.pa165.mixin.PersonDTOMixin;
+import cz.muni.fi.pa165.mixin.StoreDTOMixin;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.text.SimpleDateFormat;
@@ -44,6 +51,11 @@ public class RestConfiguration extends WebMvcConfigurerAdapter {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
+
+        objectMapper.addMixIn(LaboratoryDTO.class, LaboratoryDTOMixin.class);
+        objectMapper.addMixIn(ManufacturerDTO.class, ManufacturerDTOMixin.class);
+        objectMapper.addMixIn(PersonDTO.class, PersonDTOMixin.class);
+        objectMapper.addMixIn(StoreDTO.class, StoreDTOMixin.class);
 
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
 

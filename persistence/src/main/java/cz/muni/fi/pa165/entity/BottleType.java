@@ -92,7 +92,6 @@ public class BottleType {
         BottleType other = (BottleType) o;
         if (getName() != null ? !getName().equals(other.getName()) : other.getName() != null) return false;
         if (getVolume() != null ? !getVolume().equals(other.getVolume()) : other.getVolume() != null) return false;
-        if (getSize() != null ? !getSize().equals(other.getSize()) : other.getSize() != null) return false;
         return getSize() != null ? getSize().equals(other.getSize()) : other.getSize() == null;
     }
 
