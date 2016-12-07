@@ -27,7 +27,7 @@
         <module>api</module>
         <module>persistence</module>
         <module>service</module>
-        <module>rest</module>
+        <module>web</module>
         <module>sample-data</module>
     </modules>
 
