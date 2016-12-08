@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,8 +43,12 @@ public class LaboratoryFacadeTest extends AbstractFacadeTest {
     private String laboratoryName = "name";
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        laboratoryFacade = (LaboratoryFacade) unwrapProxy(laboratoryFacade);
+        ReflectionTestUtils.setField(laboratoryFacade, "laboratoryService", laboratoryService);
+        ReflectionTestUtils.setField(laboratoryFacade, "beanMappingService", beanMappingService);
 
         laboratory = new Laboratory();
         laboratory.setName(laboratoryName);
