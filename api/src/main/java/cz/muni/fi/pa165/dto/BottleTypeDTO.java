@@ -16,7 +16,9 @@ public class BottleTypeDTO {
 
     private BigDecimal size;
 
-    public AlcoholType type;
+    private AlcoholType type;
+
+    private ManufacturerDTO manufacturedBy;
 
     public Long getId() {
         return id;
@@ -56,6 +58,14 @@ public class BottleTypeDTO {
 
     public void setType(AlcoholType type) {
         this.type = type;
+    }
+
+    public ManufacturerDTO getManufacturedBy() {
+        return manufacturedBy;
+    }
+
+    public void setManufacturedBy(ManufacturerDTO manufacturedBy) {
+        this.manufacturedBy = manufacturedBy;
     }
 
     @Override
