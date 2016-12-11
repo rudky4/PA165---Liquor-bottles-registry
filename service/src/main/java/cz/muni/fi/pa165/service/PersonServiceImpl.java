@@ -47,7 +47,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public boolean authenticate(Person person, String password) {
-        return validatePassword(password, person.getPasswordHash());
+        return person != null && validatePassword(password, person.getPasswordHash());
     }
 
     @Override
