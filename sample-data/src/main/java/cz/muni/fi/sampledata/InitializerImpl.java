@@ -3,10 +3,13 @@ package cz.muni.fi.sampledata;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Person;
 import cz.muni.fi.pa165.enums.AlcoholType;
+import cz.muni.fi.pa165.enums.PersonRole;
 import cz.muni.fi.pa165.service.BottleService;
 import cz.muni.fi.pa165.service.BottleTypeService;
 import cz.muni.fi.pa165.service.ManufacturerService;
+import cz.muni.fi.pa165.service.PersonService;
 import cz.muni.fi.pa165.service.TimeService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,12 +36,31 @@ public class InitializerImpl implements Initializer {
     private ManufacturerService manufacturerService;
     @Inject
     private TimeService timeService;
+    @Inject
+    private PersonService personService;
 
     @Override
     public void loadData() {
         createManufacturers();
         createBottleTypes();
         createBottles();
+        createPersons();
+    }
+
+    private void createPersons() {
+        Person p = new Person();
+        p.setLogin("admin");
+        p.setName("Michal");
+        p.setEmail("michal@liquor-repository.com");
+        p.setRole(PersonRole.CUSTOMER);
+        personService.registerPerson(p, "admin");
+
+        p = new Person();
+        p.setLogin("admin2");
+        p.setName("Rudolf");
+        p.setEmail("rudolf@liquor-repository.com");
+        p.setRole(PersonRole.MANUFACTURER);
+        personService.registerPerson(p, "admin");
     }
 
     private void createManufacturers() {
