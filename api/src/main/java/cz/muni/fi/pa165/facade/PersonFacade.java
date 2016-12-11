@@ -35,7 +35,7 @@ public interface PersonFacade {
      * @param password Given password.
      * @return True if password is correct, false otherwise.
      */
-    boolean authenticate(PersonDTO person, String password);
+    boolean authenticate(String person, String password);
 
     /**
      * Check if person works for Laboratory.

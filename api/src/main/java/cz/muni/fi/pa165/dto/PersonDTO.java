@@ -14,6 +14,11 @@ public class PersonDTO {
     private String email;
     private String password;
     private PersonRole role;
+    private StoreDTO store;
+    private ManufacturerDTO manufacturer;
+    private LaboratoryDTO laboratory;
+
+
 
     public long getId() {
         return id;
@@ -61,6 +66,30 @@ public class PersonDTO {
 
     public void setRole(PersonRole role) {
         this.role = role;
+    }
+
+    public StoreDTO getStore() {
+        return store;
+    }
+
+    public void setStore(StoreDTO store) {
+        this.store = store;
+    }
+
+    public ManufacturerDTO getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(ManufacturerDTO manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public LaboratoryDTO getLaboratory() {
+        return laboratory;
+    }
+
+    public void setLaboratory(LaboratoryDTO laboratory) {
+        this.laboratory = laboratory;
     }
 
     @Override

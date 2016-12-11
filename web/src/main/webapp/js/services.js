@@ -15,3 +15,17 @@ liquorServices.factory('bottleFactory', ['$http',
         return dataFactory;
     }
 ]);
+
+liquorServices.factory('loggedUserFactory', ['$http',
+    function($http){
+        var urlBase="http://localhost:8080/pa165/rest/user";
+        var dataFactory={};
+
+        dataFactory.getPrincipal = function(success, error) {
+            return $http.get(urlBase).then(success, error);
+        };
+
+        return dataFactory;
+    }
+]);
+

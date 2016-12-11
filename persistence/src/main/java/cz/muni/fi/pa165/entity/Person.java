@@ -28,7 +28,7 @@ public class Person {
     private PersonRole role;
 
     @Column(nullable = false, unique = true)
-    @Size(min = 6)
+    @Size(min = 4)
     @NotNull
     private String login;
 

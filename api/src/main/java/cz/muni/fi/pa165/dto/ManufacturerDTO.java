@@ -13,6 +13,8 @@ public class ManufacturerDTO {
 
     private List<PersonDTO> persons;
 
+    private List<BottleTypeDTO> typesProduced;
+
 
     public Long getId() {
         return id;
@@ -38,7 +40,13 @@ public class ManufacturerDTO {
         this.persons = persons;
     }
 
+    public List<BottleTypeDTO> getTypesProduced() {
+        return typesProduced;
+    }
 
+    public void setTypesProduced(List<BottleTypeDTO> typesProduced) {
+        this.typesProduced = typesProduced;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -56,16 +64,16 @@ public class ManufacturerDTO {
 
     @Override
     public int hashCode() {
-        int result = 31 * (name != null ? name.hashCode() : 0);
-        result += 21 * (persons != null ? persons.hashCode() : 0);
-        return result;
+        return 31 * (name != null ? name.hashCode() : 0);
     }
 
     @Override
     public String toString() {
         return "ManufacturerDTO{" +
                 "id=" + id +
-                ", name='" + name;
+                ", name='" + name + '\'' +
+                ", persons=" + persons +
+                ", typesProduced=" + typesProduced +
+                '}';
     }
-
 }

@@ -46,9 +46,8 @@ public class PersonFacadeImpl implements PersonFacade {
     }
 
     @Override
-    public boolean authenticate(PersonDTO person, String password) {
-        Person person1 = beanMappingService.mapTo(person, Person.class);
-        return personService.authenticate(person1, password);
+    public boolean authenticate(String person, String password) {
+        return personService.authenticate(personService.findUserByLogin(person), password);
     }
 
     @Override
