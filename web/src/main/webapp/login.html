@@ -3,23 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-</head>
-<body>
-<div id="errorOutput" style="background: red; display: none">Wrong credentials! You can try it again.</div>
-<script>
-    function showError() {
-        var url = window.location.href;
-        if (url.indexOf('?error') != -1) {
-            document.getElementById('errorOutput').style.display = 'block';
-        }
-    }
+	
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 
-    window.onload = showError();
-</script>
-<form method="POST" action="login.html">
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <input type="submit" value="Log In">
-</form>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+	
+</head>
+<body>	
+	<div class="jumbotron" style="min-height:50%">
+        <div class="container">
+			<div id="errorOutput" class="alert alert-danger" style="display: none;" role="alert">Wrong credentials! You can try it again.</div>				
+			<div id="logoutOutput" class="alert alert-info" style="display: none;" role="alert">You have been logged out.</div>				
+			<div class="col-md-4 offset-md-4">
+				<h2>Liquor bottles registry</h2> 
+				<h5>Login</h5>
+				</br>
+				<form method="POST" action="login.html" role="form">
+					<div class="form-group">
+						<label for="username">Username</label>
+						<input type="text" name="username" id="username" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input type="password" name="password" id="password" class="form-control" required />								
+					</div>
+					<div class="form-actions">
+						<button type="submit" value="Log In" class="btn btn-primary">Login</button>							
+						<!--<a href="#/register" class="btn btn-link">Register</a> -->
+					</div>
+				</form>					
+			</div>
+        </div>
+	</div>
+	
+	<div class="container ">
+		<div class="col-md-4 offset-md-4">
+			<p>
+				<a href="https://github.com/rudky4/PA165---Liquor-bottles-registry" target="_blank">GitHub - Liquor-bottles-registry</a>
+			</p>
+			<p>
+				Developed for: <a href="https://github.com/fi-muni/PA165" target="_blank">PA165</a>
+			</p>
+		</div>
+	</div>
+	
+	<script>
+		function showMessage() {
+			var url = window.location.href;
+			if (url.indexOf('?error') != -1) {
+				document.getElementById('errorOutput').style.display = 'block';
+			}
+			if (url.indexOf('?logout') != -1) {
+				document.getElementById('logoutOutput').style.display = 'block';
+			}
+		}
+
+		window.onload = showMessage();
+	</script>	
 </body>
 </html>
