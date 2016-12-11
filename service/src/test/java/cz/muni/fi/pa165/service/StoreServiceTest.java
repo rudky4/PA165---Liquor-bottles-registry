@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165;
+package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.StoreDAO;
 import cz.muni.fi.pa165.entity.Laboratory;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class StoreServiceTest extends AbstractServiceTest {
 
     @Mock
-    StoreDAO storeDAO;
+    private StoreDAO storeDAO;
 
     @InjectMocks
     @Autowired

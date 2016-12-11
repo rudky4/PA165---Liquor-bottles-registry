@@ -11,8 +11,14 @@ public class PersonDTO {
     private long id;
     private String name;
     private String login;
+    private String email;
     private String password;
     private PersonRole role;
+    private StoreDTO store;
+    private ManufacturerDTO manufacturer;
+    private LaboratoryDTO laboratory;
+
+
 
     public long getId() {
         return id;
@@ -38,6 +44,14 @@ public class PersonDTO {
         this.login = login;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -54,6 +68,30 @@ public class PersonDTO {
         this.role = role;
     }
 
+    public StoreDTO getStore() {
+        return store;
+    }
+
+    public void setStore(StoreDTO store) {
+        this.store = store;
+    }
+
+    public ManufacturerDTO getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(ManufacturerDTO manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public LaboratoryDTO getLaboratory() {
+        return laboratory;
+    }
+
+    public void setLaboratory(LaboratoryDTO laboratory) {
+        this.laboratory = laboratory;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj == null || !(obj instanceof PersonDTO)) {
@@ -62,7 +100,7 @@ public class PersonDTO {
         PersonDTO p = (PersonDTO)obj;
         if(role != null ? !role.equals(p.getRole()) : p.getRole() != null ||
                 name != null ? !name.equals(p.getName()) : p.getName() != null ||
-                password != null ? !password.equals(p.getPassword()) : p.getPassword() != null) {
+                email != null ? !email.equals(p.getEmail()) : p.getEmail() != null) {
             return false;
         }
         return (login != null ? login.equals(p.getLogin()) : p.getLogin() == null);
@@ -72,7 +110,7 @@ public class PersonDTO {
     public int hashCode() {
         int result = 31 * (login != null ? login.hashCode() : 0);
         result += 21 * (name != null ? name.hashCode() : 0);
-        result += 11 * (password != null ? password.hashCode() : 0);
+        result += 11 * (email != null ? email.hashCode() : 0);
         result += (role != null ? role.hashCode() : 0);
         return result;
     }

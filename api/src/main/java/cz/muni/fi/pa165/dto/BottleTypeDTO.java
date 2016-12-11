@@ -16,7 +16,9 @@ public class BottleTypeDTO {
 
     private BigDecimal size;
 
-    public AlcoholType type;
+    private AlcoholType type;
+
+    private ManufacturerDTO manufacturedBy;
 
     public Long getId() {
         return id;
@@ -58,6 +60,14 @@ public class BottleTypeDTO {
         this.type = type;
     }
 
+    public ManufacturerDTO getManufacturedBy() {
+        return manufacturedBy;
+    }
+
+    public void setManufacturedBy(ManufacturerDTO manufacturedBy) {
+        this.manufacturedBy = manufacturedBy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -69,7 +79,6 @@ public class BottleTypeDTO {
         BottleTypeDTO other = (BottleTypeDTO) o;
         if (getName() != null ? !getName().equals(other.getName()) : other.getName() != null) return false;
         if (getVolume() != null ? !getVolume().equals(other.getVolume()) : other.getVolume() != null) return false;
-        if (getSize() != null ? !getSize().equals(other.getSize()) : other.getSize() != null) return false;
         return getSize() != null ? getSize().equals(other.getSize()) : other.getSize() == null;
     }
 

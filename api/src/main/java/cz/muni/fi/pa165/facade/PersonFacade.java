@@ -1,6 +1,9 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.LaboratoryDTO;
+import cz.muni.fi.pa165.dto.ManufacturerDTO;
 import cz.muni.fi.pa165.dto.PersonDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
 
 import java.util.List;
 
@@ -32,31 +35,31 @@ public interface PersonFacade {
      * @param password Given password.
      * @return True if password is correct, false otherwise.
      */
-    boolean authenticate(PersonDTO person, String password);
+    boolean authenticate(String person, String password);
 
-//    /**
-//     * Check if person works for Laboratory.
-//     * @param person Person to check.
-//     * @param laboratory Laboratory to check.
-//     * @return True if person works for Laboratory, false otherwise.
-//     */
-//    boolean worksForLaboratory(PersonDTO person, LaboratoryDTO laboratory);
-//
-//    /**
-//     * Check if person works for Manufacturer.
-//     * @param person Person to check.
-//     * @param manufacturer Manufacturer to check.
-//     * @return True if person works for Manufacturer, false otherwise.
-//     */
-//    boolean worksForManufacturer(PersonDTO person, ManufacturerDTO manufacturer);
-//
-//    /**
-//     * Check if person works for Store.
-//     * @param person Person to check.
-//     * @param store Store to check.
-//     * @return True if person works for Store, false otherwise.
-//     */
-//    boolean worksForStore(PersonDTO person, StoreDTO store);
+    /**
+     * Check if person works for Laboratory.
+     * @param person Person to check.
+     * @param laboratory Laboratory to check.
+     * @return True if person works for Laboratory, false otherwise.
+     */
+    boolean worksForLaboratory(PersonDTO person, LaboratoryDTO laboratory);
+
+    /**
+     * Check if person works for Manufacturer.
+     * @param person Person to check.
+     * @param manufacturer Manufacturer to check.
+     * @return True if person works for Manufacturer, false otherwise.
+     */
+    boolean worksForManufacturer(PersonDTO person, ManufacturerDTO manufacturer);
+
+    /**
+     * Check if person works for Store.
+     * @param person Person to check.
+     * @param store Store to check.
+     * @return True if person works for Store, false otherwise.
+     */
+    boolean worksForStore(PersonDTO person, StoreDTO store);
 
     /**
      * Check if person is of police role.

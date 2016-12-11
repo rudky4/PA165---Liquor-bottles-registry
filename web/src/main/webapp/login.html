@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+<div id="errorOutput" style="background: red; display: none">Wrong credentials! You can try it again.</div>
+<script>
+    function showError() {
+        var url = window.location.href;
+        if (url.indexOf('?error') != -1) {
+            document.getElementById('errorOutput').style.display = 'block';
+        }
+    }
+
+    window.onload = showError();
+</script>
+<form method="POST" action="login.html">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <input type="submit" value="Log In">
+</form>
+</body>
+</html>

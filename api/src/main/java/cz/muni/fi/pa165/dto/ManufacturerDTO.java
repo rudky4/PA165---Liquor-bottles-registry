@@ -15,6 +15,7 @@ public class ManufacturerDTO {
 
     private List<BottleTypeDTO> typesProduced;
 
+
     public Long getId() {
         return id;
     }
@@ -57,18 +58,13 @@ public class ManufacturerDTO {
 
         boolean isNameEqual = name != null ? name.equals(m.getName()) : m.getName() == null;
         boolean isPersonsEqual = persons != null ? persons.equals(m.getPersons()) : m.getPersons() == null;
-        boolean isTypesProducedEqual = typesProduced != null ?
-                typesProduced.equals(m.getTypesProduced()) : m.getTypesProduced() == null;
 
-        return isNameEqual && isPersonsEqual && isTypesProducedEqual;
+        return isNameEqual && isPersonsEqual;
     }
 
     @Override
     public int hashCode() {
-        int result = 31 * (name != null ? name.hashCode() : 0);
-        result += 21 * (persons != null ? persons.hashCode() : 0);
-        result += 11 * (typesProduced != null ? typesProduced.hashCode() : 0);
-        return result;
+        return 31 * (name != null ? name.hashCode() : 0);
     }
 
     @Override
@@ -76,8 +72,8 @@ public class ManufacturerDTO {
         return "ManufacturerDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", persons=" + persons.toString() +
-                ", typesProduced=" + typesProduced.toString() + '}';
+                ", persons=" + persons +
+                ", typesProduced=" + typesProduced +
+                '}';
     }
-
 }

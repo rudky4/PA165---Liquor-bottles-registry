@@ -11,6 +11,9 @@ import java.util.List;
 
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.StoreService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.inject.Inject;
 
 /**
@@ -18,6 +21,8 @@ import javax.inject.Inject;
  * @author rk
  * @date 2016-11-23
  */
+@Service
+@Transactional
 public class StoreFacadeImpl implements StoreFacade{
     @Inject
     private StoreService storeService;
