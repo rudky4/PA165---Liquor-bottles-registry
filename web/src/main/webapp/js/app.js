@@ -10,6 +10,18 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/bottle.html',
             controller: 'bottleCtrl'
         })
+        .when('/manufacturer', {
+            templateUrl: 'partials/manufacturers.html',
+            controller: 'manufacturerCtrl'
+        })
+        .when('/manufacturer/:id/production', {
+            templateUrl: 'partials/manufacturer_production.html',
+            controller: 'manufacturerProductionCtrl'
+        })
+        .when('/store', {
+            templateUrl: 'partials/stores.html',
+            controller: 'storeCtrl'
+        })
         .when('/unauthorized', {
             templateUrl: 'partials/unauthorized.html'
         })
@@ -23,6 +35,17 @@ module.run(function($rootScope, loggedUserFactory) {
         },
         function (response) {
             alert("Error getting logged in user");
+        }
+    );
+});
+
+module.run(function($rootScope, roleFactory) {
+    roleFactory.isPolice(
+        function(response) {
+            $rootScope.isPolice = response.data;
+        },
+        function (response) {
+            alert("Error getting user role");
         }
     );
 });

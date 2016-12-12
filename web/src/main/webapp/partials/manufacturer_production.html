@@ -1,0 +1,27 @@
+<h1>Manufacturers</h1>
+
+<h2>Toxic</h2>
+
+<ul class="bottle-list">
+    <li ng-repeat="bottle in toxicBottles">
+        <h2>{{bottle.stickerID}}</h2>
+        <p>{{bottle.produced}}</p>
+        <p>Name: {{bottle.bottleType.name}}</p>
+        <p>Size: {{bottle.bottleType.size}}</p>
+        <p>Type: {{bottle.bottleType.type}}</p>
+        <p>Manufactured by: {{bottle.bottleType.manufacturedBy}}</p>
+    </li>
+</ul>
+
+<h2>Non - Toxic</h2>
+
+<ul class="bottle-list">
+    <li ng-repeat="bottle in nonToxicBottles">
+        <h2>{{bottle.stickerID}}</h2>
+        <p>{{bottle.produced}}</p>
+        <p>Name: {{bottle.bottleType.name}}</p>
+        <p>Size: {{bottle.bottleType.size}}</p>
+        <p>Type: {{bottle.bottleType.type}}</p>
+        <p>Manufactured by: {{bottle.bottleType.manufacturedBy}}</p>
+    </li>
+</ul>

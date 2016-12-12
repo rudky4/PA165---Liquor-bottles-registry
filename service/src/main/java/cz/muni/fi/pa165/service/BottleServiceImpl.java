@@ -46,6 +46,16 @@ public class BottleServiceImpl implements BottleService {
     }
 
     @Override
+    public List<Bottle> getAllToxicBottlesFromManufacturer(Manufacturer manufacturer) {
+        return bottleDAO.getAllBottlesFromManufacturerWithToxicity(manufacturer, true);
+    }
+
+    @Override
+    public List<Bottle> getAllNonToxicBottlesFromManufacturer(Manufacturer manufacturer) {
+        return bottleDAO.getAllBottlesFromManufacturerWithToxicity(manufacturer, false);
+    }
+
+    @Override
     public List<Bottle> getAllBottlesFromManufacturerFromDate(Manufacturer manufacturer, Date date) {
         return bottleDAO.getAllBottlesFromManufacturerFromDate(manufacturer, date);
     }

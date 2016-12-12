@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
+import cz.muni.fi.pa165.dto.ManufacturerDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,10 @@ public interface BottleFacade {
     List<BottleDTO> getBottlesFromDate(Date date);
 
     List<BottleDTO> getAllToxicBottles();
+
+    List<BottleDTO> getAllToxicBottlesFromManufacturer(ManufacturerDTO manufacturer);
+
+    List<BottleDTO> getAllNonToxicBottlesFromManufacturer(ManufacturerDTO manufacturer);
 
     List<BottleDTO> findByBottleType(BottleTypeDTO type);
 
