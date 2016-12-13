@@ -1,14 +1,14 @@
 package cz.muni.fi.pa165.controllers;
 
-import cz.muni.fi.pa165.exceptions.RoleIsNotSet;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import javax.xml.ws.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author mhajas
@@ -17,17 +17,13 @@ import java.util.Collection;
 @RequestMapping("/user")
 public class UserController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public String getUserPrincipal() {
-        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
 
-    @RequestMapping(value = "/role", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getRole() {
-        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        if (authorities.size() == 0) {
-            throw new RoleIsNotSet();
-        }
-        return authorities.iterator().next().toString();
+        List<?> authorities = new ArrayList<>(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
+        return "{\"username\":\"" + SecurityContextHolder.getContext().getAuthentication().getPrincipal() + "\", \"role\":\"" +
+                authorities.get(0) + "\"}";
     }
 }
