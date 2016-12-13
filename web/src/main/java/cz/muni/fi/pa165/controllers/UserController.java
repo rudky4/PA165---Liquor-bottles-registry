@@ -1,15 +1,14 @@
 package cz.muni.fi.pa165.controllers;
 
-import cz.muni.fi.pa165.enums.PersonRole;
-import cz.muni.fi.pa165.security.SimpleGrantedAuthorityFactory;
+import cz.muni.fi.pa165.exceptions.RoleIsNotSet;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 /**
  * @author mhajas
@@ -23,12 +22,12 @@ public class UserController {
         return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    @RequestMapping(value = "/role/is/police", method = RequestMethod.GET)
-    public boolean isPolice() {
-        SimpleGrantedAuthority policeAuthority = SimpleGrantedAuthorityFactory.createAuthority(PersonRole.POLICE.toString());
-        for (GrantedAuthority authority : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
-            return authority.equals(policeAuthority);
+    @RequestMapping(value = "/role", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getRole() {
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        if (authorities.size() == 0) {
+            throw new RoleIsNotSet();
         }
-        return false;
+        return authorities.iterator().next().toString();
     }
 }

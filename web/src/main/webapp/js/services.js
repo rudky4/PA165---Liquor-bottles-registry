@@ -42,32 +42,6 @@ liquorServices.factory('manufacturerFactory', ['$http',
     }
 ]);
 
-
-liquorServices.factory('manufacturerProductionFactory', ['$http',
-    function($http){
-        var urlBaseManufacturer="http://localhost:8080/pa165/rest/manufacturer/{id}/";
-        var urlBaseToxic="http://localhost:8080/pa165/rest/manufacturer/{id}/production/nontoxic";
-        var urlBaseNontoxic="http://localhost:8080/pa165/rest/manufacturer/{id}/production/nontoxic";
-
-        var dataFactory={};
-
-        dataFactory.getManufacturer = function(id, success, error) {
-            return $http.get(urlBaseManufacturer.replace("{id}", id)).then(success, error);
-        };
-
-        dataFactory.getAllToxicProduction = function(id, success, error) {
-            return $http.get(urlBaseToxic.replace("{id}", id)).then(success, error);
-        };
-
-        dataFactory.getAllNonToxicProduction = function(id, success, error) {
-            return $http.get(urlBaseNontoxic.replace("{id}", id)).then(success, error);
-        };
-
-        return dataFactory;
-    }
-]);
-
-
 liquorServices.factory('storeFactory', ['$http',
     function($http){
         var urlBase="http://localhost:8080/pa165/rest/store";
@@ -81,11 +55,29 @@ liquorServices.factory('storeFactory', ['$http',
     }
 ]);
 
-liquorServices.factory('storeProductionFactory', ['$http',
+liquorServices.factory('manufacturerProductionFactory', ['$http',
     function($http){
-        var urlBaseStore="http://localhost:8080/pa165/rest/store/{id}/";
-        var urlBaseToxic="http://localhost:8080/pa165/rest/store/{id}/production/toxic";
-        var urlBaseNontoxic="http://localhost:8080/pa165/rest/store/{id}/production/nontoxic";
+        var urlBaseManufacturer="http://localhost:8080/pa165/rest/manufacturer/{id}/";
+        var urlProduction= urlBaseManufacturer + "production/";
+
+        var dataFactory={};
+
+        dataFactory.getManufacturer = function(id, success, error) {
+            return $http.get(urlBaseManufacturer.replace("{id}", id)).then(success, error);
+        };
+
+        dataFactory.getProduction = function(id, success, error) {
+            return $http.get(urlProduction.replace("{id}", id)).then(success, error);
+        };
+
+        return dataFactory;
+    }
+]);
+
+liquorServices.factory('storeBottlesFactory', ['$http',
+    function($http){
+        var urlBaseStore= "http://localhost:8080/pa165/rest/store/{id}/";
+        var urlBottles = urlBaseStore + "bottles/";
 
         var dataFactory={};
 
@@ -93,12 +85,8 @@ liquorServices.factory('storeProductionFactory', ['$http',
             return $http.get(urlBaseStore.replace("{id}", id)).then(success, error);
         };
 
-        dataFactory.getAllToxicProduction = function(id, success, error) {
-            return $http.get(urlBaseToxic.replace("{id}", id)).then(success, error);
-        };
-
-        dataFactory.getAllNonToxicProduction = function(id, success, error) {
-            return $http.get(urlBaseNontoxic.replace("{id}", id)).then(success, error);
+        dataFactory.getBottles = function(id, success, error) {
+            return $http.get(urlBottles.replace("{id}", id)).then(success, error);
         };
 
         return dataFactory;
@@ -107,10 +95,10 @@ liquorServices.factory('storeProductionFactory', ['$http',
 
 liquorServices.factory('roleFactory', ['$http',
     function($http){
-        var urlBase="http://localhost:8080/pa165/rest/user/role/is/police";
+        var urlBase="http://localhost:8080/pa165/rest/user/role/";
         var dataFactory={};
 
-        dataFactory.isPolice = function(success, error) {
+        dataFactory.getRole = function(success, error) {
             return $http.get(urlBase).then(success, error);
         };
 

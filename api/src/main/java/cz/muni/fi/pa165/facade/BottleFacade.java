@@ -20,13 +20,9 @@ public interface BottleFacade {
 
     List<BottleDTO> getAllToxicBottles();
 
-    List<BottleDTO> getAllToxicBottlesFromManufacturer(ManufacturerDTO manufacturer);
+    List<BottleDTO> getAllBottlesFromManufacturer(ManufacturerDTO manufacturer);
 
-    List<BottleDTO> getAllNonToxicBottlesFromManufacturer(ManufacturerDTO manufacturer);
-
-    List<BottleDTO> getAllToxicBottlesInStore(StoreDTO store);
-
-    List<BottleDTO> getAllNonToxicBottlesInStore(StoreDTO store);
+    List<BottleDTO> getAllBottlesInStore(StoreDTO store);
 
     List<BottleDTO> findByBottleType(BottleTypeDTO type);
 

@@ -5,15 +5,13 @@
     <thead class="thead-inverse">
     <tr>
         <th>Name</th>
-        <th>Number of bottles</th>
-        <th ng-if="isPolice">Statistics</th>
+        <th>Bottles</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="store in stores">
         <th scope="row">{{store.name}}</td>
-        <th scope="row">{{store.bottles.length}}</td>
-        <td ng-if="isPolice"><a ng-href="#/store/{{store.id}}/production">Statistics</a></td>
+        <td><a ng-href="#/store/{{store.id}}/bottles">Show bottles</a></td>
     </tr>
     </tbody>
 </table>

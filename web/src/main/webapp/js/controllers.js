@@ -29,12 +29,10 @@ liquorControllers.controller('manufacturerCtrl', function ($scope, $rootScope, $
     );
 });
 
-
-liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $rootScope, $location, $routeParams, manufacturerProductionFactory) {
-    manufacturerProductionFactory.getAllToxicProduction(
-        $routeParams.id,
+liquorControllers.controller('storeCtrl', function ($scope, $rootScope, $location, storeFactory) {
+    storeFactory.getAllStores(
         function (response) {
-            $scope.toxicBottles = response.data;
+            $scope.stores = response.data;
         },
         function(response) {
             if (response.status == 403) {
@@ -43,10 +41,13 @@ liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $ro
             }
         }
     );
-    manufacturerProductionFactory.getAllNonToxicProduction(
+});
+
+liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $rootScope, $location, $routeParams, manufacturerProductionFactory) {
+    manufacturerProductionFactory.getProduction(
         $routeParams.id,
         function (response) {
-            $scope.nonToxicBottles = response.data;
+            $scope.bottles = response.data;
         },
         function(response) {
             if (response.status == 403) {
@@ -69,22 +70,8 @@ liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $ro
     );
 });
 
-liquorControllers.controller('storeCtrl', function ($scope, $rootScope, $location, storeFactory) {
-    storeFactory.getAllStores(
-        function (response) {
-            $scope.stores = response.data;
-        },
-        function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
-        }
-    );
-});
-
-liquorControllers.controller('storeProductionCtrl', function ($scope, $rootScope, $location, $routeParams, storeProductionFactory) {
-    storeProductionFactory.getStore(
+liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $location, $routeParams, storeBottlesFactory) {
+    storeBottlesFactory.getStore(
         $routeParams.id,
         function (response) {
             $scope.store = response.data;
@@ -96,22 +83,10 @@ liquorControllers.controller('storeProductionCtrl', function ($scope, $rootScope
             }
         }
     );
-    storeProductionFactory.getAllToxicProduction(
+    storeBottlesFactory.getBottles(
         $routeParams.id,
         function (response) {
-            $scope.toxicBottles = response.data;
-        },
-        function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
-        }
-    );
-    storeProductionFactory.getAllNonToxicProduction(
-        $routeParams.id,
-        function (response) {
-            $scope.nonToxicBottles = response.data;
+            $scope.bottles = response.data;
         },
         function(response) {
             if (response.status == 403) {

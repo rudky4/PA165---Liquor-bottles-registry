@@ -22,15 +22,24 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/stores.html',
             controller: 'storeCtrl'
         })
-        .when('/store/:id/production', {
-            templateUrl: 'partials/store_production.html',
-            controller: 'storeProductionCtrl'
+        .when('/store/:id/bottles', {
+            templateUrl: 'partials/store_bottles.html',
+            controller: 'storeBottlesCtrl'
         })
         .when('/unauthorized', {
             templateUrl: 'partials/unauthorized.html'
         })
         .otherwise({ redirectTo: '/' });
 });
+
+module.run(function($rootScope) {
+    $rootScope.unsuccessfulResponse = function(response) {
+        if (response.status == 403) {
+          $rootScope.page = $location.path();
+          $location.path("/unauthorized");
+        }
+    }
+})
 
 module.run(function($rootScope, loggedUserFactory) {
     loggedUserFactory.getPrincipal(
@@ -44,9 +53,12 @@ module.run(function($rootScope, loggedUserFactory) {
 });
 
 module.run(function($rootScope, roleFactory) {
-    roleFactory.isPolice(
+    roleFactory.getRole(
         function(response) {
-            $rootScope.isPolice = response.data;
+            $rootScope.role = response.data;
+            $rootScope.isRole = function(roleName) {
+                return $rootScope.role == roleName;
+            }
         },
         function (response) {
             alert("Error getting user role");

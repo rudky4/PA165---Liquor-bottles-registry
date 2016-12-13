@@ -42,23 +42,11 @@ public class StoreController {
         }
     }
 
-    @RequestMapping(value = "/{id}/production/toxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleDTO> getStoreToxicProduction(@PathVariable("id") long id) {
-        StoreDTO store = getStoreById(id);
-        List<BottleDTO> toxicBottles = bottleFacade.getAllToxicBottlesInStore(store);
+    @RequestMapping(value = "/{id}/bottles/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleDTO> getStoreGoods(@PathVariable("id") long id) {
+        List<BottleDTO> toxicBottles = bottleFacade.getAllBottlesInStore(getStoreById(id));
         if (toxicBottles != null) {
             return toxicBottles;
-        } else {
-            throw new ResourceNotFound();
-        }
-    }
-
-    @RequestMapping(value = "/{id}/production/nontoxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleDTO> getStoreNonToxicProduction(@PathVariable("id") long id) {
-        StoreDTO store = getStoreById(id);
-        List<BottleDTO> nontoxicBottles = bottleFacade.getAllNonToxicBottlesInStore(store);
-        if (nontoxicBottles != null) {
-            return nontoxicBottles;
         } else {
             throw new ResourceNotFound();
         }

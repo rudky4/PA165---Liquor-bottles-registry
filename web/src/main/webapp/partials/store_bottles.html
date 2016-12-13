@@ -1,7 +1,7 @@
-<h3>{{manufacturer.name}}</h3>
+<h3>{{store.name}}</h3>
 <br/>
 
-<h3>List of bottles</h3>
+<h3>List of toxic bottles</h3>
 <br/>
 
 <table class="table">
@@ -25,6 +25,6 @@
         <td>{{bottle.bottleType.type}}</td>
         <td>{{bottle.bottleType.manufacturedBy.name}}</td>
         <td ng-if="isRole('ROLE_POLICE')">{{bottle.toxic}}</td>
-      </tr>
+    </tr>
     </tbody>
 </table>

@@ -54,30 +54,16 @@ public class BottleFacadeImpl implements BottleFacade {
     }
 
     @Override
-    public List<BottleDTO> getAllToxicBottlesFromManufacturer(ManufacturerDTO manufacturerDTO) {
+    public List<BottleDTO> getAllBottlesFromManufacturer(ManufacturerDTO manufacturerDTO) {
         Manufacturer manufacturer = beanMappingService.mapTo(manufacturerDTO, Manufacturer.class);
-        List<Bottle> bottles = bottleService.getAllToxicBottlesFromManufacturer(manufacturer);
+        List<Bottle> bottles = bottleService.getAllBottlesFromManufacturer(manufacturer);
         return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
     }
 
     @Override
-    public List<BottleDTO> getAllNonToxicBottlesFromManufacturer(ManufacturerDTO manufacturerDTO) {
-        Manufacturer manufacturer = beanMappingService.mapTo(manufacturerDTO, Manufacturer.class);
-        List<Bottle> bottles = bottleService.getAllNonToxicBottlesFromManufacturer(manufacturer);
-        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
-    }
-
-    @Override
-    public List<BottleDTO> getAllToxicBottlesInStore(StoreDTO storeDTO) {
+    public List<BottleDTO> getAllBottlesInStore(StoreDTO storeDTO) {
         Store store = beanMappingService.mapTo(storeDTO, Store.class);
-        List<Bottle> bottles = bottleService.getAllToxicBottlesInStore(store);
-        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
-    }
-
-    @Override
-    public List<BottleDTO> getAllNonToxicBottlesInStore(StoreDTO storeDTO) {
-        Store store = beanMappingService.mapTo(storeDTO, Store.class);
-        List<Bottle> bottles = bottleService.getAllNonToxicBottlesInStore(store);
+        List<Bottle> bottles = bottleService.getAllBottlesInStore(store);
         return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
     }
 

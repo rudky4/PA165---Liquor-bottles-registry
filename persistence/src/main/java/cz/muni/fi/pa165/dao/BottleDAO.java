@@ -29,6 +29,8 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
 
     List<Bottle> findByToxic(boolean toxic);
 
+    List<Bottle> findByStore(Store store);
+
     @Query("SELECT b FROM Bottle b " +
             "INNER JOIN b.bottleType bt " +
             "INNER JOIN bt.manufacturedBy m " +
@@ -44,20 +46,6 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
             "WHERE bt.manufacturedBy=:manufacturer")
     List<Bottle> getAllBottlesFromManufacturer(
             @Param("manufacturer") Manufacturer manufacturer);
-
-    @Query("SELECT b FROM Bottle b " +
-            "INNER JOIN b.bottleType bt " +
-            "INNER JOIN bt.manufacturedBy m " +
-            "WHERE bt.manufacturedBy=:manufacturer AND b.toxic=:isToxic")
-    List<Bottle> getAllBottlesFromManufacturerWithToxicity(
-            @Param("manufacturer") Manufacturer manufacturer,
-            @Param("isToxic") boolean isToxic);
-
-    @Query("SELECT b FROM Bottle b " +
-            "WHERE b.store=:store AND b.toxic=:isToxic")
-    List<Bottle> getAllBottlesFromStoreWithToxicity(
-            @Param("store") Store store,
-            @Param("isToxic") boolean isToxic);
 
     Bottle findByStickerID(String id);
 }

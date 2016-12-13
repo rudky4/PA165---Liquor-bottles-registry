@@ -32,7 +32,7 @@ public class ManufacturerController {
         return manufacturerFacade.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final ManufacturerDTO getManufacturerById(@PathVariable("id") long id) {
         ManufacturerDTO result = manufacturerFacade.findById(id);
         if (result != null) {
@@ -42,21 +42,9 @@ public class ManufacturerController {
         }
     }
 
-    @RequestMapping(value = "/{id}/production/toxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleDTO> getManufacturerToxicProduction(@PathVariable("id") long id) {
-        ManufacturerDTO manufacturer = getManufacturerById(id);
-        List<BottleDTO> bottles = bottleFacade.getAllToxicBottlesFromManufacturer(manufacturer);
-        if (bottles != null) {
-            return bottles;
-        } else {
-            throw new ResourceNotFound();
-        }
-    }
-
-    @RequestMapping(value = "/{id}/production/nontoxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleDTO> getManufacturerNonToxicProduction(@PathVariable("id") long id) {
-        ManufacturerDTO manufacturer = getManufacturerById(id);
-        List<BottleDTO> bottles = bottleFacade.getAllNonToxicBottlesFromManufacturer(manufacturer);
+    @RequestMapping(value = "/{id}/production/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleDTO> getManufacturerProduction(@PathVariable("id") long id) {
+        List<BottleDTO> bottles = bottleFacade.getAllBottlesFromManufacturer(getManufacturerById(id));
         if (bottles != null) {
             return bottles;
         } else {

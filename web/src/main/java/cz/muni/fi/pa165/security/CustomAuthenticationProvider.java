@@ -39,7 +39,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             PersonDTO person = personFacade.findUserByLogin(username);
 
             List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            grantedAuths.add(SimpleGrantedAuthorityFactory.createAuthority(person.getRole().toString()));
+            grantedAuths.add(new SimpleGrantedAuthority("ROLE_" + person.getRole().toString()));
 
             return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
         }else {
