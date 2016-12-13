@@ -1,8 +1,19 @@
-<h1>Stores</h1>
+<h3>List of stores</h3>
+<br/>
 
-<ul class="store-list">
-    <li ng-repeat="store in stores">
-        <h2>{{store.name}}</h2>
-        <p>{{store.id}}</p>
-    </li>
-</ul>
+<table class="table">
+    <thead class="thead-inverse">
+    <tr>
+        <th>Name</th>
+        <th>Number of bottles</th>
+        <th ng-if="isPolice">Statistics</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="store in stores">
+        <th scope="row">{{store.name}}</td>
+        <th scope="row">{{store.bottles.length}}</td>
+        <td ng-if="isPolice"><a ng-href="#/store/{{store.id}}/production">Statistics</a></td>
+    </tr>
+    </tbody>
+</table>

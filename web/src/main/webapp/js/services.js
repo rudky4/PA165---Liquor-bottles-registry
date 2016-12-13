@@ -45,10 +45,15 @@ liquorServices.factory('manufacturerFactory', ['$http',
 
 liquorServices.factory('manufacturerProductionFactory', ['$http',
     function($http){
-        var urlBaseToxic="http://localhost:8080/pa165/rest/manufacturer/{id}/production/toxic";
+        var urlBaseManufacturer="http://localhost:8080/pa165/rest/manufacturer/{id}/";
+        var urlBaseToxic="http://localhost:8080/pa165/rest/manufacturer/{id}/production/nontoxic";
         var urlBaseNontoxic="http://localhost:8080/pa165/rest/manufacturer/{id}/production/nontoxic";
 
         var dataFactory={};
+
+        dataFactory.getManufacturer = function(id, success, error) {
+            return $http.get(urlBaseManufacturer.replace("{id}", id)).then(success, error);
+        };
 
         dataFactory.getAllToxicProduction = function(id, success, error) {
             return $http.get(urlBaseToxic.replace("{id}", id)).then(success, error);
@@ -70,6 +75,30 @@ liquorServices.factory('storeFactory', ['$http',
 
         dataFactory.getAllStores = function(success, error) {
             return $http.get(urlBase).then(success, error);
+        };
+
+        return dataFactory;
+    }
+]);
+
+liquorServices.factory('storeProductionFactory', ['$http',
+    function($http){
+        var urlBaseStore="http://localhost:8080/pa165/rest/store/{id}/";
+        var urlBaseToxic="http://localhost:8080/pa165/rest/store/{id}/production/toxic";
+        var urlBaseNontoxic="http://localhost:8080/pa165/rest/store/{id}/production/nontoxic";
+
+        var dataFactory={};
+
+        dataFactory.getStore = function(id, success, error) {
+            return $http.get(urlBaseStore.replace("{id}", id)).then(success, error);
+        };
+
+        dataFactory.getAllToxicProduction = function(id, success, error) {
+            return $http.get(urlBaseToxic.replace("{id}", id)).then(success, error);
+        };
+
+        dataFactory.getAllNonToxicProduction = function(id, success, error) {
+            return $http.get(urlBaseNontoxic.replace("{id}", id)).then(success, error);
         };
 
         return dataFactory;

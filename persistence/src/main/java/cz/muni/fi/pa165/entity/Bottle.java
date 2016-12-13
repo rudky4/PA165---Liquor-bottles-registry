@@ -24,6 +24,10 @@ public class Bottle {
     @NotNull
     private Date produced;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id")
+    private Store store;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "bottleType_id")
     private BottleType bottleType;
@@ -66,6 +70,14 @@ public class Bottle {
 
     public void setBottleType(BottleType bottleType) {
         this.bottleType = bottleType;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     @Override

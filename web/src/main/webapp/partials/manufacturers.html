@@ -1,9 +1,17 @@
-<h1>Manufacturers</h1>
+<h3>List of manufacturers</h3>
+<br/>
 
-<ul class="manufacturer-list">
-    <li ng-repeat="manufacturer in manufacturers">
-        <h2>{{manufacturer.name}}</h2>
-        <p>{{manufacturer.id}}</p>
-        <a ng-if="isPolice" ng-href="#/manufacturer/{{manufacturer.id}}/production">Production statistics</a>
-    </li>
-</ul>
+<table class="table">
+    <thead class="thead-inverse">
+    <tr>
+        <th>Name</th>
+        <th ng-if="isPolice">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="manufacturer in manufacturers">
+        <th scope="row">{{manufacturer.name}}</td>
+        <td ng-if="isPolice"><a ng-href="#/manufacturer/{{manufacturer.id}}/production">Statistics</a></td>
+    </tr>
+    </tbody>
+</table>

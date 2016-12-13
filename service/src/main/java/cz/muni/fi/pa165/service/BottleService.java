@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Store;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,10 @@ public interface BottleService {
     List<Bottle> getAllToxicBottlesFromManufacturer(Manufacturer manufacturer);
 
     List<Bottle> getAllNonToxicBottlesFromManufacturer(Manufacturer manufacturer);
+
+    List<Bottle> getAllToxicBottlesInStore(Store store);
+
+    List<Bottle> getAllNonToxicBottlesInStore(Store store);
 
     List<Bottle> getAllBottlesFromManufacturerFromDate(Manufacturer manufacturer, Date date);
 

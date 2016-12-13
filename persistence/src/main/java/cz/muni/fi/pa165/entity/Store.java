@@ -21,7 +21,7 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<Person> persons;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "store")
     private List<Bottle> bottles;
 
     public Long getId() {
@@ -74,6 +74,6 @@ public class Store {
 
     @Override
     public int hashCode() {
-        return name.hashCode() * 21;
+        return (name != null) ? name.hashCode() * 21 : 0;
     } 
 }

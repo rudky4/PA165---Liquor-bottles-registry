@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dao.BottleDAO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Store;
 import cz.muni.fi.pa165.exceptions.BottleIsAlreadyMarkedAsToxic;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,16 @@ public class BottleServiceImpl implements BottleService {
     @Override
     public List<Bottle> getAllNonToxicBottlesFromManufacturer(Manufacturer manufacturer) {
         return bottleDAO.getAllBottlesFromManufacturerWithToxicity(manufacturer, false);
+    }
+
+    @Override
+    public List<Bottle> getAllToxicBottlesInStore(Store store) {
+        return bottleDAO.getAllBottlesFromStoreWithToxicity(store, true);
+    }
+
+    @Override
+    public List<Bottle> getAllNonToxicBottlesInStore(Store store) {
+        return bottleDAO.getAllBottlesFromStoreWithToxicity(store, false);
     }
 
     @Override

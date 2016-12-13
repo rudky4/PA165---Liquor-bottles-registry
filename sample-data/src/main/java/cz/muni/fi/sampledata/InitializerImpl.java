@@ -1,5 +1,6 @@
 package cz.muni.fi.sampledata;
 
+import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.AlcoholType;
 import cz.muni.fi.pa165.enums.PersonRole;
@@ -38,9 +39,9 @@ public class InitializerImpl implements Initializer {
     public void loadData() {
         createManufacturers();
         createBottleTypes();
+        createStores();
         createBottles();
         createPersons();
-        createStores();
     }
 
     private void createPersons() {
@@ -70,17 +71,15 @@ public class InitializerImpl implements Initializer {
         Store store1 = new Store();
         store1.setName("Store 1");
         store1.setPersons(Collections.emptyList());
-        store1.setBottles(Collections.emptyList());
 
         Store store2 = new Store();
         store2.setName("Store 2");
         store2.setPersons(Collections.emptyList());
-        store2.setBottles(Collections.emptyList());
 
         Store store3 = new Store();
         store3.setName("Store 3");
         store3.setPersons(Collections.emptyList());
-        store3.setBottles(Collections.emptyList());
+        store3.setBottles(bottleService.findAll());
 
         storeService.createStore(store1);
         storeService.createStore(store2);
@@ -122,14 +121,16 @@ public class InitializerImpl implements Initializer {
 
     private void createBottles() {
         List<BottleType> bottleTypes = bottleTypeService.findAll();
+        List<Store> store = storeService.findAll();
         Date date = timeService.getCurrentDate();
 
         for(int i=0; i<bottleTypes.size(); i++) {
             Bottle bottle = new Bottle();
             bottle.setToxic(true);
             bottle.setProduced(date);
-            bottle.setStickerID("StickerIDT" + i);
+            bottle.setStickerID("StickerID_T" + i);
             bottle.setBottleType(bottleTypes.get(i));
+            bottle.setStore(store.get(0));
             bottleService.createBottle(bottle);
         }
 
@@ -137,9 +138,21 @@ public class InitializerImpl implements Initializer {
             Bottle bottle = new Bottle();
             bottle.setToxic(false);
             bottle.setProduced(date);
-            bottle.setStickerID("StickerIDNT" + i);
+            bottle.setStickerID("StickerID_NT" + i);
             bottle.setBottleType(bottleTypes.get(i));
+            bottle.setStore(store.get(0));
+            bottleService.createBottle(bottle);
+        }
+
+        for(int i=0; i<bottleTypes.size(); i++) {
+            Bottle bottle = new Bottle();
+            bottle.setToxic(false);
+            bottle.setProduced(date);
+            bottle.setStickerID("StickerID_NT2_" + i);
+            bottle.setBottleType(bottleTypes.get(i));
+            bottle.setStore(store.get(1));
             bottleService.createBottle(bottle);
         }
     }
+
 }

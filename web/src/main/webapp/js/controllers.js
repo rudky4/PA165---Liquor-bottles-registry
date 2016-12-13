@@ -55,12 +55,63 @@ liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $ro
             }
         }
     );
+    manufacturerProductionFactory.getManufacturer(
+        $routeParams.id,
+        function (response) {
+            $scope.manufacturer = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );
 });
 
 liquorControllers.controller('storeCtrl', function ($scope, $rootScope, $location, storeFactory) {
     storeFactory.getAllStores(
         function (response) {
             $scope.stores = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );
+});
+
+liquorControllers.controller('storeProductionCtrl', function ($scope, $rootScope, $location, $routeParams, storeProductionFactory) {
+    storeProductionFactory.getStore(
+        $routeParams.id,
+        function (response) {
+            $scope.store = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );
+    storeProductionFactory.getAllToxicProduction(
+        $routeParams.id,
+        function (response) {
+            $scope.toxicBottles = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );
+    storeProductionFactory.getAllNonToxicProduction(
+        $routeParams.id,
+        function (response) {
+            $scope.nonToxicBottles = response.data;
         },
         function(response) {
             if (response.status == 403) {

@@ -22,6 +22,10 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/stores.html',
             controller: 'storeCtrl'
         })
+        .when('/store/:id/production', {
+            templateUrl: 'partials/store_production.html',
+            controller: 'storeProductionCtrl'
+        })
         .when('/unauthorized', {
             templateUrl: 'partials/unauthorized.html'
         })

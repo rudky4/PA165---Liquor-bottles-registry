@@ -3,6 +3,7 @@ package cz.muni.fi.pa165;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Store;
 import cz.muni.fi.pa165.enums.AlcoholType;
 
 import java.math.BigDecimal;
@@ -25,6 +26,7 @@ import javax.validation.ConstraintViolationException;
  */
 public class BottleDAOTest extends AbstractDAOTest {
 
+    private Store store;
     private BottleType dzama_rhum;
     private Bottle b1;
     private Bottle b2;
@@ -38,17 +40,23 @@ public class BottleDAOTest extends AbstractDAOTest {
         dzama_rhum.setVolume(BigDecimal.valueOf(40));
         bottleTypeDAO.save(dzama_rhum);
 
+        store = new Store();
+        store.setName("storeName");
+        storeDAO.save(store);
+
         b1 = new Bottle();
         b1.setToxic(false);
         b1.setStickerID("ID1");
         b1.setProduced(new Date());
         b1.setBottleType(dzama_rhum);
+        b1.setStore(store);
 
         b2 = new Bottle();
         b2.setToxic(false);
         b2.setStickerID("ID2");
         b2.setProduced(new Date());
         b2.setBottleType(dzama_rhum);
+        b2.setStore(store);
 
         bottleDAO.save(b1);
         bottleDAO.save(b2);
@@ -80,6 +88,7 @@ public class BottleDAOTest extends AbstractDAOTest {
         assertEquals(b1.getProduced(), bottle.getProduced());
         assertEquals(b1.getStickerID(), bottle.getStickerID());
         assertEquals(b1.getBottleType(), bottle.getBottleType());
+        assertEquals(b1.getStore(), bottle.getStore());
     }
 
     @Test

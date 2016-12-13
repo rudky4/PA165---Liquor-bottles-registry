@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dao;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Store;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -50,6 +51,12 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
             "WHERE bt.manufacturedBy=:manufacturer AND b.toxic=:isToxic")
     List<Bottle> getAllBottlesFromManufacturerWithToxicity(
             @Param("manufacturer") Manufacturer manufacturer,
+            @Param("isToxic") boolean isToxic);
+
+    @Query("SELECT b FROM Bottle b " +
+            "WHERE b.store=:store AND b.toxic=:isToxic")
+    List<Bottle> getAllBottlesFromStoreWithToxicity(
+            @Param("store") Store store,
             @Param("isToxic") boolean isToxic);
 
     Bottle findByStickerID(String id);

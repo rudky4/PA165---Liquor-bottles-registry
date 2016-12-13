@@ -3,9 +3,11 @@ package cz.muni.fi.pa165.facade;
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
 import cz.muni.fi.pa165.dto.ManufacturerDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Store;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.BottleService;
 import org.springframework.stereotype.Service;
@@ -62,6 +64,20 @@ public class BottleFacadeImpl implements BottleFacade {
     public List<BottleDTO> getAllNonToxicBottlesFromManufacturer(ManufacturerDTO manufacturerDTO) {
         Manufacturer manufacturer = beanMappingService.mapTo(manufacturerDTO, Manufacturer.class);
         List<Bottle> bottles = bottleService.getAllNonToxicBottlesFromManufacturer(manufacturer);
+        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
+    }
+
+    @Override
+    public List<BottleDTO> getAllToxicBottlesInStore(StoreDTO storeDTO) {
+        Store store = beanMappingService.mapTo(storeDTO, Store.class);
+        List<Bottle> bottles = bottleService.getAllToxicBottlesInStore(store);
+        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
+    }
+
+    @Override
+    public List<BottleDTO> getAllNonToxicBottlesInStore(StoreDTO storeDTO) {
+        Store store = beanMappingService.mapTo(storeDTO, Store.class);
+        List<Bottle> bottles = bottleService.getAllNonToxicBottlesInStore(store);
         return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
     }
 
