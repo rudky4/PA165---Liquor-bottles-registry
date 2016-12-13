@@ -31,7 +31,7 @@ public class BottleServiceTest extends AbstractServiceTest {
 
     @Mock
     private BottleTypeDAO bottleTypeDAO;
-    
+
     @InjectMocks
     @Autowired
     private BottleService bottleService;

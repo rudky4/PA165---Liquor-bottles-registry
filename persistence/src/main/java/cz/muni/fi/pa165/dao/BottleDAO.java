@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dao;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Store;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -27,6 +28,8 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
     List<Bottle> findByBottleType(BottleType bottleType);
 
     List<Bottle> findByToxic(boolean toxic);
+
+    List<Bottle> findByStore(Store store);
 
     @Query("SELECT b FROM Bottle b " +
             "INNER JOIN b.bottleType bt " +

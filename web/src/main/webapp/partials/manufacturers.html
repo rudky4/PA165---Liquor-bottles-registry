@@ -1,0 +1,17 @@
+<h3>List of manufacturers</h3>
+<br/>
+
+<table class="table">
+    <thead class="thead-inverse">
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="manufacturer in manufacturers">
+        <th scope="row">{{manufacturer.name}}</td>
+        <td><a ng-href="#/manufacturer/{{manufacturer.id}}/production">Show production</a></td>
+    </tr>
+    </tbody>
+</table>
