@@ -32,7 +32,7 @@ public class StoreController {
         return storeFacade.findAll();
     }
 
-    @RequestMapping(value = "/{id}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final StoreDTO getStoreById(@PathVariable("id") long id) {
         StoreDTO result = storeFacade.findById(id);
         if (result != null) {
@@ -42,7 +42,7 @@ public class StoreController {
         }
     }
 
-    @RequestMapping(value = "/{id}/bottles/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}/bottles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getStoreGoods(@PathVariable("id") long id) {
         List<BottleDTO> toxicBottles = bottleFacade.getAllBottlesInStore(getStoreById(id));
         if (toxicBottles != null) {
