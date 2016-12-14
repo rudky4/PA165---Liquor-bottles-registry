@@ -6,8 +6,9 @@ var liquorServices = angular.module('liquorServices', []);
 liquorServices.factory('bottleFactory', ['$http',
     function($http){
         var urlBase="http://localhost:8080/pa165/rest/bottle";
-        var dataFactory={};
-
+        var urlBaseSetToxic="http://localhost:8080/pa165/rest/bottle/{id}/settoxic/{value}";
+		var dataFactory={};
+		
         dataFactory.getAllBottles = function(success, error) {
             return $http.get(urlBase).then(success, error);
         };
@@ -15,6 +16,10 @@ liquorServices.factory('bottleFactory', ['$http',
 		dataFactory.getAllToxicBottles = function(success, error) {
             return $http.get(urlBase.concat("/toxic")).then(success, error);
         };
+				
+		dataFactory.setToxic = function(bottleId, toxicity, success, error) {
+			return $http.post(urlBaseSetToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
+		};
 
         return dataFactory;
     }

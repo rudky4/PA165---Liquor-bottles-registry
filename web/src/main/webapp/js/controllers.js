@@ -4,7 +4,7 @@ var liquorControllers = angular.module("liquorControllers", ['liquorServices']);
 liquorControllers.controller('laboratoryCtrl', function ($scope, $rootScope, laboratoryFactory) {
     laboratoryFactory.getAllLaboratories(
         function (response) {
-            $scope.bottles = response.data;
+            $scope.laboratories = response.data;
         },
         function(response) {
             $rootScope.unsuccessfulResponse(response)

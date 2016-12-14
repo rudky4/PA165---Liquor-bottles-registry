@@ -10,7 +10,7 @@
       <th>Size</th>
 	  <th>Type</th>
 	  <th>Manufacturer</th>
-	  <th>Actions</th>
+	  <th>Toxicity</th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +21,10 @@
         <td>{{bottle.bottleType.size}}</td>
         <td>{{bottle.bottleType.type}}</td>
         <td>{{bottle.bottleType.manufacturedBy}}</td>
-		<td><button type="button" class="btn btn-secondary">Remove</button></td>
+		<td>
+			<button type="button" class="btn btn-secondary" ng-click="setToxic(bottle.id, '0')">YES</button> 
+			<button type="button" class="btn btn-secondary" ng-click="setToxic(bottle.id, '1')">NO</button>
+		</td>
     </tr>
   </tbody>
 </table>
