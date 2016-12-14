@@ -1,0 +1,29 @@
+<h3>{{manufacturer.name}}</h3>
+<br/>
+
+<div ng-controller="bottleTypeCtrl">
+    <h4>Produce new bottle type:</h4>
+    <button ng-click="showForm = !showForm" ngInit="showForm = false">Click Me!</button>
+    <form ng-show="showForm">
+        <table>
+            <tr>
+                <th>Name:</th>
+                <th><input name="input" ng-model="bottleType.name" required></th>
+            </tr>
+            <tr>
+                <th>Size:</th>
+                <th><input name="input" ng-model="bottleType.size" required></th>
+            </tr>
+            <tr>
+                <th>Volume:</th>
+                <th><input name="input" ng-model="bottleType.volume" required></th>
+            </tr>
+            <tr>
+                <th>AlcoholType:</th>
+                <th><select ng-model="bottleType.type" ng-options="type for type in ['RUM', 'VODKA', 'WHISKEY', 'COGNAC']"/></th>
+            </tr>
+        </table>
+        <button ng-click="create()">CREATE</button>
+    </form>
+</div>
+<br/>

@@ -57,6 +57,32 @@ liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, 
     );
 });
 
+liquorControllers.controller('bottleTypeCtrl', function ($scope, $rootScope, $location, bottleTypeFactory) {
+    bottleTypeFactory.getAllBottleTypes(
+        function (response) {
+            $scope.bottleTypes = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );
+    $scope.bottleType = {}
+    $scope.create = function() {
+        bottleTypeFactory.createBottleType($scope.bottleType, 1,
+            function (response) {
+            },
+            function(response) {
+                if (response.status == 403) {
+                    $rootScope.page = $location.path();
+                    $location.path("/unauthorized");
+                }
+            });
+    };
+});
+
 liquorControllers.controller('manufacturerCtrl', function ($scope, $rootScope, $location, manufacturerFactory) {
     manufacturerFactory.getAllManufacturers(
         function (response) {

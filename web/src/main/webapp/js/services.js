@@ -37,6 +37,25 @@ liquorServices.factory('laboratoryFactory', ['$http',
     }
 ]);
 
+liquorServices.factory('bottleTypeFactory', ['$http','$log',
+    function($http,$log){
+        var urlBase="http://localhost:8080/pa165/rest/bottleType";
+        var urlBaseCreate="http://localhost:8080/pa165/rest/bottleType/create/{id}";
+        var dataFactory={};
+
+        dataFactory.getAllBottleTypes = function(success, error) {
+            return $http.get(urlBase).then(success, error);
+        };
+
+        dataFactory.createBottleType = function(bottleType, manufacturerId, success, error) {
+            var finalUrl = urlBaseCreate.replace("{id}", manufacturerId);
+            return $http.post(finalUrl, bottleType).then(success, error);
+        };
+
+        return dataFactory;
+    }
+]);
+
 liquorServices.factory('loggedUserFactory', ['$http',
     function($http){
         var urlBase="http://localhost:8080/pa165/rest/user";

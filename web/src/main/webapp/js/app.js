@@ -34,6 +34,10 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/store_bottles.html',
             controller: 'storeBottlesCtrl'
         })
+        .when('/management', {
+            templateUrl: 'partials/management.html',
+            controller: 'manufacturerCtrl'
+        })
         .when('/unauthorized', {
             templateUrl: 'partials/unauthorized.html'
         })
