@@ -13,6 +13,8 @@ public interface BottleTypeService {
 
     void createBottleType(BottleType type);
 
+    void createBottleType(BottleType type, long manufacturerId);
+
     List<BottleType> findAll();
 
     List<BottleType> findByAlcoholType(AlcoholType type);

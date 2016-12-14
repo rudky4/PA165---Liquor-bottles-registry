@@ -61,6 +61,7 @@ public class InitializerImpl implements Initializer {
         p.setName("Rudolf");
         p.setEmail("rudolf@liquor-repository.com");
         p.setRole(PersonRole.MANUFACTURER);
+        p.setManufacturer(manufacturerService.findByName("Manufacturer 1"));
         personService.registerPerson(p, "admin");
 
         p = new Person();

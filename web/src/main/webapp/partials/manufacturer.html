@@ -1,0 +1,56 @@
+<h3>{{manufacturer.name}}</h3>
+<br/>
+
+<div>
+    <button class="btn btn-secondary" ng-click="showForm = !showForm" ngInit="showForm = false">Create new bottle type</button>
+    <form name="formBottleType" ng-submit="create()" ng-show="showForm">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input class="form-control" name="input" ng-model="bottleType.name" required></td>
+            </tr>
+            <tr>
+                <td>Size:</td>
+                <td><input class="form-control" name="input" ng-model="bottleType.size" required></td>
+            </tr>
+            <tr>
+                <td>Volume:</td>
+                <td><input class="form-control" name="input" ng-model="bottleType.volume" required></td>
+            </tr>
+            <tr>
+                <td>AlcoholType:</td>
+                <td>
+                    <select ng-model="bottleType.type" ng-options="type for type in ['RUM', 'VODKA', 'WHISKEY', 'COGNAC']">
+                        <option>Select</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-secondary" type="submit" ng-disabled="formBottleType.$invalid">Create</button>
+    </form>
+</div>
+<br/>
+
+<h3>Your bottle types</h3>
+<table class="table">
+    <thead class="thead-inverse">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Volume</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="type in bottleTypes">
+        <th scope="row">{{type.name}}</td>
+        <td>{{type.type}}</td>
+        <td>{{type.size}}</td>
+        <td>{{type.volume}}</td>
+        <td>
+            <button class="btn btn-secondary" type="button" ng-click="deleteType(type.id)">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -35,8 +35,8 @@ module.config(function ($routeProvider) {
             controller: 'storeBottlesCtrl'
         })
         .when('/management', {
-            templateUrl: 'partials/management.html',
-            controller: 'manufacturerCtrl'
+            templateUrl: 'partials/manufacturer.html',
+            controller: 'manufacturerManagementCtrl'
         })
         .when('/unauthorized', {
             templateUrl: 'partials/unauthorized.html'
