@@ -16,7 +16,6 @@
 	<div class="jumbotron" style="min-height:50%">
         <div class="container">
 			<div id="errorOutput" class="alert alert-danger" style="display: none;" role="alert">Wrong credentials! You can try it again.</div>				
-			<div id="logoutOutput" class="alert alert-info" style="display: none;" role="alert">You have been logged out.</div>				
 			<div class="col-md-4 offset-md-4">
 				<h2>Liquor bottles registry</h2> 
 				<h5>Login</h5>
@@ -55,9 +54,6 @@
 			var url = window.location.href;
 			if (url.indexOf('?error') != -1) {
 				document.getElementById('errorOutput').style.display = 'block';
-			}
-			if (url.indexOf('?logout') != -1) {
-				document.getElementById('logoutOutput').style.display = 'block';
 			}
 		}
 

@@ -1,101 +1,69 @@
 var liquorControllers = angular.module("liquorControllers", ['liquorServices']);
 
 
-liquorControllers.controller('bottleCtrl', function ($scope, $rootScope, $location, bottleFactory) {
-    bottleFactory.getAllBottles(
-        function (response) {
-            $scope.bottles = response.data;
-        },
-        function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
-        }
-    );
-});
-
-liquorControllers.controller('laboratoryCtrl', function ($scope, $rootScope, $location, laboratoryFactory) {
+liquorControllers.controller('laboratoryCtrl', function ($scope, $rootScope, laboratoryFactory) {
     laboratoryFactory.getAllLaboratories(
         function (response) {
             $scope.bottles = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
     );
 });
 
-liquorControllers.controller('toxicBottleCtrl', function ($scope, $rootScope, $location, bottleFactory) {
+liquorControllers.controller('toxicBottleCtrl', function ($scope, $rootScope, bottleFactory) {
     bottleFactory.getAllToxicBottles(
         function (response) {
             $scope.bottles = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
-    );    
-});	
+    );
+});
 
-liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, $location, laboratoryFactory) {
+liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, laboratoryFactory) {
     laboratoryFactory.getBottlesForLab(
         function (response) {
             $scope.bottles = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
     );
 });
 
-liquorControllers.controller('manufacturerCtrl', function ($scope, $rootScope, $location, manufacturerFactory) {
+liquorControllers.controller('manufacturerCtrl', function ($scope, $rootScope, manufacturerFactory) {
     manufacturerFactory.getAllManufacturers(
         function (response) {
             $scope.manufacturers = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
     );
 });
 
-liquorControllers.controller('storeCtrl', function ($scope, $rootScope, $location, storeFactory) {
+liquorControllers.controller('storeCtrl', function ($scope, $rootScope, storeFactory) {
     storeFactory.getAllStores(
         function (response) {
             $scope.stores = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
     );
 });
 
-liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $rootScope, $location, $routeParams, manufacturerProductionFactory) {
+liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $rootScope, $routeParams, manufacturerProductionFactory) {
     manufacturerProductionFactory.getProduction(
         $routeParams.id,
         function (response) {
             $scope.bottles = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
     );
     manufacturerProductionFactory.getManufacturer(
@@ -104,25 +72,18 @@ liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $ro
             $scope.manufacturer = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
-        }
-    );
+            $rootScope.unsuccessfulResponse(response)
+        })
 });
 
-liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $location, $routeParams, storeBottlesFactory) {
+liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $routeParams, storeBottlesFactory) {
     storeBottlesFactory.getStore(
         $routeParams.id,
         function (response) {
             $scope.store = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
     );
     storeBottlesFactory.getBottles(
@@ -131,10 +92,7 @@ liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $
             $scope.bottles = response.data;
         },
         function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
+            $rootScope.unsuccessfulResponse(response)
         }
     );
 });

@@ -6,10 +6,6 @@ module.config(function ($routeProvider) {
         .when('/', {
             templateUrl: 'partials/home.html'
         })
-        .when('/bottle', {
-            templateUrl: 'partials/bottle.html',
-            controller: 'bottleCtrl'
-        })
 		.when('/laboratory', {
             templateUrl: 'partials/laboratory.html',
             controller: 'laboratoryCtrl'
@@ -28,7 +24,8 @@ module.config(function ($routeProvider) {
         })
         .when('/store', {
             templateUrl: 'partials/stores.html',
-            controller: 'storeCtrl'
+            controller: 'storeCtrl',
+            component: 'store'
         })
         .when('/store/:id/bottles', {
             templateUrl: 'partials/store_bottles.html',
@@ -44,36 +41,26 @@ module.config(function ($routeProvider) {
         .otherwise({ redirectTo: '/' });
 });
 
-module.run(function($rootScope) {
-    $rootScope.unsuccessfulResponse = function(response) {
-        if (response.status == 403) {
-          $rootScope.page = $location.path();
-          $location.path("/unauthorized");
-        }
-    }
-})
-
-module.run(function($rootScope, loggedUserFactory) {
+module.run(function($rootScope, $location, $window, loggedUserFactory) {
     loggedUserFactory.getPrincipal(
         function(response) {
-            $rootScope.principal = response.data;
+
+            var values = JSON.parse(response.data);
+
+            $rootScope.principal = values.username;
+            $rootScope.role = values.role
         },
         function (response) {
             alert("Error getting logged in user");
         }
     );
-});
 
-module.run(function($rootScope, roleFactory) {
-    roleFactory.getRole(
-        function(response) {
-            $rootScope.role = response.data;
-            $rootScope.isRole = function(roleName) {
-                return $rootScope.role == roleName;
-            }
-        },
-        function (response) {
-            alert("Error getting user role");
+    $rootScope.unsuccessfulResponse = function(response) {
+        if (response.status == 403) {
+            $rootScope.page = $location.path();
+            $location.path("/unauthorized");
+        } else if (response.status == 401) {
+            $window.location.href = "login.html"
         }
-    );
+    }
 });
