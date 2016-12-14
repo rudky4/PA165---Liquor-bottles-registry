@@ -41,6 +41,6 @@ public class LaboratoryServiceImpl implements LaboratoryService{
     
     @Override
     public List<Bottle> getBottlesToCheck(Long id){
-        return laboratoryDAO.findOne(id).getBottlesToCheck();        
+        return laboratoryDAO.findOne(id).getBottlesToCheck();
     }
 }

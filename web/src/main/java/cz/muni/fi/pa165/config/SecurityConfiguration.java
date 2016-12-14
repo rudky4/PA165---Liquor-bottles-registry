@@ -33,11 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/rest/lab/bottles").hasRole("LAB")
                 .antMatchers(HttpMethod.GET, "/rest/bottle").hasRole("CUSTOMER")
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login.html").permitAll().and()
-                .formLogin().loginPage("/login.html?logout").permitAll().and()
-                .formLogin().loginPage("/index.html").permitAll().and()
                 .logout().logoutUrl("/logout.html").logoutSuccessUrl("/login.html?logout").and().csrf().disable();
     }
 

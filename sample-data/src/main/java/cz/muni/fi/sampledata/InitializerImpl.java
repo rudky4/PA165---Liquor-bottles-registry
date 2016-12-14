@@ -124,18 +124,17 @@ public class InitializerImpl implements Initializer {
     }
     
     private void createLaboratory(){
+        Laboratory lab = new Laboratory();
+        lab.setName("BestLab");
+        labService.createLaboratory(lab);
+
         Person p = new Person();
         p.setLogin("laboratory");
         p.setName("Sherlock");
         p.setEmail("lab@liquor-repository.com");
         p.setRole(PersonRole.LAB);
-        personService.registerPerson(p, "laboratory"); 
-        
-        List<Person> persons = Arrays.asList(p);
-        Laboratory lab = new Laboratory();
-        lab.setName("BestLab");
-        lab.setPersons(persons);
-        labService.createLaboratory(lab);
+        p.setLaboratory(lab);
+        personService.registerPerson(p, "laboratory");
         
         List<BottleType> bottleTypes = bottleTypeService.findAll();
         Date date = timeService.getCurrentDate();
