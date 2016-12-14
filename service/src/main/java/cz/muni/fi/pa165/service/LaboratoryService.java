@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service;
 
+import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Laboratory;
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface LaboratoryService {
     Laboratory findById(Long id);
     
     Laboratory findByName(String name);
+    
+    List<Bottle>getBottlesToCheck(Long id);
 }

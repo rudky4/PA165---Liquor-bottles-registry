@@ -11,6 +11,27 @@ liquorServices.factory('bottleFactory', ['$http',
         dataFactory.getAllBottles = function(success, error) {
             return $http.get(urlBase).then(success, error);
         };
+		
+		dataFactory.getAllToxicBottles = function(success, error) {
+            return $http.get(urlBase.concat("/toxic")).then(success, error);
+        };
+
+        return dataFactory;
+    }
+]);
+
+liquorServices.factory('laboratoryFactory', ['$http',
+    function($http){
+        var urlBase="http://localhost:8080/pa165/rest/laboratory";
+        var dataFactory={};
+
+        dataFactory.getAllLaboratories = function(success, error) {
+            return $http.get(urlBase).then(success, error);
+        };
+		
+		dataFactory.getBottlesForLab = function(success, error) {
+            return $http.get(urlBase.concat("/bottles")).then(success, error);
+        };
 
         return dataFactory;
     }

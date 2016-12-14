@@ -15,6 +15,48 @@ liquorControllers.controller('bottleCtrl', function ($scope, $rootScope, $locati
     );
 });
 
+liquorControllers.controller('laboratoryCtrl', function ($scope, $rootScope, $location, laboratoryFactory) {
+    laboratoryFactory.getAllLaboratories(
+        function (response) {
+            $scope.bottles = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );
+});
+
+liquorControllers.controller('toxicBottleCtrl', function ($scope, $rootScope, $location, bottleFactory) {
+    bottleFactory.getAllToxicBottles(
+        function (response) {
+            $scope.bottles = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );    
+});	
+
+liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, $location, laboratoryFactory) {
+    laboratoryFactory.getBottlesForLab(
+        function (response) {
+            $scope.bottles = response.data;
+        },
+        function(response) {
+            if (response.status == 403) {
+                $rootScope.page = $location.path();
+                $location.path("/unauthorized");
+            }
+        }
+    );
+});
+
 liquorControllers.controller('manufacturerCtrl', function ($scope, $rootScope, $location, manufacturerFactory) {
     manufacturerFactory.getAllManufacturers(
         function (response) {

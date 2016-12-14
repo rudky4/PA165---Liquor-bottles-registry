@@ -1,6 +1,5 @@
 package cz.muni.fi.sampledata;
 
-import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.AlcoholType;
 import cz.muni.fi.pa165.enums.PersonRole;
@@ -10,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,9 @@ public class InitializerImpl implements Initializer {
     private TimeService timeService;
     @Inject
     private PersonService personService;
-
+    @Inject
+    private LaboratoryService labService;
+    
     @Override
     public void loadData() {
         createManufacturers();
@@ -42,6 +45,7 @@ public class InitializerImpl implements Initializer {
         createStores();
         createBottles();
         createPersons();
+        createLaboratory();
     }
 
     private void createPersons() {
@@ -116,6 +120,35 @@ public class InitializerImpl implements Initializer {
 
             bottleTypeService.createBottleType(bottleType1);
             bottleTypeService.createBottleType(bottleType2);
+        }
+    }
+    
+    private void createLaboratory(){
+        Person p = new Person();
+        p.setLogin("laboratory");
+        p.setName("Sherlock");
+        p.setEmail("lab@liquor-repository.com");
+        p.setRole(PersonRole.LAB);
+        personService.registerPerson(p, "laboratory"); 
+        
+        List<Person> persons = Arrays.asList(p);
+        Laboratory lab = new Laboratory();
+        lab.setName("BestLab");
+        lab.setPersons(persons);
+        labService.createLaboratory(lab);
+        
+        List<BottleType> bottleTypes = bottleTypeService.findAll();
+        Date date = timeService.getCurrentDate();
+        lab = labService.findAll().get(0);  
+        
+        for(int i=0; i<bottleTypes.size(); i++) {
+            Bottle bottle = new Bottle();
+            bottle.setToxic(false);
+            bottle.setProduced(date);
+            bottle.setStickerID("TestLab" + i);
+            bottle.setBottleType(bottleTypes.get(i));
+            bottle.setLaboratory(lab);
+            bottleService.createBottle(bottle);
         }
     }
 

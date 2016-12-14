@@ -36,7 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/rest/bottle").hasRole("CUSTOMER")
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login.html").permitAll().and()
-                .logout().logoutUrl("/logout.html").logoutSuccessUrl("/login.html").and().csrf().disable();
+                .formLogin().loginPage("/login.html?logout").permitAll().and()
+                .formLogin().loginPage("/index.html").permitAll().and()
+                .logout().logoutUrl("/logout.html").logoutSuccessUrl("/login.html?logout").and().csrf().disable();
     }
 
 }
