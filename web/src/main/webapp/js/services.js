@@ -37,13 +37,37 @@ liquorServices.factory('laboratoryFactory', ['$http',
     }
 ]);
 
+liquorServices.factory('bottleTypeFactory', ['$http','$log',
+    function($http,$log){
+        var urlBase="http://localhost:8080/pa165/rest/bottleType";
+        var urlBaseCreate="http://localhost:8080/pa165/rest/bottleType/create/{id}";
+        var dataFactory={};
+
+        dataFactory.getAllBottleTypes = function(success, error) {
+            return $http.get(urlBase).then(success, error);
+        };
+
+        dataFactory.createBottleType = function(bottleType, manufacturerId, success, error) {
+            var finalUrl = urlBaseCreate.replace("{id}", manufacturerId);
+            return $http.post(finalUrl, bottleType).then(success, error);
+        };
+
+        return dataFactory;
+    }
+]);
+
 liquorServices.factory('loggedUserFactory', ['$http',
     function($http){
         var urlBase="http://localhost:8080/pa165/rest/user";
+        var urlManufacturer = "http://localhost:8080/pa165/rest/user/manufacturer";
         var dataFactory={};
 
         dataFactory.getPrincipal = function(success, error) {
             return $http.get(urlBase).then(success, error);
+        };
+
+        dataFactory.getManufacturer = function(success, error) {
+            return $http.get(urlManufacturer).then(success, error);
         };
 
         return dataFactory;
@@ -80,6 +104,7 @@ liquorServices.factory('manufacturerProductionFactory', ['$http',
     function($http){
         var urlBaseManufacturer="http://localhost:8080/pa165/rest/manufacturer/{id}/";
         var urlProduction= urlBaseManufacturer + "production/";
+        var urlBottleTypes = urlBaseManufacturer + "bottleTypes";
 
         var dataFactory={};
 
@@ -89,6 +114,10 @@ liquorServices.factory('manufacturerProductionFactory', ['$http',
 
         dataFactory.getProduction = function(id, success, error) {
             return $http.get(urlProduction.replace("{id}", id)).then(success, error);
+        };
+
+        dataFactory.getBottleTypes = function(id, success, error) {
+            return $http.get(urlBottleTypes.replace("{id}", id)).then(success, error);
         };
 
         return dataFactory;

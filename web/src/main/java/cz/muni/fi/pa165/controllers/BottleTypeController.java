@@ -1,15 +1,12 @@
 package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
-import cz.muni.fi.pa165.enums.AlcoholType;
 import cz.muni.fi.pa165.facade.BottleTypeFacade;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,5 +23,12 @@ public class BottleTypeController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleTypeDTO> getBottleTypes() {
         return bottleTypeFacade.findAll();
+    }
+
+    @RequestMapping(value = "/create/{id}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public final void createBottleType(@RequestBody BottleTypeDTO bottleType,
+                                       @PathVariable("id") long manufacturerId) {
+        bottleTypeFacade.createBottleType(bottleType, manufacturerId);
     }
 }

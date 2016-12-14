@@ -12,6 +12,8 @@ import java.util.List;
 public interface BottleTypeFacade {
     void createBottleType(BottleTypeDTO type);
 
+    void createBottleType(BottleTypeDTO type, long manufacturerId);
+
     List<BottleTypeDTO> findAll();
 
     List<BottleTypeDTO> findByAlcoholType(AlcoholType type);

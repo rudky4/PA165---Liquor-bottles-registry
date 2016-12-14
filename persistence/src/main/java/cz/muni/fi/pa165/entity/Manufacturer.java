@@ -77,8 +77,6 @@ public class Manufacturer {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
+        return 31 * (name != null ? name.hashCode() : 0);
     }
 }
