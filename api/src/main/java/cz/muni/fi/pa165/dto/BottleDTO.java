@@ -17,6 +17,8 @@ public class BottleDTO {
 
     private BottleTypeDTO bottleType;
 
+    private StoreDTO store;
+
     public Long getId() {
         return id;
     }
@@ -55,6 +57,14 @@ public class BottleDTO {
 
     public void setBottleType(BottleTypeDTO bottleType) {
         this.bottleType = bottleType;
+    }
+
+    public StoreDTO getStore() {
+        return store;
+    }
+
+    public void setStore(StoreDTO store) {
+        this.store = store;
     }
 
     @Override

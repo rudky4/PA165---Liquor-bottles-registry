@@ -1,0 +1,17 @@
+<h3>List of stores</h3>
+<br/>
+
+<table class="table">
+    <thead class="thead-inverse">
+    <tr>
+        <th>Name</th>
+        <th>Bottles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="store in stores">
+        <th scope="row">{{store.name}}</td>
+        <td><a ng-href="#/store/{{store.id}}/bottles">Show bottles</a></td>
+    </tr>
+    </tbody>
+</table>

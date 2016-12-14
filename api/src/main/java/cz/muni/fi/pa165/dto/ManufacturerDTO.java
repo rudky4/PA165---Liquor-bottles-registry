@@ -15,7 +15,6 @@ public class ManufacturerDTO {
 
     private List<BottleTypeDTO> typesProduced;
 
-
     public Long getId() {
         return id;
     }
