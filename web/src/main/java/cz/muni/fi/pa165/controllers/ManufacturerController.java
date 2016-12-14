@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
+import cz.muni.fi.pa165.dto.BottleTypeDTO;
 import cz.muni.fi.pa165.dto.ManufacturerDTO;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
 import cz.muni.fi.pa165.facade.BottleFacade;
@@ -52,4 +53,13 @@ public class ManufacturerController {
         }
     }
 
+    @RequestMapping(value = "/{id}/bottleTypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleTypeDTO> getManufacturerBottleTypes(@PathVariable("id") long id) {
+        ManufacturerDTO manufacturerDTO = manufacturerFacade.findById(id);
+        if (manufacturerDTO != null) {
+            return manufacturerDTO.getTypesProduced();
+        } else {
+            throw new ResourceNotFound();
+        }
+    }
 }

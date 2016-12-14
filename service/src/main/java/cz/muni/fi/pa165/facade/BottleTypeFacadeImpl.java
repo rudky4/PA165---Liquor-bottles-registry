@@ -31,6 +31,11 @@ public class BottleTypeFacadeImpl implements BottleTypeFacade {
     }
 
     @Override
+    public void createBottleType(BottleTypeDTO type, long manufacturerId) {
+        bottleTypeService.createBottleType(beanMappingService.mapTo(type, BottleType.class), manufacturerId);
+    }
+
+    @Override
     public List<BottleTypeDTO> findAll() {
         List<BottleType> types = bottleTypeService.findAll();
         return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);

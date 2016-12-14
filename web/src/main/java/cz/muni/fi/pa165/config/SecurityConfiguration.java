@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.config;
 
 import cz.muni.fi.pa165.security.CustomAuthenticationProvider;
+import cz.muni.fi.pa165.security.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -24,6 +25,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     private CustomAuthenticationProvider customAuthenticationProvider;
 
+    @Inject
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(customAuthenticationProvider);
@@ -32,12 +36,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/rest/lab/bottles").hasRole("LAB")
                 .antMatchers(HttpMethod.GET, "/rest/bottle").hasRole("CUSTOMER")
+                .antMatchers(HttpMethod.GET, "/rest/store/**").permitAll()
+                .antMatchers("/rest/user").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/partials/**").permitAll()
+                .antMatchers("/index.html").permitAll()
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login.html").permitAll().and()
-                .logout().logoutUrl("/logout.html").logoutSuccessUrl("/login.html?logout").and().csrf().disable();
+                .logout().logoutUrl("/logout.html").logoutSuccessUrl("/index.html?logout").permitAll().and().csrf().disable();
     }
 
 }

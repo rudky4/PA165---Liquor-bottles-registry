@@ -18,9 +18,18 @@ public class BottleTypeServiceImpl implements BottleTypeService {
     @Inject
     private BottleTypeDAO bottleTypeDAO;
 
+    @Inject
+    private ManufacturerService manufacturerService;
+
     @Override
     public void createBottleType(BottleType type) {
         bottleTypeDAO.save(type);
+    }
+
+    @Override
+    public void createBottleType(BottleType type, long manufacturerId) {
+        BottleType stored = bottleTypeDAO.save(type);
+        stored.setManufacturedBy(manufacturerService.findById(manufacturerId));
     }
 
     @Override

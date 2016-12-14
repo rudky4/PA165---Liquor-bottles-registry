@@ -71,8 +71,6 @@ public class ManufacturerDTO {
         return "ManufacturerDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", persons=" + persons +
-                ", typesProduced=" + typesProduced +
                 '}';
     }
 }
