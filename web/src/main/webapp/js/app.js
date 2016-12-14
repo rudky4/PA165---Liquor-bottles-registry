@@ -66,5 +66,5 @@ module.run(function($rootScope, $location, $window, loggedUserFactory) {
         } else if (response.status == 401) {
             $window.location.href = "login.html"
         }
-    }
+    };
 });

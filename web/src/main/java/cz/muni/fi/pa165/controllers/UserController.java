@@ -29,14 +29,18 @@ public class UserController {
 
         List<?> authorities = new ArrayList<>(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
-        return "{\"username\":\"" + SecurityContextHolder.getContext().getAuthentication().getPrincipal() + "\", \"role\":\"" +
+        return "{\"username\":\"" + getLogin() + "\", \"role\":\"" +
                 authorities.get(0) + "\"}";
     }
 
     @RequestMapping(value = "/manufacturer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ManufacturerDTO getPersonsManufacturer() {
-        final String login = getUserPrincipal();
+        final String login = getLogin();
         PersonDTO personDTO = personFacade.findUserByLogin(login);
         return personDTO.getManufacturer();
+    }
+
+    private String getLogin() {
+        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
