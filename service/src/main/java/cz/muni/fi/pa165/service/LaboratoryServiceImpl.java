@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.LaboratoryDAO;
+import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.Laboratory;
 import org.springframework.stereotype.Service;
 
@@ -37,4 +38,9 @@ public class LaboratoryServiceImpl implements LaboratoryService{
     public Laboratory findByName(String name) {
         return laboratoryDAO.findByName(name);
     }   
+    
+    @Override
+    public List<Bottle> getBottlesToCheck(Long id){
+        return laboratoryDAO.findOne(id).getBottlesToCheck();
+    }
 }

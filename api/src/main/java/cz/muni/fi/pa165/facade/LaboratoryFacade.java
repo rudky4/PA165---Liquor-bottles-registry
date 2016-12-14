@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.LaboratoryDTO;
-import cz.muni.fi.pa165.dto.PersonDTO;
 import java.util.List;
 
 /**
@@ -18,4 +17,6 @@ public interface LaboratoryFacade {
     LaboratoryDTO findById(Long id);
     
     LaboratoryDTO findByName(String name);
+    
+    List<BottleDTO> getBottlesToCheck(Long id);
 }

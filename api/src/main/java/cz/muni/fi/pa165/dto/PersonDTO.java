@@ -114,4 +114,19 @@ public class PersonDTO {
         result += (role != null ? role.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "PersonDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", store=" + store +
+                ", manufacturer=" + manufacturer +
+                ", laboratory=" + laboratory +
+                '}';
+    }
 }

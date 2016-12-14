@@ -10,6 +10,14 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/bottle.html',
             controller: 'bottleCtrl'
         })
+		.when('/laboratory', {
+            templateUrl: 'partials/laboratory.html',
+            controller: 'laboratoryCtrl'
+        })
+		.when('/laboratory/bottles', {
+            templateUrl: 'partials/toxic_bottle.html',
+            controller: 'bottlesForLabCtrl'
+        })
         .when('/manufacturer', {
             templateUrl: 'partials/manufacturers.html',
             controller: 'manufacturerCtrl'
@@ -29,6 +37,10 @@ module.config(function ($routeProvider) {
         .when('/unauthorized', {
             templateUrl: 'partials/unauthorized.html'
         })
+		.when('/bottle/toxic', {
+            templateUrl: 'partials/toxic_bottle.html',
+            controller: 'toxicBottleCtrl'
+		})
         .otherwise({ redirectTo: '/' });
 });
 

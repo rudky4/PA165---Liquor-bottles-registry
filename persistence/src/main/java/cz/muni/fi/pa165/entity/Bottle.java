@@ -31,6 +31,10 @@ public class Bottle {
     @ManyToOne(optional = false)
     @JoinColumn(name = "bottleType_id")
     private BottleType bottleType;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "laboratory_id")
+    private Laboratory laboratory;
 
     public Long getId() {
         return id;
@@ -78,6 +82,14 @@ public class Bottle {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+    
+    public Laboratory getLaboratory() {
+        return laboratory;
+    }
+
+    public void setLaboratory(Laboratory laboratory) {
+        this.laboratory = laboratory;
     }
 
     @Override

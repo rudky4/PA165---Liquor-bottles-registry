@@ -64,6 +64,6 @@ public class LaboratoryDTO {
 
     @Override
     public String toString() {
-        return "LaboratoryDTO{" + "id=" + id + ", name=" + name + ", persons=" + persons + ", bottlesToCheck=" + bottlesToCheck + '}';
+        return "LaboratoryDTO{" + "id=" + id + ", name=" + name + "}";
     }
 }

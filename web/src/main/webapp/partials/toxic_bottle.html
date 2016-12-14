@@ -1,0 +1,27 @@
+<h3>List of toxic bottles</h3>
+<br/>
+
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>Sticker ID</th>
+	  <th>Name</th>
+      <th>Production date</th>      
+      <th>Size</th>
+	  <th>Type</th>
+	  <th>Manufacturer</th>
+	  <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="bottle in bottles">
+        <th scope="row">{{bottle.stickerID}}</th>        
+        <td>{{bottle.bottleType.name}}</td>
+		<td>{{bottle.produced}}</td>
+        <td>{{bottle.bottleType.size}}</td>
+        <td>{{bottle.bottleType.type}}</td>
+        <td>{{bottle.bottleType.manufacturedBy}}</td>
+		<td><button type="button" class="btn btn-secondary">Remove</button></td>
+    </tr>
+  </tbody>
+</table>

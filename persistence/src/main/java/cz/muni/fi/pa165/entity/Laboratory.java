@@ -25,7 +25,7 @@ public class Laboratory {
     @OneToMany(mappedBy = "laboratory")
     private List<Person> persons;
 
-    @OneToMany
+    @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
     private List<Bottle> bottlesToCheck;
 
     public void setId(Long id) {

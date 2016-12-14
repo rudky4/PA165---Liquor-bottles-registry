@@ -19,6 +19,8 @@ public class BottleDTO {
 
     private StoreDTO store;
 
+    private LaboratoryDTO laboratory;
+    
     public Long getId() {
         return id;
     }
@@ -65,6 +67,14 @@ public class BottleDTO {
 
     public void setStore(StoreDTO store) {
         this.store = store;
+    }
+    
+    public LaboratoryDTO getLaboratory() {
+        return laboratory;
+    }
+
+    public void setLaboratory(LaboratoryDTO laboratory) {
+        this.laboratory = laboratory;
     }
 
     @Override

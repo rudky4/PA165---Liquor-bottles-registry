@@ -24,6 +24,11 @@ public class BottleController {
     public final List<BottleDTO> getBottles() {
         return bottleFacade.findAll();
     }
+    
+    @RequestMapping(value = "/toxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleDTO> getToxicBottles() {
+        return bottleFacade.getAllToxicBottles();
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final BottleDTO getBottleById(@PathVariable("id") long id) {
