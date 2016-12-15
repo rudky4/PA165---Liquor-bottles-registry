@@ -47,5 +47,6 @@ public class BottleController {
             result.setToxic(isToxic == 1);
             result.setLaboratory(null);
         }
+        bottleFacade.updateBottle(result);
     }    
 }

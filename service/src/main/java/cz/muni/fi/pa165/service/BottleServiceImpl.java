@@ -96,4 +96,9 @@ public class BottleServiceImpl implements BottleService {
     public Bottle findByStickerId(String id) {
         return bottleDAO.findByStickerID(id);
     }
+    
+    @Override
+    public void updateBottle(Bottle bottle){
+        bottleDAO.save(bottle);
+    }
 }
