@@ -6,9 +6,7 @@ liquorControllers.controller('laboratoryCtrl', function ($scope, $rootScope, lab
         function (response) {
             $scope.laboratories = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
 });
 
@@ -17,9 +15,7 @@ liquorControllers.controller('toxicBottleCtrl', function ($scope, $rootScope, bo
         function (response) {
             $scope.bottles = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
 });
 
@@ -28,9 +24,7 @@ liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, 
         function (response) {
             $scope.bottles = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
     $scope.setToxic = function(bottleId, toxicity) {
         bottleFactory.setToxic(bottleId, toxicity,
@@ -46,9 +40,7 @@ liquorControllers.controller('bottleTypeCtrl', function ($scope, $rootScope, bot
         function (response) {
             $scope.bottleTypes = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
 });
 
@@ -57,9 +49,7 @@ liquorControllers.controller('manufacturerCtrl', function ($scope, $rootScope, m
         function (response) {
             $scope.manufacturers = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
 });
 
@@ -68,9 +58,7 @@ liquorControllers.controller('storeCtrl', function ($scope, $rootScope, storeFac
         function (response) {
             $scope.stores = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
 });
 
@@ -80,18 +68,15 @@ liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $ro
         function (response) {
             $scope.bottles = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
     manufacturerProductionFactory.getManufacturer(
         $routeParams.id,
         function (response) {
             $scope.manufacturer = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        })
+        $rootScope.unsuccessfulResponse
+    );
 });
 
 liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $routeParams, storeBottlesFactory) {
@@ -100,22 +85,18 @@ liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $
         function (response) {
             $scope.store = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
     storeBottlesFactory.getBottles(
         $routeParams.id,
         function (response) {
             $scope.bottles = response.data;
         },
-        function(response) {
-            $rootScope.unsuccessfulResponse(response)
-        }
+        $rootScope.unsuccessfulResponse
     );
 });
 
-liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $rootScope, $location, $routeParams, loggedUserFactory, manufacturerProductionFactory, bottleTypeFactory) {
+liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $rootScope, $routeParams, loggedUserFactory, manufacturerProductionFactory, bottleTypeFactory) {
     loggedUserFactory.getManufacturer(
         function (response) {
             if(response.data != null) {
@@ -123,24 +104,14 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
                 $scope.loadBottleTypes(response.data.id);
             }
         },
-        function(response) {
-            if (response.status == 403) {
-                $rootScope.page = $location.path();
-                $location.path("/unauthorized");
-            }
-        }
+        $rootScope.unsuccessfulResponse
     );
     $scope.loadManufacturer = function(id) {
         manufacturerProductionFactory.getManufacturer(id,
             function (response) {
                 $scope.manufacturer = response.data;
             },
-            function(response) {
-                if (response.status == 403) {
-                    $rootScope.page = $location.path();
-                    $location.path("/unauthorized");
-                }
-            }
+            $rootScope.unsuccessfulResponse
         );
     };
     $scope.loadBottleTypes = function(id) {
@@ -148,12 +119,7 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
             function (response) {
                 $scope.bottleTypes = response.data;
             },
-            function(response) {
-                if (response.status == 403) {
-                    $rootScope.page = $location.path();
-                    $location.path("/unauthorized");
-                }
-            }
+            $rootScope.unsuccessfulResponse
         );
     };
 
@@ -164,12 +130,7 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
                 $scope.bottleType = {}
                 $scope.loadBottleTypes($scope.manufacturer.id);
             },
-            function(response) {
-                if (response.status == 403) {
-                    $rootScope.page = $location.path();
-                    $location.path("/unauthorized");
-                }
-            }
+            $rootScope.unsuccessfulResponse
         );
     };
 });

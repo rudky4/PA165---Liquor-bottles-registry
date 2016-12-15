@@ -2,6 +2,7 @@
  * Created by mhajas on 8/4/15.
  */
 var liquorServices = angular.module('liquorServices', []);
+var urlBase = "http://localhost:8080/pa165/rest";
 
 liquorServices.factory('bottleFactory', ['$http',
     function($http){
@@ -27,15 +28,15 @@ liquorServices.factory('bottleFactory', ['$http',
 
 liquorServices.factory('laboratoryFactory', ['$http',
     function($http){
-        var urlBase="http://localhost:8080/pa165/rest/laboratory";
+        var urlLab = urlBase.concat("/laboratory");
         var dataFactory={};
 
         dataFactory.getAllLaboratories = function(success, error) {
-            return $http.get(urlBase).then(success, error);
+            return $http.get(urlLab).then(success, error);
         };
 		
 		dataFactory.getBottlesForLab = function(success, error) {
-            return $http.get(urlBase.concat("/bottles")).then(success, error);
+            return $http.get(urlLab.concat("/bottles")).then(success, error);
         };
 
         return dataFactory;
@@ -44,16 +45,16 @@ liquorServices.factory('laboratoryFactory', ['$http',
 
 liquorServices.factory('bottleTypeFactory', ['$http','$log',
     function($http,$log){
-        var urlBase="http://localhost:8080/pa165/rest/bottleType";
-        var urlBaseCreate="http://localhost:8080/pa165/rest/bottleType/create/{id}";
+        var urlBottleType = urlBase.concat("/bottleType");
+        var urlCreate = urlBottleType.concat("/create/{id}");
         var dataFactory={};
 
         dataFactory.getAllBottleTypes = function(success, error) {
-            return $http.get(urlBase).then(success, error);
+            return $http.get(urlBottleType).then(success, error);
         };
 
         dataFactory.createBottleType = function(bottleType, manufacturerId, success, error) {
-            var finalUrl = urlBaseCreate.replace("{id}", manufacturerId);
+            var finalUrl = urlCreate.replace("{id}", manufacturerId);
             return $http.post(finalUrl, bottleType).then(success, error);
         };
 
@@ -63,16 +64,15 @@ liquorServices.factory('bottleTypeFactory', ['$http','$log',
 
 liquorServices.factory('loggedUserFactory', ['$http',
     function($http){
-        var urlBase="http://localhost:8080/pa165/rest/user";
-        var urlManufacturer = "http://localhost:8080/pa165/rest/user/manufacturer";
+        var urlUser = urlBase.concat("/user");
         var dataFactory={};
 
         dataFactory.getPrincipal = function(success, error) {
-            return $http.get(urlBase).then(success, error);
+            return $http.get(urlUser).then(success, error);
         };
 
         dataFactory.getManufacturer = function(success, error) {
-            return $http.get(urlManufacturer).then(success, error);
+            return $http.get(urlUser.concat("/manufacturer")).then(success, error);
         };
 
         return dataFactory;
@@ -81,11 +81,11 @@ liquorServices.factory('loggedUserFactory', ['$http',
 
 liquorServices.factory('manufacturerFactory', ['$http',
     function($http){
-        var urlBase="http://localhost:8080/pa165/rest/manufacturer";
+        var urlManufacturer = urlBase.concat("/manufacturer");
         var dataFactory={};
 
         dataFactory.getAllManufacturers = function(success, error) {
-            return $http.get(urlBase).then(success, error);
+            return $http.get(urlManufacturer).then(success, error);
         };
 
         return dataFactory;
@@ -94,11 +94,11 @@ liquorServices.factory('manufacturerFactory', ['$http',
 
 liquorServices.factory('storeFactory', ['$http',
     function($http){
-        var urlBase="http://localhost:8080/pa165/rest/store";
+        var urlStore = urlBase.concat("/store");
         var dataFactory={};
 
         dataFactory.getAllStores = function(success, error) {
-            return $http.get(urlBase).then(success, error);
+            return $http.get(urlStore).then(success, error);
         };
 
         return dataFactory;
@@ -107,14 +107,14 @@ liquorServices.factory('storeFactory', ['$http',
 
 liquorServices.factory('manufacturerProductionFactory', ['$http',
     function($http){
-        var urlBaseManufacturer="http://localhost:8080/pa165/rest/manufacturer/{id}/";
-        var urlProduction= urlBaseManufacturer + "production/";
-        var urlBottleTypes = urlBaseManufacturer + "bottleTypes";
+        var urlManufacturer = urlBase.concat("/manufacturer/{id}");
+        var urlProduction= urlManufacturer.concat("/production");
+        var urlBottleTypes = urlManufacturer.concat("/bottleTypes");
 
         var dataFactory={};
 
         dataFactory.getManufacturer = function(id, success, error) {
-            return $http.get(urlBaseManufacturer.replace("{id}", id)).then(success, error);
+            return $http.get(urlManufacturer.replace("{id}", id)).then(success, error);
         };
 
         dataFactory.getProduction = function(id, success, error) {
@@ -131,13 +131,13 @@ liquorServices.factory('manufacturerProductionFactory', ['$http',
 
 liquorServices.factory('storeBottlesFactory', ['$http',
     function($http){
-        var urlBaseStore= "http://localhost:8080/pa165/rest/store/{id}/";
-        var urlBottles = urlBaseStore + "bottles/";
+        var urlStore = urlBase.concat("/store/{id}");
+        var urlBottles = urlStore.concat("/bottles");
 
         var dataFactory={};
 
         dataFactory.getStore = function(id, success, error) {
-            return $http.get(urlBaseStore.replace("{id}", id)).then(success, error);
+            return $http.get(urlStore.replace("{id}", id)).then(success, error);
         };
 
         dataFactory.getBottles = function(id, success, error) {
@@ -150,7 +150,7 @@ liquorServices.factory('storeBottlesFactory', ['$http',
 
 liquorServices.factory('roleFactory', ['$http',
     function($http){
-        var urlBase="http://localhost:8080/pa165/rest/user/role/";
+        var urlUserRole = baseUrl.concat("/user/role");
         var dataFactory={};
 
         dataFactory.getRole = function(success, error) {
