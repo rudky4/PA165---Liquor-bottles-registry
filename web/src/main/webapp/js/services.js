@@ -6,20 +6,20 @@ var urlBase = "http://localhost:8080/pa165/rest";
 
 liquorServices.factory('bottleFactory', ['$http',
     function($http){
-        var urlBase="http://localhost:8080/pa165/rest/bottle";
-        var urlBaseSetToxic="http://localhost:8080/pa165/rest/bottle/{id}/toxicity/{value}";
+        var urlBottle = urlBase.concat("/bottle");
+        var urlToxic = urlBottle.concat("/{id}/toxicity/{value}");
 		var dataFactory={};
 		
         dataFactory.getAllBottles = function(success, error) {
-            return $http.get(urlBase).then(success, error);
+            return $http.get(urlBottle).then(success, error);
         };
 		
 		dataFactory.getAllToxicBottles = function(success, error) {
-            return $http.get(urlBase.concat("/toxic")).then(success, error);
+            return $http.get(urlBottle.concat("/toxic")).then(success, error);
         };
 				
 		dataFactory.setToxic = function(bottleId, toxicity, success, error) {
-			return $http.post(urlBaseSetToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
+			return $http.put(urlToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
 		};
 
         return dataFactory;

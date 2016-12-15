@@ -7,9 +7,11 @@ package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.LaboratoryDTO;
-import cz.muni.fi.pa165.facade.BottleFacade;
+import cz.muni.fi.pa165.exceptions.ResourceNotFound;
 import cz.muni.fi.pa165.facade.LaboratoryFacade;
 import cz.muni.fi.pa165.facade.PersonFacade;
+
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.http.MediaType;
@@ -35,14 +37,21 @@ public class LabController {
     @RequestMapping(value = "/bottles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getBottlesForLab(){
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long id = personFacade.findUserByLogin(login).getLaboratory().getId();
-        
-        return laboratoryFacade.getBottlesToCheck(id);
+        try {
+            Long id = personFacade.findUserByLogin(login).getLaboratory().getId();
+            return laboratoryFacade.getBottlesToCheck(id);
+        } catch (NullPointerException npe) {
+            throw new ResourceNotFound();
+        }
     }
     
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<LaboratoryDTO> getLaboratories() {
-        return laboratoryFacade.findAll();
+        List<LaboratoryDTO> result = laboratoryFacade.findAll();
+        if(result == null) {
+            result = Collections.emptyList();
+        }
+        return result;
     }
 }
 
