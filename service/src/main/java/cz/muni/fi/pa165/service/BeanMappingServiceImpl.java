@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -22,6 +23,11 @@ public class BeanMappingServiceImpl implements BeanMappingService {
     @Override
     public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         return objects.stream().map(o -> mapper.map(o, mapToClass)).collect(Collectors.toList());
+    }
+
+    @Override
+    public <T> Set<T> mapTo(Set<?> objects, Class<T> mapToClass) {
+        return objects.stream().map(o -> mapper.map(o, mapToClass)).collect(Collectors.toSet());
     }
 
     @Override

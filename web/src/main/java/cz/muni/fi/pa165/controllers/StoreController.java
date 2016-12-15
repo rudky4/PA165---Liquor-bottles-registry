@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Martin Sumera
@@ -50,6 +51,11 @@ public class StoreController {
         } else {
             throw new ResourceNotFound();
         }
+    }
+
+    @RequestMapping(value = "bottleType/{id}", method = RequestMethod.GET)
+    public final Set<StoreDTO> getStoresByBottleType(@PathVariable("id") long bottleTypeId) {
+        return storeFacade.findByBottleType(bottleTypeId);
     }
 
 }

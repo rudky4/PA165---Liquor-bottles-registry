@@ -35,10 +35,21 @@ liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, 
     };
 });
 
-liquorControllers.controller('bottleTypeCtrl', function ($scope, $rootScope, bottleTypeFactory) {
+liquorControllers.controller('bottleTypesCtrl', function ($scope, $rootScope, bottleTypeFactory) {
+    $scope.header = "List of bottle types";
     bottleTypeFactory.getAllBottleTypes(
         function (response) {
             $scope.bottleTypes = response.data;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+});
+
+liquorControllers.controller('storeBottleTypeCtrl', function ($scope, $rootScope, $routeParams, storeFactory) {
+    storeFactory.gotStoreByBottleType(
+        $routeParams.id,
+        function (response) {
+            $scope.stores = response.data;
         },
         $rootScope.unsuccessfulResponse
     );
@@ -62,15 +73,15 @@ liquorControllers.controller('storeCtrl', function ($scope, $rootScope, storeFac
     );
 });
 
-liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $rootScope, $routeParams, manufacturerProductionFactory) {
-    manufacturerProductionFactory.getProduction(
+liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $rootScope, $routeParams, manufacturerFactory) {
+    manufacturerFactory.getProduction(
         $routeParams.id,
         function (response) {
             $scope.bottles = response.data;
         },
         $rootScope.unsuccessfulResponse
     );
-    manufacturerProductionFactory.getManufacturer(
+    manufacturerFactory.getManufacturer(
         $routeParams.id,
         function (response) {
             $scope.manufacturer = response.data;
@@ -79,15 +90,37 @@ liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $ro
     );
 });
 
-liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $routeParams, storeBottlesFactory) {
-    storeBottlesFactory.getStore(
+liquorControllers.controller('manufacturerTypesCtrl', function ($scope, $rootScope, $routeParams, manufacturerFactory) {
+
+    manufacturerFactory.getManufacturer(
+        $routeParams.id,
+        function (response) {
+            $scope.manufacturer = response.data;
+            $scope.header = "Bottles for " + $scope.manufacturer.name;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+    manufacturerFactory.getBottleTypes(
+        $routeParams.id,
+        function (response) {
+            $scope.bottleTypes = response.data;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+});
+
+
+
+liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $routeParams, storeFactory) {
+    storeFactory.getStore(
         $routeParams.id,
         function (response) {
             $scope.store = response.data;
         },
         $rootScope.unsuccessfulResponse
     );
-    storeBottlesFactory.getBottles(
+    storeFactory.getBottles(
         $routeParams.id,
         function (response) {
             $scope.bottles = response.data;
@@ -96,7 +129,7 @@ liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $
     );
 });
 
-liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $rootScope, $routeParams, loggedUserFactory, manufacturerProductionFactory, bottleTypeFactory) {
+liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $rootScope, $routeParams, loggedUserFactory, manufacturerFactory, bottleTypeFactory) {
     loggedUserFactory.getManufacturer(
         function (response) {
             if(response.data != null) {
@@ -107,7 +140,7 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
         $rootScope.unsuccessfulResponse
     );
     $scope.loadManufacturer = function(id) {
-        manufacturerProductionFactory.getManufacturer(id,
+        manufacturerFactory.getManufacturer(id,
             function (response) {
                 $scope.manufacturer = response.data;
             },
@@ -115,7 +148,7 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
         );
     };
     $scope.loadBottleTypes = function(id) {
-        manufacturerProductionFactory.getBottleTypes(id,
+        manufacturerFactory.getBottleTypes(id,
             function (response) {
                 $scope.bottleTypes = response.data;
             },

@@ -53,7 +53,7 @@ public class PersonServiceTest extends AbstractServiceTest {
         person2.setName("name");
         person2.setLogin("login2");
         person2.setEmail("name2@mail.cz");
-        person2.setRole(PersonRole.CUSTOMER);
+        person2.setRole(PersonRole.LAB);
 
         personList = new ArrayList<>();
         personList.add(person1);
