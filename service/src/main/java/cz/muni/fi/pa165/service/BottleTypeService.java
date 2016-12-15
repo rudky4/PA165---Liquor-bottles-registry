@@ -15,6 +15,8 @@ public interface BottleTypeService {
 
     void createBottleType(BottleType type, long manufacturerId);
 
+    void updateBottleType(BottleType bottleType);
+
     void deleteBottleType(long id);
 
     List<BottleType> findAll();

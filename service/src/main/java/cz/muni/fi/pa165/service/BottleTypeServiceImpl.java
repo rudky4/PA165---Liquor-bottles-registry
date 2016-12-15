@@ -33,8 +33,14 @@ public class BottleTypeServiceImpl implements BottleTypeService {
     }
 
     @Override
+    public void updateBottleType(BottleType bottleType) {
+        bottleTypeDAO.save(bottleType);
+    }
+
+    @Override
     public void deleteBottleType(long id) {
-        bottleTypeDAO.delete(id);
+        BottleType bottleType = bottleTypeDAO.findOne(id);
+        bottleType.setDeleted(true);
     }
 
     @Override

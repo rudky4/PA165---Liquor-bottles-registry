@@ -20,6 +20,8 @@ public class BottleTypeDTO {
 
     private ManufacturerDTO manufacturedBy;
 
+    private boolean deleted;
+
     public Long getId() {
         return id;
     }
@@ -66,6 +68,14 @@ public class BottleTypeDTO {
 
     public void setManufacturedBy(ManufacturerDTO manufacturedBy) {
         this.manufacturedBy = manufacturedBy;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

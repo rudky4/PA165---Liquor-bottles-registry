@@ -14,6 +14,8 @@ public interface BottleTypeFacade {
 
     void createBottleType(BottleTypeDTO type, long manufacturerId);
 
+    void updateBottleType(BottleTypeDTO bottleType);
+
     void deleteBottleType(long id);
 
     List<BottleTypeDTO> findAll();

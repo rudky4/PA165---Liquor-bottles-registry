@@ -32,9 +32,14 @@ public class BottleTypeController {
         bottleTypeFacade.createBottleType(bottleType, manufacturerId);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public final void updateBottleType(@RequestBody BottleTypeDTO bottleType,
+                                       @PathVariable("id") long typeId) {
+        bottleTypeFacade.updateBottleType(bottleType);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public final void deleteBottleType(@PathVariable("id") long id) {
-        System.out.println("Delete bottle with id=" + id);
         bottleTypeFacade.deleteBottleType(id);
     }
 }
