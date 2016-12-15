@@ -138,6 +138,7 @@ public class InitializerImpl implements Initializer {
         personService.registerPerson(p, "laboratory");
         
         List<BottleType> bottleTypes = bottleTypeService.findAll();
+        Store store = storeService.findAll().get(0);
         Date date = timeService.getCurrentDate();
         lab = labService.findAll().get(0);  
         
@@ -146,8 +147,9 @@ public class InitializerImpl implements Initializer {
             bottle.setToxic(false);
             bottle.setProduced(date);
             bottle.setStickerID("TestLab" + i);
+            bottle.setStore(store);
             bottle.setBottleType(bottleTypes.get(i));
-            bottle.setLaboratory(lab);
+            bottle.setLaboratory(i % 2 == 0 ? lab : null);
             bottleService.createBottle(bottle);
         }
     }

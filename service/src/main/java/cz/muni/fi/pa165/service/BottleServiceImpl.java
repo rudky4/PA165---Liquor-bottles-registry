@@ -52,6 +52,11 @@ public class BottleServiceImpl implements BottleService {
     }
 
     @Override
+    public List<Bottle> getAllNontoxicBottlesInStore(Store store) {
+        return bottleDAO.findByStoreAndToxic(store, false);
+    }
+
+    @Override
     public List<Bottle> getAllBottlesFromManufacturerFromDate(Manufacturer manufacturer, Date date) {
         return bottleDAO.getAllBottlesFromManufacturerFromDate(manufacturer, date);
     }

@@ -29,7 +29,19 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
 
     List<Bottle> findByToxic(boolean toxic);
 
-    List<Bottle> findByStore(Store store);
+    @Query("SELECT b FROM Bottle b " +
+            "WHERE b.store=:store " +
+            "AND b.laboratory is null")
+    List<Bottle> findByStore(
+            @Param("store") Store store);
+
+    @Query("SELECT b FROM Bottle b " +
+            "WHERE b.store=:store " +
+            "AND b.toxic=:toxic " +
+            "AND b.laboratory is null")
+    List<Bottle> findByStoreAndToxic(
+            @Param("store") Store store,
+            @Param("toxic") boolean toxic);
 
     @Query("SELECT b FROM Bottle b " +
             "INNER JOIN b.bottleType bt " +

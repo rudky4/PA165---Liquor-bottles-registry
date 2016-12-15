@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/rest/lab/bottles").hasRole("LAB")
                 .antMatchers(HttpMethod.GET, "/rest/bottle").hasRole("CUSTOMER")
+                .antMatchers(HttpMethod.GET, "/rest/store/*/bottles/all").hasRole("POLICE")
                 .antMatchers(HttpMethod.GET, "/rest/store/**").permitAll()
                 .antMatchers("/rest/user").permitAll()
                 .antMatchers("/js/**").permitAll()

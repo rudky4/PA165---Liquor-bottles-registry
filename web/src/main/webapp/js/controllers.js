@@ -63,10 +63,17 @@ liquorControllers.controller('storeCtrl', function ($scope, $rootScope, storeFac
 });
 
 liquorControllers.controller('manufacturerProductionCtrl', function ($scope, $rootScope, $routeParams, manufacturerProductionFactory) {
+   $scope.bottlesRequestEnds = false;
+
     manufacturerProductionFactory.getProduction(
         $routeParams.id,
         function (response) {
             $scope.bottles = response.data;
+            $scope.bottlesRequestEnds = true;
+            $scope.toxicBottlesPercentage = '0';
+            if($scope.bottles.length != 0) {
+                $scope.toxicBottlesPercentage = $rootScope.getToxicBottlesPercentage($scope.bottles);
+            }
         },
         $rootScope.unsuccessfulResponse
     );
@@ -87,13 +94,32 @@ liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $
         },
         $rootScope.unsuccessfulResponse
     );
-    storeBottlesFactory.getBottles(
-        $routeParams.id,
-        function (response) {
-            $scope.bottles = response.data;
-        },
-        $rootScope.unsuccessfulResponse
-    );
+
+    $scope.bottlesRequestEnds = false;
+
+    if ($rootScope.role == 'ROLE_POLICE') {
+        storeBottlesFactory.getAllBottles(
+            $routeParams.id,
+            function (response) {
+                $scope.bottlesRequestEnds = true;
+                $scope.bottles = response.data;
+                $scope.toxicBottlesPercentage = '0';
+                if($scope.bottles.length > 0) {
+                    $scope.toxicBottlesPercentage = $rootScope.getToxicBottlesPercentage($scope.bottles);
+                }
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    } else {
+        storeBottlesFactory.getNontoxicBottles(
+            $routeParams.id,
+            function (response) {
+                $scope.bottlesRequestEnds = true;
+                $scope.bottles = response.data;
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    }
 });
 
 liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $rootScope, $routeParams, loggedUserFactory, manufacturerProductionFactory, bottleTypeFactory) {

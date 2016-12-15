@@ -67,4 +67,11 @@ module.run(function($rootScope, $location, $window, loggedUserFactory) {
             $window.location.href = "login.html"
         }
     };
+
+    $rootScope.getToxicBottlesPercentage = function(bottles) {
+        var isToxic = function(bottle) { return bottle.toxic; }
+        var toxicBottlesLength = bottles.filter(isToxic).length;
+        var allBottlesLength = bottles.length;
+        return (toxicBottlesLength / allBottlesLength) * 100;
+    };
 });

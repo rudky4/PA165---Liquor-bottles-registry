@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
 import java.util.Date;
+import java.util.function.BooleanSupplier;
 
 /**
  * @author mhajas
