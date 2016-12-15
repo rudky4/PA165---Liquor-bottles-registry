@@ -6,7 +6,7 @@ var liquorServices = angular.module('liquorServices', []);
 liquorServices.factory('bottleFactory', ['$http',
     function($http){
         var urlBase="http://localhost:8080/pa165/rest/bottle";
-        var urlBaseSetToxic="http://localhost:8080/pa165/rest/bottle/{id}/settoxic/{value}";
+        var urlBaseSetToxic="http://localhost:8080/pa165/rest/bottle/{id}/toxicity/{value}";
 		var dataFactory={};
 		
         dataFactory.getAllBottles = function(success, error) {

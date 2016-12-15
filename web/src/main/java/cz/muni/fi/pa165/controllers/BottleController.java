@@ -40,15 +40,12 @@ public class BottleController {
         }
     }
     
-    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void setToxic(@PathVariable("id") long id, @PathVariable("value") String istoxic) {
+    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.POST)
+    public final void setToxic(@PathVariable("id") long id, @PathVariable("value") int isToxic) {
         BottleDTO result = bottleFacade.findById(id);
-            if(result != null) {
-                if((istoxic == "true") || (istoxic == "0"))
-                    result.setToxic(true);
-                else result.setToxic(false);
-                
-                result.setLaboratory(null);
-            }
+        if(result != null) {
+            result.setToxic(isToxic == 1);
+            result.setLaboratory(null);
+        }
     }    
 }

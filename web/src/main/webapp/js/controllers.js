@@ -23,7 +23,7 @@ liquorControllers.controller('toxicBottleCtrl', function ($scope, $rootScope, bo
     );
 });
 
-liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, laboratoryFactory) {
+liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, laboratoryFactory, bottleFactory) {
     laboratoryFactory.getBottlesForLab(
         function (response) {
             $scope.bottles = response.data;
@@ -32,6 +32,13 @@ liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, 
             $rootScope.unsuccessfulResponse(response)
         }
     );
+    $scope.setToxic = function(bottleId, toxicity) {
+        bottleFactory.setToxic(bottleId, toxicity,
+            function (response) {
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
 });
 
 liquorControllers.controller('bottleTypeCtrl', function ($scope, $rootScope, bottleTypeFactory) {
