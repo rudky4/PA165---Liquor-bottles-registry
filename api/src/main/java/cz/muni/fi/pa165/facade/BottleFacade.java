@@ -33,6 +33,8 @@ public interface BottleFacade {
     void setToxic(Long id);
 
     void setToxic(BottleDTO bottle);
+    
+    void updateBottle(BottleDTO bottle);
 
     BottleDTO findById(Long id);
 

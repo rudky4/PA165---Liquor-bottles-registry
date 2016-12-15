@@ -23,5 +23,4 @@ public interface ManufacturerFacade {
     ManufacturerDTO findById(Long id);
 
     ManufacturerDTO findByName(String name);
-
 }

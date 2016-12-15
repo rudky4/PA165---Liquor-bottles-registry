@@ -4,7 +4,7 @@ var liquorControllers = angular.module("liquorControllers", ['liquorServices']);
 liquorControllers.controller('laboratoryCtrl', function ($scope, $rootScope, laboratoryFactory) {
     laboratoryFactory.getAllLaboratories(
         function (response) {
-            $scope.bottles = response.data;
+            $scope.laboratories = response.data;
         },
         $rootScope.unsuccessfulResponse
     );
@@ -19,13 +19,20 @@ liquorControllers.controller('toxicBottleCtrl', function ($scope, $rootScope, bo
     );
 });
 
-liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, laboratoryFactory) {
+liquorControllers.controller('bottlesForLabCtrl', function ($scope, $rootScope, laboratoryFactory, bottleFactory) {
     laboratoryFactory.getBottlesForLab(
         function (response) {
             $scope.bottles = response.data;
         },
         $rootScope.unsuccessfulResponse
     );
+    $scope.setToxic = function(bottleId, toxicity) {
+        bottleFactory.setToxic(bottleId, toxicity,
+            function (response) {
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
 });
 
 liquorControllers.controller('bottleTypeCtrl', function ($scope, $rootScope, bottleTypeFactory) {

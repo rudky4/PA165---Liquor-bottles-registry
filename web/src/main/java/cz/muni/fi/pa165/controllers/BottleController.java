@@ -39,4 +39,14 @@ public class BottleController {
             throw new ResourceNotFound();
         }
     }
+    
+    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.POST)
+    public final void setToxic(@PathVariable("id") long id, @PathVariable("value") int isToxic) {
+        BottleDTO result = bottleFacade.findById(id);
+        if(result != null) {
+            result.setToxic(isToxic == 1);
+            result.setLaboratory(null);
+        }
+        bottleFacade.updateBottle(result);
+    }    
 }

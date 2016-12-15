@@ -40,4 +40,6 @@ public interface BottleService {
     Bottle findById(Long id);
 
     Bottle findByStickerId(String id);
+    
+    void updateBottle(Bottle bottle);
 }

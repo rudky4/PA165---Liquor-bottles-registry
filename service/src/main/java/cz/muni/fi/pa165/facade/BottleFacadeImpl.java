@@ -102,6 +102,10 @@ public class BottleFacadeImpl implements BottleFacade {
     public BottleDTO findByStickerId(String id) {
         Bottle bottle = bottleService.findByStickerId(id);
         return beanMappingService.mapTo(bottle, BottleDTO.class);
-
+    }
+    
+    @Override
+    public void updateBottle(BottleDTO bottle){
+        bottleService.updateBottle(beanMappingService.mapTo(bottle, Bottle.class));
     }
 }
