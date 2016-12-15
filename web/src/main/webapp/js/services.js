@@ -46,7 +46,7 @@ liquorServices.factory('laboratoryFactory', ['$http',
 liquorServices.factory('bottleTypeFactory', ['$http','$log',
     function($http,$log){
         var urlBottleType = urlBase.concat("/bottleType");
-        var urlCreate = urlBottleType.concat("/create/{id}");
+        var urlWithId = urlBottleType.concat("/{id}");
         var dataFactory={};
 
         dataFactory.getAllBottleTypes = function(success, error) {
@@ -54,8 +54,13 @@ liquorServices.factory('bottleTypeFactory', ['$http','$log',
         };
 
         dataFactory.createBottleType = function(bottleType, manufacturerId, success, error) {
-            var finalUrl = urlCreate.replace("{id}", manufacturerId);
+            var finalUrl = urlWithId.replace("{id}", manufacturerId);
             return $http.post(finalUrl, bottleType).then(success, error);
+        };
+
+        dataFactory.deleteBottleType = function(id, success, error) {
+            var finalUrl = urlWithId.replace("{id}", id);
+            return $http.delete(finalUrl).then(success, error);
         };
 
         return dataFactory;

@@ -33,6 +33,11 @@ public class BottleTypeServiceImpl implements BottleTypeService {
     }
 
     @Override
+    public void deleteBottleType(long id) {
+        bottleTypeDAO.delete(id);
+    }
+
+    @Override
     public List<BottleType> findAll() {
         return bottleTypeDAO.findAll();
     }

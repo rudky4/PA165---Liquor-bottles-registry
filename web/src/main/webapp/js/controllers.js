@@ -133,4 +133,13 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
             $rootScope.unsuccessfulResponse
         );
     };
+
+    $scope.deleteType = function(id) {
+        bottleTypeFactory.deleteBottleType(id,
+            function (response) {
+                $scope.loadBottleTypes($scope.manufacturer.id);
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
 });

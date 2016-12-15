@@ -25,10 +25,16 @@ public class BottleTypeController {
         return bottleTypeFacade.findAll();
     }
 
-    @RequestMapping(value = "/create/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public final void createBottleType(@RequestBody BottleTypeDTO bottleType,
                                        @PathVariable("id") long manufacturerId) {
         bottleTypeFacade.createBottleType(bottleType, manufacturerId);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public final void deleteBottleType(@PathVariable("id") long id) {
+        System.out.println("Delete bottle with id=" + id);
+        bottleTypeFacade.deleteBottleType(id);
     }
 }

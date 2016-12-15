@@ -70,6 +70,14 @@ public class InitializerImpl implements Initializer {
         p.setEmail("police@police.com");
         p.setRole(PersonRole.POLICE);
         personService.registerPerson(p, "police");
+
+        p = new Person();
+        p.setLogin("laboratory");
+        p.setName("Sherlock");
+        p.setEmail("lab@liquor-repository.com");
+        p.setRole(PersonRole.LAB);
+        p.setLaboratory(labService.findByName("BestLab"));
+        personService.registerPerson(p, "laboratory");
     }
 
     private void createStores() {
@@ -129,14 +137,6 @@ public class InitializerImpl implements Initializer {
         lab.setName("BestLab");
         labService.createLaboratory(lab);
 
-        Person p = new Person();
-        p.setLogin("laboratory");
-        p.setName("Sherlock");
-        p.setEmail("lab@liquor-repository.com");
-        p.setRole(PersonRole.LAB);
-        p.setLaboratory(lab);
-        personService.registerPerson(p, "laboratory");
-        
         List<BottleType> bottleTypes = bottleTypeService.findAll();
         Date date = timeService.getCurrentDate();
         lab = labService.findAll().get(0);  
