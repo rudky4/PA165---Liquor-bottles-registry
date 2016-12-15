@@ -38,8 +38,8 @@ public class BottleTypeController {
         bottleTypeFacade.updateBottleType(bottleType);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public final void deleteBottleType(@PathVariable("id") long id) {
-        bottleTypeFacade.deleteBottleType(id);
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public final void deleteBottleType(@PathVariable("id") long id) {
+//        bottleTypeFacade.deleteBottleType(id);
+//    }
 }
