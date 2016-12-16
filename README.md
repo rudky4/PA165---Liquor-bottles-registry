@@ -22,8 +22,11 @@ Police can obtain the statistics of the toxic bottles for each store and produce
 This project is build using maven, backend powered by Java and frontend by AngularJC.
 
 **Usage:** 
+
 1. build the project `mvn clean install`
+
 2. then go to folder web `cd web`
+
 3. and run tomcat `mvn tomcat7:rum`
 
 You will find web interface of application at: localhost:8080/pa165/
