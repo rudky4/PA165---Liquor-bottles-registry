@@ -40,7 +40,30 @@ public class LaboratoryServiceImpl implements LaboratoryService{
     }   
     
     @Override
+    public Laboratory findWithLeastBottles() {
+        Laboratory lab = findByBottlesToCheckCountAsc();
+        return lab;
+    }
+
+    @Override
     public List<Bottle> getBottlesToCheck(Long id){
         return laboratoryDAO.findOne(id).getBottlesToCheck();
+    }
+
+
+    private Laboratory findByBottlesToCheckCountAsc() {
+        List<Laboratory> labs = laboratoryDAO.findAll();
+        if(labs == null || labs.isEmpty()) {
+            return null;
+        }
+        Laboratory result = labs.get(0);
+        Laboratory toCompare;
+        for (int i=1; i<labs.size(); i++) {
+            toCompare = labs.get(i);
+            if(toCompare.getBottlesToCheck().size() < result.getBottlesToCheck().size()) {
+                result = toCompare;
+            }
+        }
+        return result;
     }
 }

@@ -73,9 +73,9 @@ public class BottleController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public final void assignToLab(@PathVariable("id") long id, @RequestParam("lab") long labId) {
+    public final void assignToLab(@PathVariable("id") long id) {
         BottleDTO result = bottleFacade.findById(id);
-        LaboratoryDTO laboratoryDTO = laboratoryFacade.findById(labId);
+        LaboratoryDTO laboratoryDTO = laboratoryFacade.findWithLeastBottles();
         if(result == null || laboratoryDTO == null) {
             throw new ResourceNotFound();
         }

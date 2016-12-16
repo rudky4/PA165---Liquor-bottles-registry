@@ -145,7 +145,7 @@ liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $
         $scope.loadBottles();
 
         $scope.markAsToxic = function(bottleId) {
-            bottleFactory.assignToLab(bottleId, 16,
+            bottleFactory.assignToLab(bottleId,
                 function (response) {
                     $scope.loadBottles();
                 },

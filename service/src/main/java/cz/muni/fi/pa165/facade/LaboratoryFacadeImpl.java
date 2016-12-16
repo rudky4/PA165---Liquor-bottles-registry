@@ -51,6 +51,12 @@ public class LaboratoryFacadeImpl implements LaboratoryFacade {
     }    
     
     @Override
+    public LaboratoryDTO findWithLeastBottles() {
+        Laboratory lab = laboratoryService.findWithLeastBottles();
+        return lab == null ? null : beanMappingService.mapTo(lab, LaboratoryDTO.class);
+    }
+
+    @Override
     public List<BottleDTO> getBottlesToCheck(Long id){
         List<Bottle> bottles = laboratoryService.getBottlesToCheck(id);
         return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
