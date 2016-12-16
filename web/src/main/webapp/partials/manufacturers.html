@@ -5,13 +5,13 @@
     <thead class="thead-inverse">
     <tr>
         <th>Name</th>
-        <th>Actions</th>
+        <th ng-if="role != 'ROLE_ANONYMOUS'">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="manufacturer in manufacturers">
         <th scope="row"><a ng-href="#!/manufacturer/{{manufacturer.id}}">{{manufacturer.name}}</a></td>
-        <td><a ng-href="#!/manufacturer/{{manufacturer.id}}/production">Show production</a></td>
+        <td ng-if="role != 'ROLE_ANONYMOUS'><a ng-href="#!/manufacturer/{{manufacturer.id}}/production">Show production</a></td>
     </tr>
     </tbody>
 </table>
