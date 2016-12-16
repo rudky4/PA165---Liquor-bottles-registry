@@ -4,27 +4,27 @@
 <h3>List of toxic bottles</h3>
 <br/>
 
-<table class="table">
+<table class="table" >
     <thead class="thead-inverse">
-    <tr>
+    <tr ng-switch="role">
         <th>Sticker ID</th>
         <th>Name</th>
         <th>Production date</th>
         <th>Size</th>
         <th>Type</th>
         <th>Manufacturer</th>
-        <th ng-if="isRole('ROLE_POLICE')">Is toxic</th>
+        <th ng-switch-when="ROLE_POLICE">Is toxic</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="bottle in bottles">
+    <tr ng-repeat="bottle in bottles" ng-switch="role">
         <th scope="row">{{bottle.stickerID}}</td>
         <td>{{bottle.bottleType.name}}</td>
         <td>{{bottle.produced}}</td>
         <td>{{bottle.bottleType.size}}</td>
         <td>{{bottle.bottleType.type}}</td>
         <td>{{bottle.bottleType.manufacturedBy.name}}</td>
-        <td ng-if="isRole('ROLE_POLICE')">{{bottle.toxic}}</td>
+        <td ng-switch-when="ROLE_POLICE">{{bottle.toxic}}</td>
     </tr>
     </tbody>
 </table>
