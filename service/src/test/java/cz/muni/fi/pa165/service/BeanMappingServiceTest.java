@@ -58,12 +58,12 @@ public class BeanMappingServiceTest extends AbstractServiceTest {
         person2.setName("Rudolf");
         person2.setPasswordHash("StrongerPassword");
         person2.setLogin("rudky4");
-        person2.setRole(PersonRole.CUSTOMER);
+        person2.setRole(PersonRole.LAB);
 
         personDTO2.setName("Rudolf");
         personDTO2.setPassword("StrongerPassword");
         personDTO2.setLogin("rudky4");
-        personDTO2.setRole(PersonRole.CUSTOMER);
+        personDTO2.setRole(PersonRole.LAB);
 
         List<Person> persons = new ArrayList<>();
         List<PersonDTO> personDTOs = new ArrayList<>();

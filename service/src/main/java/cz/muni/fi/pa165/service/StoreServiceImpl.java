@@ -10,6 +10,7 @@ import cz.muni.fi.pa165.entity.Store;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 
 /**
@@ -39,5 +40,10 @@ public class StoreServiceImpl implements StoreService{
     @Override
     public Store findByName(String name) {
         return storeDAO.findByName(name);
+    }
+
+    @Override
+    public Set<Store> findByBottleType(Long id) {
+        return storeDAO.findByBottleType(id);
     }
 }

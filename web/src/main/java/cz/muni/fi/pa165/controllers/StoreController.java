@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Martin Sumera
@@ -29,7 +31,11 @@ public class StoreController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<StoreDTO> getStores() {
-        return storeFacade.findAll();
+        List<StoreDTO> result = storeFacade.findAll();
+        if(result == null) {
+            result = Collections.emptyList();
+        }
+        return result;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,6 +66,11 @@ public class StoreController {
         } else {
             throw new ResourceNotFound();
         }
+    }
+
+    @RequestMapping(value = "bottleType/{id}", method = RequestMethod.GET)
+    public final Set<StoreDTO> getStoresByBottleType(@PathVariable("id") long bottleTypeId) {
+        return storeFacade.findByBottleType(bottleTypeId);
     }
 
 }

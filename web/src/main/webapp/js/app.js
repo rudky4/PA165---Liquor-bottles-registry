@@ -6,6 +6,10 @@ module.config(function ($routeProvider) {
         .when('/', {
             templateUrl: 'partials/home.html'
         })
+        .when('/bottleTypes', {
+            templateUrl: 'partials/bottle_type.html',
+            controller: 'bottleTypesCtrl'
+        })
 		.when('/laboratory', {
             templateUrl: 'partials/laboratory.html',
             controller: 'laboratoryCtrl'
@@ -17,6 +21,10 @@ module.config(function ($routeProvider) {
         .when('/manufacturer', {
             templateUrl: 'partials/manufacturers.html',
             controller: 'manufacturerCtrl'
+        })
+        .when('/manufacturer/:id', {
+            templateUrl: 'partials/bottle_type.html',
+            controller: 'manufacturerTypesCtrl'
         })
         .when('/manufacturer/:id/production', {
             templateUrl: 'partials/manufacturer_production.html',
@@ -31,12 +39,16 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/store_bottles.html',
             controller: 'storeBottlesCtrl'
         })
+        .when('/store/bottleType/:id', {
+            templateUrl: 'partials/stores.html',
+            controller: 'storeBottleTypeCtrl'
+        })
         .when('/management', {
             templateUrl: 'partials/manufacturer.html',
             controller: 'manufacturerManagementCtrl'
         })
-        .when('/unauthorized', {
-            templateUrl: 'partials/unauthorized.html'
+        .when('/forbidden', {
+            templateUrl: 'partials/forbidden.html'
         })
 		.when('/bottle/toxic', {
             templateUrl: 'partials/toxic_bottle.html',
@@ -62,7 +74,7 @@ module.run(function($rootScope, $location, $window, loggedUserFactory) {
     $rootScope.unsuccessfulResponse = function(response) {
         if (response.status == 403) {
             $rootScope.page = $location.path();
-            $location.path("/unauthorized");
+            $location.path("/forbidden");
         } else if (response.status == 401) {
             $window.location.href = "login.html"
         }

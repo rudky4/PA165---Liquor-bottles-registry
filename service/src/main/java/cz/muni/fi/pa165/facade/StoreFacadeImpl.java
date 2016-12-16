@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.facade;
 import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.entity.Store;
 import java.util.List;
+import java.util.Set;
 
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.StoreService;
@@ -51,5 +52,11 @@ public class StoreFacadeImpl implements StoreFacade{
     public StoreDTO findByName(String name) {
         Store store = storeService.findByName(name);
         return store == null ? null : beanMappingService.mapTo(store, StoreDTO.class);  
-    } 
+    }
+
+    @Override
+    public Set<StoreDTO> findByBottleType(Long id) {
+        Set<Store> stores = storeService.findByBottleType(id);
+        return stores == null ? null : beanMappingService.mapTo(stores, StoreDTO.class);
+    }
 }

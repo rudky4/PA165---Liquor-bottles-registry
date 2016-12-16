@@ -25,8 +25,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getUserPrincipal() {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
-
         List<?> authorities = new ArrayList<>(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
         return "{\"username\":\"" + getLogin() + "\", \"role\":\"" +

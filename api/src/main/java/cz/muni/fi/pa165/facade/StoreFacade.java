@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.dto.PersonDTO;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -18,4 +19,6 @@ public interface StoreFacade {
     StoreDTO findById(Long id);
     
     StoreDTO findByName(String name);
+
+    Set<StoreDTO> findByBottleType(Long id);
 }

@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,12 +23,20 @@ public class BottleController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getBottles() {
-        return bottleFacade.findAll();
+        List<BottleDTO> result = bottleFacade.findAll();
+        if(result == null) {
+            result = Collections.emptyList();
+        }
+        return result;
     }
     
     @RequestMapping(value = "/toxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getToxicBottles() {
-        return bottleFacade.getAllToxicBottles();
+        List<BottleDTO> result = bottleFacade.getAllToxicBottles();
+        if(result == null) {
+            result = Collections.emptyList();
+        }
+        return result;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,13 +49,14 @@ public class BottleController {
         }
     }
     
-    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.PUT)
     public final void setToxic(@PathVariable("id") long id, @PathVariable("value") int isToxic) {
         BottleDTO result = bottleFacade.findById(id);
-        if(result != null) {
-            result.setToxic(isToxic == 1);
-            result.setLaboratory(null);
+        if(result == null) {
+            throw new ResourceNotFound();
         }
+        result.setToxic(isToxic == 1);
+        result.setLaboratory(null);
         bottleFacade.updateBottle(result);
     }    
 }
