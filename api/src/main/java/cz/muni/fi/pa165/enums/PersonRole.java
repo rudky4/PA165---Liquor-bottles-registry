@@ -5,5 +5,5 @@ package cz.muni.fi.pa165.enums;
  * @date 14/11/2016
  */
 public enum PersonRole {
-    CUSTOMER, MANUFACTURER, STORE_OWNER, POLICE, LAB
+    MANUFACTURER, STORE_OWNER, POLICE, LAB
 }

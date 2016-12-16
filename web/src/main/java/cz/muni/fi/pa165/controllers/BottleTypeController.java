@@ -1,12 +1,21 @@
 package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
+import cz.muni.fi.pa165.exceptions.ResourceConflict;
+import cz.muni.fi.pa165.exceptions.ResourceNotFound;
+import cz.muni.fi.pa165.exceptions.ResourceNotValid;
 import cz.muni.fi.pa165.facade.BottleTypeFacade;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,13 +31,43 @@ public class BottleTypeController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleTypeDTO> getBottleTypes() {
-        return bottleTypeFacade.findAll();
+        List<BottleTypeDTO> result = bottleTypeFacade.findAll();
+        if(result == null) {
+            result = Collections.emptyList();
+        }
+        return result;
     }
 
-    @RequestMapping(value = "/create/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public final void createBottleType(@RequestBody BottleTypeDTO bottleType,
-                                       @PathVariable("id") long manufacturerId) {
-        bottleTypeFacade.createBottleType(bottleType, manufacturerId);
+    public final void createBottleType(@Valid @RequestBody BottleTypeDTO bottleType,
+                                       @PathVariable("id") long manufacturerId, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ResourceNotValid();
+        }
+        try{
+            bottleTypeFacade.createBottleType(bottleType, manufacturerId);
+        } catch (DataAccessException dae) {
+            throw new ResourceConflict();
+        } catch (IllegalArgumentException iae) {
+            throw new ResourceNotFound();
+        }
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public final void updateBottleType(@Valid @RequestBody BottleTypeDTO bottleType, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ResourceNotValid();
+        }
+        try{
+            bottleTypeFacade.updateBottleType(bottleType);
+        } catch (IllegalArgumentException iae) {
+            throw new ResourceNotFound();
+        }
+    }
+
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public final void deleteBottleType(@PathVariable("id") long id) {
+//        bottleTypeFacade.deleteBottleType(id);
+//    }
 }

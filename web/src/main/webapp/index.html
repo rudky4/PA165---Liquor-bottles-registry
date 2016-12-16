@@ -26,17 +26,23 @@
 
             <div id="navbar" class="nav nav-pills float-xs-right">
                 <ul class="nav navbar-nav navbar-right" ng-switch="role">
-                    <li class="nav-item" ng-switch-when="ROLE_MANUFACTURER|ROLE_POLICE" ng-switch-when-separator="|">
+                    <li class="nav-item" ng-switch-when="ROLE_MANUFACTURER|ROLE_POLICE|ROLE_ANONYMOUS" ng-switch-when-separator="|">
                         <a class="nav-link" href="#!/manufacturer">Manufacturers</a>
                     </li>
                     <li class="nav-item" ng-switch-when="ROLE_LAB">
                         <a class="nav-link" href="#!/laboratory">Laboratory</a>
                     </li>
-                    <li class="nav-item" ng-switch-when="ROLE_CUSTOMER|ROLE_ANONYMOUS|ROLE_POLICE" ng-switch-when-separator="|">
+                    <li class="nav-item" ng-switch-when="ROLE_ANONYMOUS|ROLE_POLICE" ng-switch-when-separator="|">
                         <a class="nav-link" href="#!/store">Stores</a>
                     </li>
+                    <li class="nav-item" ng-switch-when="ROLE_ANONYMOUS" ng-switch-when-separator="|">
+                        <a class="nav-link" href="#!/bottleTypes">Bottle Types</a>
+                    </li>
                     <li class="nav-item" ng-switch-when="ROLE_MANUFACTURER">
-                        <a class="nav-link" href="#!/management">Management</a>
+                        <a class="nav-link" href="#!/managementManufacturer">Management</a>
+                    </li>
+                    <li class="nav-item" ng-switch-when="ROLE_STORE_OWNER">
+                        <a class="nav-link" href="#!/managementStore">Management</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" a href="https://github.com/rudky4/PA165---Liquor-bottles-registry"

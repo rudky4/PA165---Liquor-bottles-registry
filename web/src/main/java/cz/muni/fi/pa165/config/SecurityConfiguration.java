@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.config;
 
+    import cz.muni.fi.pa165.enums.PersonRole;
 import cz.muni.fi.pa165.security.CustomAuthenticationProvider;
 import cz.muni.fi.pa165.security.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.ComponentScan;
@@ -40,8 +41,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/rest/lab/bottles").hasRole("LAB")
-                .antMatchers(HttpMethod.GET, "/rest/bottle").hasRole("CUSTOMER")
-                .antMatchers(HttpMethod.GET, "/rest/store/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/store/*/bottles/all").hasRole("POLICE")
+                .antMatchers(HttpMethod.GET, "/rest/store").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/store/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/store/*/bottles/nontoxic").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/store/bottleType/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/manufacturer").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/manufacturer/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/manufacturer/*/bottleTypes").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/bottleType").permitAll()
+                .antMatchers(HttpMethod.PUT, "/rest/bottleType/*").hasRole(PersonRole.MANUFACTURER.name())
+                .antMatchers(HttpMethod.PUT, "/rest/bottle/*/toxicity/*").hasRole(PersonRole.LAB.name())
+                .antMatchers(HttpMethod.PUT, "/rest/bottle/*").hasRole(PersonRole.POLICE.name())
+                .antMatchers(HttpMethod.POST, "/rest/bottleType/*").hasRole(PersonRole.MANUFACTURER.name())
+                .antMatchers(HttpMethod.POST, "/rest/bottle").hasRole(PersonRole.STORE_OWNER.name())
+                .antMatchers(HttpMethod.DELETE, "/rest/bottle/*").hasRole(PersonRole.STORE_OWNER.name())
                 .antMatchers("/rest/user").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/partials/**").permitAll()

@@ -27,11 +27,15 @@ public class BottleType {
     @Column(nullable = false)
     private BigDecimal size;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturedBy;
 
+    @Enumerated
     public AlcoholType type;
+
+    @Column
+    private boolean deleted = false;
 
     public Long getId() {
         return id;
@@ -79,6 +83,14 @@ public class BottleType {
 
     public void setManufacturedBy(Manufacturer manufacturedBy) {
         this.manufacturedBy = manufacturedBy;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

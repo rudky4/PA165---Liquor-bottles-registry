@@ -40,6 +40,15 @@ public class LaboratoryServiceImpl implements LaboratoryService{
     }   
     
     @Override
+    public Laboratory findWithLeastBottles() {
+        List<Laboratory> labs = laboratoryDAO.findByBottlesToCheckAsc();
+        if(labs == null || labs.isEmpty()) {
+            return null;
+        }
+        return labs.get(0);
+    }
+
+    @Override
     public List<Bottle> getBottlesToCheck(Long id){
         return laboratoryDAO.findOne(id).getBottlesToCheck();
     }

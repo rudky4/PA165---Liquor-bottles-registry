@@ -1,0 +1,25 @@
+<h3>{{header}}</h3>
+<br/>
+
+<table class="table">
+    <thead class="thead-inverse">
+    <tr>
+        <th>Name</th>
+        <th>Volume</th>
+        <th>Size</th>
+        <th>Type</th>
+        <th>Manufacturer</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="type in bottleTypes">
+        <td scope="row">{{type.name}}</td>
+        <td>{{type.volume}}</td>
+        <td>{{type.size}}</td>
+        <td>{{type.type}}</td>
+        <td>{{type.manufacturedBy.name}}</td>
+        <td><a ng-href="#!/store/bottleType/{{type.id}}">Find stores</a></td>
+    </tr>
+    </tbody>
+</table>

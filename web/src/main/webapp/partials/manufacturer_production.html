@@ -1,10 +1,13 @@
 <h3>{{manufacturer.name}}</h3>
 <br/>
 
+<h3 ng-show="role == 'ROLE_POLICE'">This manufacturer has {{toxicBottlesPercentage}}% of toxic bottles.</h3>
+<br/>
+
 <h3>List of bottles</h3>
 <br/>
 
-<table class="table" >
+<table ng-show="bottlesRequestEnds && bottles.length" class="table" >
     <thead class="thead-inverse">
     <tr ng-switch="role">
         <th>Sticker ID</th>
@@ -28,3 +31,8 @@
       </tr>
     </tbody>
 </table>
+
+
+<div ng-show="bottlesRequestEnds && !bottles.length" class="alert alert-info">
+    <strong>This manufacturer doesn't produce any bottle.</strong>
+</div>

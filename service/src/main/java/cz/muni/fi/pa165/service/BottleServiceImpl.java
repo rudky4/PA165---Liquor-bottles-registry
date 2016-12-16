@@ -21,8 +21,25 @@ public class BottleServiceImpl implements BottleService {
     @Inject
     private BottleDAO bottleDAO;
 
+    @Inject
+    private StoreService storeService;
+
+    @Inject
+    private TimeService timeService;
+
     @Override
     public void createBottle(Bottle bottle) {
+        bottleDAO.save(bottle);
+    }
+
+    @Override
+    public void importBottleToStore(Bottle bottle, long storeId) {
+        Store store = storeService.findById(storeId);
+        if(store == null) {
+            throw new IllegalArgumentException();
+        }
+        bottle.setStore(store);
+        bottle.setProduced(timeService.getCurrentDate());
         bottleDAO.save(bottle);
     }
 
@@ -49,6 +66,11 @@ public class BottleServiceImpl implements BottleService {
     @Override
     public List<Bottle> getAllBottlesInStore(Store store) {
         return bottleDAO.findByStore(store);
+    }
+
+    @Override
+    public List<Bottle> getAllNontoxicBottlesInStore(Store store) {
+        return bottleDAO.findByStoreAndToxic(store, false);
     }
 
     @Override
@@ -99,6 +121,14 @@ public class BottleServiceImpl implements BottleService {
     
     @Override
     public void updateBottle(Bottle bottle){
+        if(bottle == null || !bottleDAO.exists(bottle.getId())) {
+            throw new IllegalArgumentException();
+        }
         bottleDAO.save(bottle);
+    }
+
+    @Override
+    public void deleteBottle(long id) {
+        bottleDAO.delete(id);
     }
 }

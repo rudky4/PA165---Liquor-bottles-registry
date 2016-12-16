@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.entity.BottleType;
+import cz.muni.fi.pa165.entity.Store;
 import cz.muni.fi.pa165.enums.AlcoholType;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.BottleTypeService;
@@ -36,6 +38,16 @@ public class BottleTypeFacadeImpl implements BottleTypeFacade {
     }
 
     @Override
+    public void updateBottleType(BottleTypeDTO bottleType) {
+        bottleTypeService.updateBottleType(beanMappingService.mapTo(bottleType, BottleType.class));
+    }
+
+    @Override
+    public void deleteBottleType(long id) {
+        bottleTypeService.deleteBottleType(id);
+    }
+
+    @Override
     public List<BottleTypeDTO> findAll() {
         List<BottleType> types = bottleTypeService.findAll();
         return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);
@@ -59,6 +71,12 @@ public class BottleTypeFacadeImpl implements BottleTypeFacade {
         List<BottleType> types = bottleTypeService.findBySize(size);
         return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);
 
+    }
+
+    @Override
+    public List<BottleTypeDTO> findByStore(StoreDTO store) {
+        List<BottleType> types = bottleTypeService.findByStore(beanMappingService.mapTo(store, Store.class));
+        return types == null ? null : beanMappingService.mapTo(types, BottleTypeDTO.class);
     }
 
     @Override

@@ -1,30 +1,41 @@
 <h3>{{store.name}}</h3>
 <br/>
 
-<h3>List of toxic bottles</h3>
+<h3 ng-show="role == 'ROLE_POLICE'">This store has {{toxicBottlesPercentage}}% of toxic bottles.</h3>
 <br/>
 
-<table class="table" >
+<h3 ng-show="bottles.length">List of all bottles in store</h3>
+<br/>
+
+<table ng-show="bottlesRequestEnds && bottles.length" class="table" >
     <thead class="thead-inverse">
-    <tr ng-switch="role">
-        <th>Sticker ID</th>
-        <th>Name</th>
-        <th>Production date</th>
-        <th>Size</th>
-        <th>Type</th>
-        <th>Manufacturer</th>
-        <th ng-switch-when="ROLE_POLICE">Is toxic</th>
-    </tr>
+        <tr ng-switch="role">
+            <th>Sticker ID</th>
+            <th>Name</th>
+            <th>Production date</th>
+            <th>Size</th>
+            <th>Type</th>
+            <th>Manufacturer</th>
+            <th ng-switch-when="ROLE_POLICE">Is toxic</th>
+            <th ng-switch-when="ROLE_POLICE">Action</th>
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="bottle in bottles" ng-switch="role">
-        <th scope="row">{{bottle.stickerID}}</td>
-        <td>{{bottle.bottleType.name}}</td>
-        <td>{{bottle.produced}}</td>
-        <td>{{bottle.bottleType.size}}</td>
-        <td>{{bottle.bottleType.type}}</td>
-        <td>{{bottle.bottleType.manufacturedBy.name}}</td>
-        <td ng-switch-when="ROLE_POLICE">{{bottle.toxic}}</td>
-    </tr>
+        <tr ng-repeat="bottle in bottles" ng-switch="role">
+            <th scope="row">{{bottle.stickerID}}</td>
+            <td>{{bottle.bottleType.name}}</td>
+            <td>{{bottle.produced}}</td>
+            <td>{{bottle.bottleType.size}}</td>
+            <td>{{bottle.bottleType.type}}</td>
+            <td>{{bottle.bottleType.manufacturedBy.name}}</td>
+            <td ng-switch-when="ROLE_POLICE">{{bottle.toxic}}</td>
+            <td ng-switch-when="ROLE_POLICE">
+                <button ng-if="!bottle.toxic" type="button" class="btn btn-secondary" ng-click="markAsToxic(bottle.id)">Send to lab</button>
+            </td>
+        </tr>
     </tbody>
 </table>
+
+<div ng-show="bottlesRequestEnds && !bottles.length" class="alert alert-info">
+    <strong>This store has no bottles</strong>
+</div>

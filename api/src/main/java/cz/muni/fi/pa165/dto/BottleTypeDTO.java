@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.dto;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import cz.muni.fi.pa165.enums.AlcoholType;
 
 import java.math.BigDecimal;
@@ -10,15 +13,20 @@ import java.math.BigDecimal;
 public class BottleTypeDTO {
     private Long id;
 
+    @NotNull
     private String name;
 
+    @DecimalMin("0")
     private BigDecimal volume;
 
+    @DecimalMin("0.5")
     private BigDecimal size;
 
     private AlcoholType type;
 
     private ManufacturerDTO manufacturedBy;
+
+    private boolean deleted;
 
     public Long getId() {
         return id;
@@ -66,6 +74,14 @@ public class BottleTypeDTO {
 
     public void setManufacturedBy(ManufacturerDTO manufacturedBy) {
         this.manufacturedBy = manufacturedBy;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

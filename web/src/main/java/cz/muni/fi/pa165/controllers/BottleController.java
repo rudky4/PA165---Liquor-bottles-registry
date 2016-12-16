@@ -1,12 +1,22 @@
 package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
+import cz.muni.fi.pa165.dto.LaboratoryDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
+import cz.muni.fi.pa165.exceptions.ResourceConflict;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
+import cz.muni.fi.pa165.exceptions.ResourceNotValid;
 import cz.muni.fi.pa165.facade.BottleFacade;
+import cz.muni.fi.pa165.facade.LaboratoryFacade;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,14 +30,25 @@ public class BottleController {
     @Inject
     private BottleFacade bottleFacade;
 
+    @Inject
+    private LaboratoryFacade laboratoryFacade;
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getBottles() {
-        return bottleFacade.findAll();
+        List<BottleDTO> result = bottleFacade.findAll();
+        if(result == null) {
+            result = Collections.emptyList();
+        }
+        return result;
     }
     
     @RequestMapping(value = "/toxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getToxicBottles() {
-        return bottleFacade.getAllToxicBottles();
+        List<BottleDTO> result = bottleFacade.getAllToxicBottles();
+        if(result == null) {
+            result = Collections.emptyList();
+        }
+        return result;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,13 +61,55 @@ public class BottleController {
         }
     }
     
-    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.PUT)
     public final void setToxic(@PathVariable("id") long id, @PathVariable("value") int isToxic) {
         BottleDTO result = bottleFacade.findById(id);
-        if(result != null) {
-            result.setToxic(isToxic == 1);
-            result.setLaboratory(null);
+        if(result == null) {
+            throw new ResourceNotFound();
         }
+        result.setToxic(isToxic == 1);
+        result.setLaboratory(null);
         bottleFacade.updateBottle(result);
-    }    
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public final void assignToLab(@PathVariable("id") long id) {
+        BottleDTO result = bottleFacade.findById(id);
+        LaboratoryDTO laboratoryDTO = laboratoryFacade.findWithLeastBottles();
+        if(result == null || laboratoryDTO == null) {
+            throw new ResourceNotFound();
+        }
+        result.setLaboratory(laboratoryDTO);
+        try {
+            bottleFacade.updateBottle(result);
+        } catch (IllegalArgumentException iae) {
+            throw new ResourceConflict();
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public final void createBottle(@Valid @RequestBody BottleDTO bottle,
+                                   @RequestParam("store") long storeId,
+                                   BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            throw new ResourceNotValid();
+        }
+        try {
+            bottleFacade.importBottleToStore(bottle, storeId);
+        } catch (DataAccessException dae) {
+            throw new ResourceConflict();
+        } catch (IllegalArgumentException iae) {
+            throw new ResourceNotFound();
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public final void deleteBottleType(@PathVariable("id") long id) {
+        try{
+            bottleFacade.deleteBottle(id);
+        } catch (DataAccessException dae) {
+            throw new ResourceNotFound();
+        }
+    }
 }

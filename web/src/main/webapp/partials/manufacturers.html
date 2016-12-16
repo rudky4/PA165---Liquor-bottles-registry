@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="manufacturer in manufacturers">
-        <th scope="row">{{manufacturer.name}}</td>
+        <th scope="row"><a ng-href="#!/manufacturer/{{manufacturer.id}}">{{manufacturer.name}}</a></td>
         <td><a ng-href="#!/manufacturer/{{manufacturer.id}}/production">Show production</a></td>
     </tr>
     </tbody>

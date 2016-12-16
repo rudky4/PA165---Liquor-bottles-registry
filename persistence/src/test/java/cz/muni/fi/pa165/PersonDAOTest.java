@@ -35,7 +35,7 @@ public class PersonDAOTest extends AbstractDAOTest {
         person2.setLogin("login2");
         person2.setPasswordHash("password2");
         person2.setEmail("name2@mail.cz");
-        person2.setRole(PersonRole.CUSTOMER);
+        person2.setRole(PersonRole.LAB);
 
         personDAO.save(person1);
         personDAO.save(person2);
@@ -93,13 +93,13 @@ public class PersonDAOTest extends AbstractDAOTest {
 
     @Test
     public void searchPersonByRoleTest() {
-        List<Person> persons = personDAO.findByRole(PersonRole.CUSTOMER);
+        List<Person> persons = personDAO.findByRole(PersonRole.LAB);
         assertEquals(1, persons.size());
 
         persons = personDAO.findByRole(PersonRole.MANUFACTURER);
         assertEquals(1, persons.size());
 
-        persons = personDAO.findByRole(PersonRole.LAB);
+        persons = personDAO.findByRole(PersonRole.POLICE);
         assertEquals(0, persons.size());
     }
 

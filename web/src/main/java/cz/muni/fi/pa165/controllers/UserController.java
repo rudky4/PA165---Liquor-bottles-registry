@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.ManufacturerDTO;
 import cz.muni.fi.pa165.dto.PersonDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.facade.PersonFacade;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +26,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getUserPrincipal() {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
-
         List<?> authorities = new ArrayList<>(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
         return "{\"username\":\"" + getLogin() + "\", \"role\":\"" +
@@ -38,6 +37,13 @@ public class UserController {
         final String login = getLogin();
         PersonDTO personDTO = personFacade.findUserByLogin(login);
         return personDTO.getManufacturer();
+    }
+
+    @RequestMapping(value = "/store", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public StoreDTO getPersonsStore() {
+        final String login = getLogin();
+        PersonDTO personDTO = personFacade.findUserByLogin(login);
+        return personDTO.getStore();
     }
 
     private String getLogin() {

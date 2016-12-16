@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.enums.AlcoholType;
 
 import java.math.BigDecimal;
@@ -14,6 +15,10 @@ public interface BottleTypeFacade {
 
     void createBottleType(BottleTypeDTO type, long manufacturerId);
 
+    void updateBottleType(BottleTypeDTO bottleType);
+
+    void deleteBottleType(long id);
+
     List<BottleTypeDTO> findAll();
 
     List<BottleTypeDTO> findByAlcoholType(AlcoholType type);
@@ -21,6 +26,8 @@ public interface BottleTypeFacade {
     List<BottleTypeDTO> findWithHigherVolume(BigDecimal volume);
 
     List<BottleTypeDTO> findBySize(BigDecimal size);
+
+    List<BottleTypeDTO> findByStore(StoreDTO store);
 
     BottleTypeDTO findById(Long id);
 }

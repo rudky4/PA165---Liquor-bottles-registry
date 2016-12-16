@@ -14,6 +14,8 @@ import java.util.List;
 public interface BottleFacade {
     void createBottle(BottleDTO bottle);
 
+    void importBottleToStore(BottleDTO bottle, long storeId);
+
     List<BottleDTO> findAll();
 
     List<BottleDTO> getBottlesFromDate(Date date);
@@ -23,6 +25,8 @@ public interface BottleFacade {
     List<BottleDTO> getAllBottlesFromManufacturer(ManufacturerDTO manufacturer);
 
     List<BottleDTO> getAllBottlesInStore(StoreDTO store);
+
+    List<BottleDTO> getAllNontoxicBottlesInStore(StoreDTO store);
 
     List<BottleDTO> findByBottleType(BottleTypeDTO type);
 
@@ -39,4 +43,6 @@ public interface BottleFacade {
     BottleDTO findById(Long id);
 
     BottleDTO findByStickerId(String id);
+
+    void deleteBottle(long id);
 }

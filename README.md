@@ -19,10 +19,21 @@ Police can obtain the statistics of the toxic bottles for each store and produce
 
 ## Installation
 
-This project is build using maven.
+This project is build using maven, backend powered by Java and frontend by AngularJC.
 
-**Usage:** `mvn clean install`
+**Usage:** 
 
+1. build the project `mvn clean install`
+
+2. then go to folder web `cd web`
+
+3. and run tomcat `mvn tomcat7:rum`
+
+You will find web interface of application at: localhost:8080/pa165/
+
+You should be able to view a list of stores and bottles (no login required). If you are manufacturer, from police, laboratory or you own some store, just log in and manage what is in your competences.
+
+Prepared accounts (login/pass): manufacturer/manufacturer, police/police, laboratory/laboratory, store/store.
 
 ## Project webpage
 https://rudky4.github.io/PA165---Liquor-bottles-registry/ (in development)

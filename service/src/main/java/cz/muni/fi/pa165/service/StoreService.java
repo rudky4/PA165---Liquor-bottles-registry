@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.Store;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -16,4 +17,6 @@ public interface StoreService {
     Store findById(Long id);
     
     Store findByName(String name);
+
+    Set<Store> findByBottleType(Long id);
 }
