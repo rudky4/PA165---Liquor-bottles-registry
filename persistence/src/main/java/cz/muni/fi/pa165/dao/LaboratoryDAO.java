@@ -25,4 +25,8 @@ public interface LaboratoryDAO extends CrudRepository<Laboratory, Long> {
      * @return Laboratory
      */
     Laboratory findByName(String name);
+
+    @Query("SELECT l FROM Laboratory l " +
+            "ORDER BY size(l.bottlesToCheck)")
+    List<Laboratory> findByBottlesToCheckAsc();
 }
