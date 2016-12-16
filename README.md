@@ -31,7 +31,8 @@ This project is build using maven, backend powered by Java and frontend by Angul
 
 You will find web interface of application at: localhost:8080/pa165/
 
-You should be able to view a list of stores and bottles (no login required). If you are manufacturer, from police, laboratory or you own some store, just log in and manage what is in your competences.
+You should be able to view a list of stores and bottles, list of manufacturers and bottle types they produce (no login required). 
+If you are manufacturer, from police, laboratory or you own some store, just log in and manage what is in your competences.
 
 Prepared accounts (login/pass): manufacturer/manufacturer, police/police, laboratory/laboratory, store/store.
 
