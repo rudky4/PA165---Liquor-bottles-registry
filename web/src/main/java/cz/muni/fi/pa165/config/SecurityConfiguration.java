@@ -53,6 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/rest/bottleType/*").hasRole(PersonRole.MANUFACTURER.name())
                 .antMatchers(HttpMethod.PUT, "/rest/bottle/*/toxicity/*").hasRole(PersonRole.LAB.name())
                 .antMatchers(HttpMethod.POST, "/rest/bottleType/*").hasRole(PersonRole.MANUFACTURER.name())
+                .antMatchers(HttpMethod.POST, "/rest/bottle").hasRole(PersonRole.STORE_OWNER.name())
+                .antMatchers(HttpMethod.DELETE, "/rest/bottle/*").hasRole(PersonRole.STORE_OWNER.name())
                 .antMatchers("/rest/user").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/partials/**").permitAll()

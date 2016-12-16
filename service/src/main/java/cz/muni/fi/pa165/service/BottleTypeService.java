@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.BottleType;
+import cz.muni.fi.pa165.entity.Store;
 import cz.muni.fi.pa165.enums.AlcoholType;
 
 import java.math.BigDecimal;
@@ -26,6 +27,8 @@ public interface BottleTypeService {
     List<BottleType> findWithHigherVolume(BigDecimal volume);
 
     List<BottleType> findBySize(BigDecimal size);
+
+    List<BottleType> findByStore(Store store);
 
     BottleType findById(Long id);
 }

@@ -1,12 +1,19 @@
 package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
+import cz.muni.fi.pa165.dto.StoreDTO;
+import cz.muni.fi.pa165.exceptions.ResourceConflict;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
+import cz.muni.fi.pa165.exceptions.ResourceNotValid;
 import cz.muni.fi.pa165.facade.BottleFacade;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,5 +65,27 @@ public class BottleController {
         result.setToxic(isToxic == 1);
         result.setLaboratory(null);
         bottleFacade.updateBottle(result);
-    }    
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public final void createBottle(@Valid @RequestBody BottleDTO bottle,
+                                   @RequestParam("store") long storeId,
+                                   BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            throw new ResourceNotValid();
+        }
+        try {
+            bottleFacade.importBottleToStore(bottle, storeId);
+        } catch (DataAccessException dae) {
+            throw new ResourceConflict();
+        } catch (IllegalArgumentException iae) {
+            throw new ResourceNotFound();
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public final void deleteBottleType(@PathVariable("id") long id) {
+        bottleFacade.deleteBottle(id);
+    }
 }

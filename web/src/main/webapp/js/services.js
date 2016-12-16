@@ -7,7 +7,8 @@ var urlBase = "http://localhost:8080/pa165/rest";
 liquorServices.factory('bottleFactory', ['$http',
     function($http){
         var urlBottle = urlBase.concat("/bottle");
-        var urlToxic = urlBottle.concat("/{id}/toxicity/{value}");
+        var urlBottleId = urlBottle.concat("/{id}");
+        var urlToxic = urlBottleId.concat("/toxicity/{value}");
 		var dataFactory={};
 		
         dataFactory.getAllBottles = function(success, error) {
@@ -21,6 +22,14 @@ liquorServices.factory('bottleFactory', ['$http',
 		dataFactory.setToxic = function(bottleId, toxicity, success, error) {
 			return $http.put(urlToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
 		};
+
+		dataFactory.createBottle = function(bottle, storeId, success, error) {
+   			return $http.post(urlBottle + "?store=" + storeId, bottle).then(success, error);
+   		};
+
+   		dataFactory.deleteBottle = function(bottleId, success, error) {
+           	return $http.delete(urlBottleId.replace("{id}",bottleId)).then(success, error);
+        };
 
         return dataFactory;
     }
@@ -83,6 +92,10 @@ liquorServices.factory('loggedUserFactory', ['$http',
             return $http.get(urlUser.concat("/manufacturer")).then(success, error);
         };
 
+        dataFactory.getStore = function(success, error) {
+            return $http.get(urlUser.concat("/store")).then(success, error);
+        };
+
         return dataFactory;
     }
 ]);
@@ -135,6 +148,10 @@ liquorServices.factory('storeFactory', ['$http',
 
         dataFactory.getAllBottles = function(id, success, error) {
             return $http.get(urlAllBottles.replace("{id}", id)).then(success, error);
+        };
+
+        dataFactory.getBottleTypes = function(id, success, error) {
+            return $http.get(urlStore + "/" + id + "/bottleType").then(success, error);
         };
 
         dataFactory.gotStoreByBottleType = function(id, success, error) {

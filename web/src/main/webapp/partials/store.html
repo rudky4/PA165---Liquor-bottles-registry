@@ -1,0 +1,83 @@
+<h3>{{store.name}}</h3>
+<br/>
+
+<button class="btn btn-secondary" ng-click="showForm = !showForm" ngInit="showForm = false">Import bottles</button>
+<div>
+    <form name="formBottle" ng-submit="importBottle()" ng-show="showForm">
+        <table>
+            <tr>
+                <td>Manufacturer:</td>
+                <td>
+                    <select ng-model="manufacturer" ng-options="manufacturer.name for manufacturer in manufacturers" ng-change="manufacturerSelected()" required>
+                        <option ng-if="!manufacturer" value="">Please select</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Bottle type:</td>
+                <td>
+                    <select ng-model="bottle.bottleType" ng-options="type.name for type in manufacturer.bottleTypes" required>
+                        <option ng-if="!manufacturer" value="">Please select Manufacturer</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Sticker ID:</td>
+                <td><input class="form-control" name="input" ng-model="bottle.stickerID" required></td>
+            </tr>
+        </table>
+        <button class="btn btn-secondary" type="submit" ng-disabled="formBottle.$invalid">Import</button>
+    </form>
+</div>
+<br/>
+
+<table class="table" >
+    <thead class="thead-inverse">
+    <tr>
+        <th>Sticker ID</th>
+        <th>Name</th>
+        <th>Production date</th>
+        <th>Size</th>
+        <th>Type</th>
+        <th>Manufacturer</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="bottle in bottles">
+        <th scope="row">{{bottle.stickerID}}</td>
+        <td>{{bottle.bottleType.name}}</td>
+        <td>{{bottle.produced}}</td>
+        <td>{{bottle.bottleType.size}}</td>
+        <td>{{bottle.bottleType.type}}</td>
+        <td>{{bottle.bottleType.manufacturedBy.name}}</td>
+        <td>
+            <button type="button" class="btn btn-secondary" ng-click="markSold(bottle.id)">Mark sold</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<h3>Your bottle types</h3>-->
+<!--<table class="table">-->
+    <!--<thead class="thead-inverse">-->
+    <!--<tr>-->
+        <!--<th>Name</th>-->
+        <!--<th>Type</th>-->
+        <!--<th>Size</th>-->
+        <!--<th>Volume</th>-->
+        <!--<th>Action</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr ng-repeat="type in bottleTypes">-->
+        <!--<th scope="row">{{type.name}}</td>-->
+        <!--<td>{{type.type}}</td>-->
+        <!--<td>{{type.size}}</td>-->
+        <!--<td>{{type.volume}}</td>-->
+        <!--<td>-->
+            <!--<button class="btn btn-secondary" type="button" ng-click="">See bottles</button>-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+<!--</table>-->
