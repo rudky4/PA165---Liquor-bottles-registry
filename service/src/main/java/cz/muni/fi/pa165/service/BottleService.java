@@ -15,6 +15,8 @@ public interface BottleService {
 
     void createBottle(Bottle bottle);
 
+    void importBottleToStore(Bottle bottle, long storeId);
+
     List<Bottle> findAll();
 
     List<Bottle> getBottlesFromDate(Date date);
@@ -44,4 +46,6 @@ public interface BottleService {
     Bottle findByStickerId(String id);
     
     void updateBottle(Bottle bottle);
+
+    void deleteBottle(long id);
 }

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.dao.BottleTypeDAO;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
+import cz.muni.fi.pa165.entity.Store;
 import cz.muni.fi.pa165.enums.AlcoholType;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +70,11 @@ public class BottleTypeServiceImpl implements BottleTypeService {
     @Override
     public List<BottleType> findBySize(BigDecimal size) {
         return bottleTypeDAO.findBySize(size);
+    }
+
+    @Override
+    public List<BottleType> findByStore(Store store) {
+        return bottleTypeDAO.findByStore(store);
     }
 
     @Override

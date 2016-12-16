@@ -1,9 +1,11 @@
 package cz.muni.fi.pa165.controllers;
 
 import cz.muni.fi.pa165.dto.BottleDTO;
+import cz.muni.fi.pa165.dto.BottleTypeDTO;
 import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
 import cz.muni.fi.pa165.facade.BottleFacade;
+import cz.muni.fi.pa165.facade.BottleTypeFacade;
 import cz.muni.fi.pa165.facade.StoreFacade;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +30,9 @@ public class StoreController {
 
     @Inject
     private BottleFacade bottleFacade;
+
+    @Inject
+    private BottleTypeFacade bottleTypeFacade;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<StoreDTO> getStores() {
@@ -73,4 +78,17 @@ public class StoreController {
         return storeFacade.findByBottleType(bottleTypeId);
     }
 
+    @RequestMapping(value = "/{id}/bottleType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleTypeDTO> getStoreBottleTypes(@PathVariable("id") long id) {
+        StoreDTO storeDTO = storeFacade.findById(id);
+        if(storeDTO == null) {
+            throw new ResourceNotFound();
+        }
+
+        List<BottleTypeDTO> bottleTypes = bottleTypeFacade.findByStore(storeDTO);
+        if (bottleTypes == null) {
+            bottleTypes = Collections.emptyList();
+        }
+        return bottleTypes;
+    }
 }

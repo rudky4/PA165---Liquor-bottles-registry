@@ -156,20 +156,11 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
     loggedUserFactory.getManufacturer(
         function (response) {
             if(response.data != null) {
-                $scope.loadManufacturer(response.data.id);
                 $scope.loadBottleTypes(response.data.id);
             }
         },
         $rootScope.unsuccessfulResponse
     );
-    $scope.loadManufacturer = function(id) {
-        manufacturerFactory.getManufacturer(id,
-            function (response) {
-                $scope.manufacturer = response.data;
-            },
-            $rootScope.unsuccessfulResponse
-        );
-    };
     $scope.loadBottleTypes = function(id) {
         manufacturerFactory.getBottleTypes(id,
             function (response) {
@@ -216,6 +207,71 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
         bottleTypeFactory.updateBottleType(bottleType,
             function (response) {
                 $scope.loadBottleTypes($scope.manufacturer.id);
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+});
+
+liquorControllers.controller('storeManagementCtrl', function ($scope, $rootScope, $routeParams, loggedUserFactory, storeFactory, manufacturerFactory, bottleFactory) {
+    loggedUserFactory.getStore(
+        function (response) {
+            $scope.store = response.data;
+            $scope.loadBottles($scope.store.id);
+//            $scope.loadBottleTypes($scope.store.id);
+        },
+        $rootScope.unsuccessfulResponse
+    );
+//    $scope.loadBottleTypes = function(id) {
+//        storeFactory.getBottleTypes(id,
+//            function (response) {
+//                $scope.bottleTypes = response.data;
+//            },
+//            $rootScope.unsuccessfulResponse
+//        );
+//    };
+    $scope.loadBottles = function(id) {
+        storeFactory.getNontoxicBottles(id,
+            function (response) {
+                $scope.bottles = response.data;
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+    $scope.manufacturerSelected = function() {
+        manufacturerFactory.getBottleTypes($scope.manufacturer.id,
+            function (response) {
+                $scope.manufacturer.bottleTypes = response.data;
+                $scope.bottle.bottleType = $scope.manufacturer.bottleTypes[0];
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    }
+
+    manufacturerFactory.getAllManufacturers(
+        function (response) {
+            $scope.manufacturers = response.data;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+    $scope.bottle = {"toxic": false}
+    $scope.importBottle = function() {
+        bottleFactory.createBottle($scope.bottle, $scope.store.id,
+            function (response) {
+                $scope.bottle = {"toxic": false}
+                $scope.loadBottles($scope.store.id);
+//                $scope.loadBottleTypes($scope.store.id);
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    $scope.markSold = function(bottleId) {
+        bottleFactory.deleteBottle(bottleId,
+            function (response) {
+                $scope.loadBottles($scope.store.id);
+//                $scope.loadBottleTypes($scope.manufacturer.id);
             },
             $rootScope.unsuccessfulResponse
         );

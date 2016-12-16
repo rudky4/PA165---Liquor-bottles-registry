@@ -36,6 +36,11 @@ public class BottleFacadeImpl implements BottleFacade {
     }
 
     @Override
+    public void importBottleToStore(BottleDTO bottle, long storeId) {
+        bottleService.importBottleToStore(beanMappingService.mapTo(bottle, Bottle.class), storeId);
+    }
+
+    @Override
     public List<BottleDTO> findAll() {
         List<Bottle> bottles = bottleService.findAll();
         return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
@@ -110,7 +115,12 @@ public class BottleFacadeImpl implements BottleFacade {
         Bottle bottle = bottleService.findByStickerId(id);
         return beanMappingService.mapTo(bottle, BottleDTO.class);
     }
-    
+
+    @Override
+    public void deleteBottle(long id) {
+        bottleService.deleteBottle(id);
+    }
+
     @Override
     public void updateBottle(BottleDTO bottle){
         bottleService.updateBottle(beanMappingService.mapTo(bottle, Bottle.class));
