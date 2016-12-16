@@ -23,6 +23,10 @@ liquorServices.factory('bottleFactory', ['$http',
 			return $http.put(urlToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
 		};
 
+		dataFactory.assignToLab = function(bottleId, labId, success, error) {
+            return $http.put(urlBottleId.replace("{id}", bottleId) + "?lab=" + labId).then(success, error);
+        };
+
 		dataFactory.createBottle = function(bottle, storeId, success, error) {
    			return $http.post(urlBottle + "?store=" + storeId, bottle).then(success, error);
    		};
