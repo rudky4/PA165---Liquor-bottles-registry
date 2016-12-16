@@ -71,6 +71,6 @@ public class Laboratory {
 
     @Override
     public int hashCode() {
-        return name.hashCode() * 21;
+        return (name != null) ? name.hashCode() * 21 : 0;
     }       
 }

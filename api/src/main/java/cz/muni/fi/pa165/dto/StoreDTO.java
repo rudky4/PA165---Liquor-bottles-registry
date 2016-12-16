@@ -69,6 +69,6 @@ public class StoreDTO {
 
     @Override
     public String toString() {
-        return "StoreDTO{" + "id=" + id + ", name=" + name + ", persons=" + persons + ", bottles=" + bottles + '}';
+        return "StoreDTO{" + "id=" + id + ", name=" + name + '}';
     }    
 }
