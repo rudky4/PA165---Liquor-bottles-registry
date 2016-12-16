@@ -88,15 +88,15 @@ public class InitializerImpl implements Initializer {
         createPolice("police", "police", "Policajt", "police@liquor.com");
 
         List<Manufacturer> manufacturers = manufacturerService.findAll();
-        createManufacturerPerson("manu", "manu", "Janko", "manu@liquor.com", manufacturers.get(0));
+        createManufacturerPerson("manufacturer", "manufacturer", "Janko", "manu@liquor.com", manufacturers.get(0));
         createManufacturerPerson("manu1", "manu1", "Peter", "manu1@liquor.com", manufacturers.get(1));
 
         List<Laboratory> laboratories = labService.findAll();
-        createLabPerson("lab0", "lab0", "Michal", "labo@liquor.com", laboratories.get(0));
+        createLabPerson("laboratory", "laboratory", "Michal", "labo@liquor.com", laboratories.get(0));
         createLabPerson("lab1", "lab1", "Tom", "labo1@liquor.com", laboratories.get(1));
 
         List<Store> stores = storeService.findAll();
-        createStoreOwner("store0", "store0", "Johny", "store@liquor.com", stores.get(0));
+        createStoreOwner("store", "store", "Johny", "store@liquor.com", stores.get(0));
         createStoreOwner("store1", "store1", "Johny", "store1@liquor.com", stores.get(1));
     }
 
