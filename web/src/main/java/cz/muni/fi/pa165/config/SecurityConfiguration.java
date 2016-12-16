@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/rest/store/*/bottles/all").hasRole("POLICE")
                 .antMatchers(HttpMethod.GET, "/rest/store").permitAll()
                 .antMatchers(HttpMethod.GET, "/rest/store/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/rest/store/*/bottles").permitAll()
+                .antMatchers(HttpMethod.GET, "/rest/store/*/bottles/nontoxic").permitAll()
                 .antMatchers(HttpMethod.GET, "/rest/store/bottleType/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/rest/manufacturer").permitAll()
                 .antMatchers(HttpMethod.GET, "/rest/manufacturer/*").permitAll()
