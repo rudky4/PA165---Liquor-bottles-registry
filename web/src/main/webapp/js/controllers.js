@@ -168,13 +168,14 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
     loggedUserFactory.getManufacturer(
         function (response) {
             if(response.data != null) {
-                $scope.loadBottleTypes(response.data.id);
+                $scope.manufacturer = response.data;
+                $scope.loadBottleTypes($scope.manufacturer.id);
             }
         },
         $rootScope.unsuccessfulResponse
     );
     $scope.loadBottleTypes = function(id) {
-        manufacturerFactory.getBottleTypes(id,
+        manufacturerFactory.getBottleTypesAll(id,
             function (response) {
                 $scope.bottleTypes = response.data;
             },
@@ -280,7 +281,7 @@ liquorControllers.controller('storeManagementCtrl', function ($scope, $rootScope
     };
 
     $scope.markSold = function(bottleId) {
-        bottleFactory.deleteBottle(bottleId+2000,
+        bottleFactory.deleteBottle(bottleId,
             function (response) {
                 $scope.loadBottles($scope.store.id);
 //                $scope.loadBottleTypes($scope.manufacturer.id);

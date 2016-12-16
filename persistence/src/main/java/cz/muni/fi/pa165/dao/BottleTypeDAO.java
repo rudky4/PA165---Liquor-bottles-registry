@@ -29,8 +29,7 @@ public interface BottleTypeDAO extends CrudRepository<BottleType, Long> {
 
     @Query("SELECT DISTINCT bt FROM Bottle b " +
             "INNER JOIN b.bottleType bt " +
-            "WHERE b.store=:store " +
-            "AND bt.deleted = '0'")
+            "WHERE b.store=:store")
     List<BottleType> findByStore(@Param("store") Store store);
 }
 

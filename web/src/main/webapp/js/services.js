@@ -126,6 +126,10 @@ liquorServices.factory('manufacturerFactory', ['$http',
             return $http.get(urlManufacturer.replace("{id}", id) + "/bottleTypes").then(success, error);
         };
 
+        dataFactory.getBottleTypesAll = function(id, success, error) {
+            return $http.get(urlManufacturer.replace("{id}", id) + "/bottleTypes" + "?deleted=1").then(success, error);
+        };
+
         return dataFactory;
     }
 ]);
