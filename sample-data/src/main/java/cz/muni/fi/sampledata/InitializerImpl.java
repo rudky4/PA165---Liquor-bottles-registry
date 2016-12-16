@@ -2,18 +2,17 @@ package cz.muni.fi.sampledata;
 
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.AlcoholType;
-import cz.muni.fi.pa165.enums.PersonRole;
 import cz.muni.fi.pa165.service.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+
+import static cz.muni.fi.pa165.enums.AlcoholType.*;
+import static cz.muni.fi.pa165.enums.PersonRole.*;
 
 /**
  * @author Jakub Fiser
@@ -37,155 +36,197 @@ public class InitializerImpl implements Initializer {
     private PersonService personService;
     @Inject
     private LaboratoryService labService;
-    
+
     @Override
     public void loadData() {
         createManufacturers();
         createBottleTypes();
         createStores();
-        createBottles();
+        createLaboratories();
         createPersons();
-        createLaboratory();
-    }
-
-    private void createPersons() {
-        Person p = new Person();
-        p.setLogin("admin");
-        p.setName("Michal");
-        p.setEmail("michal@liquor-repository.com");
-        p.setRole(PersonRole.CUSTOMER);
-        personService.registerPerson(p, "admin");
-
-        p = new Person();
-        p.setLogin("admin2");
-        p.setName("Rudolf");
-        p.setEmail("rudolf@liquor-repository.com");
-        p.setRole(PersonRole.MANUFACTURER);
-        p.setManufacturer(manufacturerService.findByName("Manufacturer 1"));
-        personService.registerPerson(p, "admin");
-
-        p = new Person();
-        p.setLogin("police");
-        p.setName("Policajt Janko");
-        p.setEmail("police@police.com");
-        p.setRole(PersonRole.POLICE);
-        personService.registerPerson(p, "police");
-    }
-
-    private void createStores() {
-        Store store1 = new Store();
-        store1.setName("Store 1");
-        store1.setPersons(Collections.emptyList());
-
-        Store store2 = new Store();
-        store2.setName("Store 2");
-        store2.setPersons(Collections.emptyList());
-
-        Store store3 = new Store();
-        store3.setName("Store 3");
-        store3.setPersons(Collections.emptyList());
-        store3.setBottles(bottleService.findAll());
-
-        storeService.createStore(store1);
-        storeService.createStore(store2);
-        storeService.createStore(store3);
+        createBottles();
     }
 
     private void createManufacturers() {
-        Manufacturer manufacturer1 = new Manufacturer();
-        manufacturer1.setName("Manufacturer 1");
-        manufacturer1.setPersons(Collections.emptyList());
-        Manufacturer manufacturer2 = new Manufacturer();
-        manufacturer2.setPersons(Collections.emptyList());
-        manufacturer2.setName("Manufacturer 2");
-
-        manufacturerService.createManufacturer(manufacturer1);
-        manufacturerService.createManufacturer(manufacturer2);
+        createManufacturer("Bohemia bottles", Collections.emptyList());
+        createManufacturer("Brno Líh", Collections.emptyList());
+        createManufacturer("Absolut", Collections.emptyList());
     }
 
     private void createBottleTypes() {
-        for (Manufacturer manufacturer : manufacturerService.findAll()) {
-            BottleType bottleType1 = new BottleType();
-            bottleType1.setName("Bottle Type 1 " + manufacturer.getName());
-            bottleType1.setType(AlcoholType.COGNAC);
-            bottleType1.setVolume(BigDecimal.TEN);
-            bottleType1.setSize(BigDecimal.ONE);
-            bottleType1.setManufacturedBy(manufacturer);
+        List<Manufacturer> manufacturers = manufacturerService.findAll();
+        Manufacturer bohemia = manufacturers.get(0);
+        Manufacturer brnoLih = manufacturers.get(1);
+        Manufacturer absolut = manufacturers.get(2);
 
-            BottleType bottleType2 = new BottleType();
-            bottleType2.setName("Bottle Type 2 "  + manufacturer.getName());
-            bottleType2.setType(AlcoholType.RUM);
-            bottleType2.setVolume(BigDecimal.TEN);
-            bottleType2.setSize(BigDecimal.ONE);
-            bottleType2.setManufacturedBy(manufacturer);
+        createBottleType("Rumíček", RUM, 40, 1, bohemia);
+        createBottleType("Vodečka", VODKA, 35, 1, bohemia);
+        createBottleType("Vodka jemná", VODKA, 20, 1, bohemia);
 
-            bottleTypeService.createBottleType(bottleType1);
-            bottleTypeService.createBottleType(bottleType2);
-        }
+        createBottleType("Brnenská whisky", WHISKEY, 38, 2, brnoLih);
+        createBottleType("Brnenský cognac", COGNAC, 42, 1, brnoLih);
+
+        createBottleType("Absolut Vodka", VODKA, 40, 1, absolut);
+        createBottleType("Absolut Strong", VODKA, 65, 1, absolut);
     }
-    
-    private void createLaboratory(){
-        Laboratory lab = new Laboratory();
-        lab.setName("BestLab");
-        labService.createLaboratory(lab);
 
-        Person p = new Person();
-        p.setLogin("laboratory");
-        p.setName("Sherlock");
-        p.setEmail("lab@liquor-repository.com");
-        p.setRole(PersonRole.LAB);
-        p.setLaboratory(lab);
-        personService.registerPerson(p, "laboratory");
-        
-        List<BottleType> bottleTypes = bottleTypeService.findAll();
-        Date date = timeService.getCurrentDate();
-        lab = labService.findAll().get(0);  
-        
-        for(int i=0; i<bottleTypes.size(); i++) {
-            Bottle bottle = new Bottle();
-            bottle.setToxic(false);
-            bottle.setProduced(date);
-            bottle.setStickerID("TestLab" + i);
-            bottle.setBottleType(bottleTypes.get(i));
-            bottle.setLaboratory(lab);
-            bottleService.createBottle(bottle);
-        }
+    private void createStores() {
+        createStore("Tesco", Collections.emptyList());
+        createStore("Kaufland", Collections.emptyList());
+        createStore("Brněnka", Collections.emptyList());
+        createStore("Potraviny u Adámka", Collections.emptyList());
+        createStore("Na rohu", Collections.emptyList());
+    }
+
+    private void createLaboratories(){
+        createLaboratory("Národní lihový ústav");
+        createLaboratory("LihoLab Praha");
+    }
+
+    private void createPersons() {
+        createPolice("admin", "admin", "Michal", "michal@liquor.com");
+        createPolice("police", "police", "Policajt", "police@liquor.com");
+
+        List<Manufacturer> manufacturers = manufacturerService.findAll();
+        createManufacturerPerson("manu", "manu", "Janko", "manu@liquor.com", manufacturers.get(0));
+        createManufacturerPerson("manu1", "manu1", "Peter", "manu1@liquor.com", manufacturers.get(1));
+
+        List<Laboratory> laboratories = labService.findAll();
+        createLabPerson("lab0", "lab0", "Michal", "labo@liquor.com", laboratories.get(0));
+        createLabPerson("lab1", "lab1", "Tom", "labo1@liquor.com", laboratories.get(1));
+
+        List<Store> stores = storeService.findAll();
+        createStoreOwner("store0", "store0", "Johny", "store@liquor.com", stores.get(0));
+        createStoreOwner("store1", "store1", "Johny", "store1@liquor.com", stores.get(1));
     }
 
     private void createBottles() {
         List<BottleType> bottleTypes = bottleTypeService.findAll();
-        List<Store> store = storeService.findAll();
-        Date date = timeService.getCurrentDate();
+        List<Store> stores = storeService.findAll();
+        List<Laboratory> laboratories = labService.findAll();
 
-        for(int i=0; i<bottleTypes.size(); i++) {
-            Bottle bottle = new Bottle();
-            bottle.setToxic(true);
-            bottle.setProduced(date);
-            bottle.setStickerID("StickerID_T" + i);
-            bottle.setBottleType(bottleTypes.get(i));
-            bottle.setStore(store.get(0));
-            bottleService.createBottle(bottle);
+        // Nontoxic in store
+        for(int si=0; si<stores.size() - 2; si++) {
+            for (int bi = 0; bi < bottleTypes.size(); bi++) {
+                String id = "ID25" + bi + "38" + si;
+                createBottle(false, id, bottleTypes.get(bi), stores.get(si));
+            }
         }
 
-        for(int i=0; i<bottleTypes.size(); i++) {
-            Bottle bottle = new Bottle();
-            bottle.setToxic(false);
-            bottle.setProduced(date);
-            bottle.setStickerID("StickerID_NT" + i);
-            bottle.setBottleType(bottleTypes.get(i));
-            bottle.setStore(store.get(0));
-            bottleService.createBottle(bottle);
+        // Toxic in store
+        for(int si=0; si<stores.size() - 2; si++) {
+            for (int bi = 0; bi < bottleTypes.size(); bi++) {
+                String id = "ID74" + bi + si + "4";
+                createBottle(true, id, bottleTypes.get(bi), stores.get(si));
+            }
         }
 
-        for(int i=0; i<bottleTypes.size(); i++) {
-            Bottle bottle = new Bottle();
-            bottle.setToxic(false);
-            bottle.setProduced(date);
-            bottle.setStickerID("StickerID_NT2_" + i);
-            bottle.setBottleType(bottleTypes.get(i));
-            bottle.setStore(store.get(1));
-            bottleService.createBottle(bottle);
+        // Another nontoxic in store
+        for(int si=0; si<stores.size() - 1; si++) {
+            for (int bi = 0; bi < bottleTypes.size(); bi++) {
+                String id1 = "ID00" + bi + "00" + si;
+                createBottle(false, id1, bottleTypes.get(bi), stores.get(si));
+            }
         }
+
+        //  In store and in lab
+        for(int si=0; si<stores.size() - 2; si++) {
+            for (int bi = 0; bi < bottleTypes.size(); bi++) {
+                String id = "ID65" + bi + si + "4";
+                Laboratory lab = laboratories.get(si % 2);
+                createBottle(true, id, bottleTypes.get(bi), stores.get(si), lab);
+            }
+        }
+    }
+
+    private void createManufacturer(String name, List<Person> persons) {
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setName(name);
+        manufacturer.setPersons(persons);
+        manufacturerService.createManufacturer(manufacturer);
+    }
+
+    private void createBottleType(String name, AlcoholType type, int vol, int size, Manufacturer manufacturer) {
+        BottleType bottleType = new BottleType();
+        bottleType.setName(name);
+        bottleType.setType(type);
+        bottleType.setVolume(new BigDecimal(vol));
+        bottleType.setSize(new BigDecimal(size));
+        bottleType.setManufacturedBy(manufacturer);
+        bottleTypeService.createBottleType(bottleType);
+    }
+
+    private void createStore(String name, List<Person> persons) {
+        Store store = new Store();
+        store.setName(name);
+        store.setPersons(persons);
+        storeService.createStore(store);
+    }
+
+    private void createLaboratory(String name) {
+        Laboratory lab = new Laboratory();
+        lab.setName(name);
+        labService.createLaboratory(lab);
+    }
+
+    private void createStoreOwner(String login, String password, String name, String mail, Store store) {
+        Person person = new Person();
+        person.setLogin(login);
+        person.setName(name);
+        person.setEmail(mail);
+        person.setRole(STORE_OWNER);
+        person.setStore(store);
+        personService.registerPerson(person, password);
+    }
+
+    private void createLabPerson(String login, String password, String name, String mail, Laboratory lab) {
+        Person person = new Person();
+        person.setLogin(login);
+        person.setName(name);
+        person.setEmail(mail);
+        person.setRole(LAB);
+        person.setLaboratory(lab);
+        personService.registerPerson(person, password);
+    }
+
+    private void createManufacturerPerson(String login, String password, String name, String mail, Manufacturer manu) {
+        Person person = new Person();
+        person.setLogin(login);
+        person.setName(name);
+        person.setEmail(mail);
+        person.setRole(MANUFACTURER);
+        person.setManufacturer(manu);
+        personService.registerPerson(person, password);
+    }
+
+    private void createPolice(String login, String password, String name, String mail) {
+        Person person = new Person();
+        person.setLogin(login);
+        person.setName(name);
+        person.setEmail(mail);
+        person.setRole(POLICE);
+        personService.registerPerson(person, password);
+    }
+
+    private void createBottle(boolean toxic, String stickerId, BottleType bottleType, Store store) {
+        Bottle bottle = new Bottle();
+        bottle.setToxic(toxic);
+        bottle.setProduced(timeService.getCurrentDate());
+        bottle.setStickerID(stickerId);
+        bottle.setBottleType(bottleType);
+        bottle.setStore(store);
+        bottleService.createBottle(bottle);
+    }
+
+    private void createBottle(boolean toxic, String stickerId, BottleType bottleType, Store store, Laboratory lab) {
+        Bottle bottle = new Bottle();
+        bottle.setToxic(toxic);
+        bottle.setProduced(timeService.getCurrentDate());
+        bottle.setStickerID(stickerId);
+        bottle.setBottleType(bottleType);
+        bottle.setStore(store);
+        bottle.setLaboratory(lab);
+        bottleService.createBottle(bottle);
     }
 
 }
