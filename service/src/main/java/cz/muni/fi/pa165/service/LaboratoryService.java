@@ -17,6 +17,8 @@ public interface LaboratoryService {
     Laboratory findById(Long id);
     
     Laboratory findByName(String name);
+
+    Laboratory findWithLeastBottles();
     
     List<Bottle>getBottlesToCheck(Long id);
 }

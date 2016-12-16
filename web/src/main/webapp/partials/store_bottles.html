@@ -17,6 +17,7 @@
             <th>Type</th>
             <th>Manufacturer</th>
             <th ng-switch-when="ROLE_POLICE">Is toxic</th>
+            <th ng-switch-when="ROLE_POLICE">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +29,9 @@
             <td>{{bottle.bottleType.type}}</td>
             <td>{{bottle.bottleType.manufacturedBy.name}}</td>
             <td ng-switch-when="ROLE_POLICE">{{bottle.toxic}}</td>
+            <td ng-switch-when="ROLE_POLICE">
+                <button ng-if="!bottle.toxic" type="button" class="btn btn-secondary" ng-click="markAsToxic(bottle.id)">Send to lab</button>
+            </td>
         </tr>
     </tbody>
 </table>

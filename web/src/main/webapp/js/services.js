@@ -23,6 +23,10 @@ liquorServices.factory('bottleFactory', ['$http',
 			return $http.put(urlToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
 		};
 
+		dataFactory.assignToLab = function(bottleId, success, error) {
+            return $http.put(urlBottleId.replace("{id}", bottleId)).then(success, error);
+        };
+
 		dataFactory.createBottle = function(bottle, storeId, success, error) {
    			return $http.post(urlBottle + "?store=" + storeId, bottle).then(success, error);
    		};
@@ -120,6 +124,10 @@ liquorServices.factory('manufacturerFactory', ['$http',
 
         dataFactory.getBottleTypes = function(id, success, error) {
             return $http.get(urlManufacturer.replace("{id}", id) + "/bottleTypes").then(success, error);
+        };
+
+        dataFactory.getBottleTypesAll = function(id, success, error) {
+            return $http.get(urlManufacturer.replace("{id}", id) + "/bottleTypes" + "?deleted=1").then(success, error);
         };
 
         return dataFactory;

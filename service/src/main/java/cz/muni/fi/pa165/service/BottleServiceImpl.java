@@ -121,6 +121,9 @@ public class BottleServiceImpl implements BottleService {
     
     @Override
     public void updateBottle(Bottle bottle){
+        if(bottle == null || !bottleDAO.exists(bottle.getId())) {
+            throw new IllegalArgumentException();
+        }
         bottleDAO.save(bottle);
     }
 

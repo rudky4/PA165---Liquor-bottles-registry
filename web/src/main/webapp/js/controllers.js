@@ -117,7 +117,7 @@ liquorControllers.controller('manufacturerTypesCtrl', function ($scope, $rootSco
 
 
 
-liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $routeParams, storeFactory) {
+liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $routeParams, storeFactory, bottleFactory) {
     storeFactory.getStore(
         $routeParams.id,
         function (response) {
@@ -128,18 +128,30 @@ liquorControllers.controller('storeBottlesCtrl', function ($scope, $rootScope, $
 
     $scope.bottlesRequestEnds = false;
     if ($rootScope.role == 'ROLE_POLICE') {
-        storeFactory.getAllBottles(
-            $routeParams.id,
-            function (response) {
-                $scope.bottlesRequestEnds = true;
-                $scope.bottles = response.data;
-                $scope.toxicBottlesPercentage = '0';
-                if($scope.bottles.length > 0) {
-                    $scope.toxicBottlesPercentage = $rootScope.getToxicBottlesPercentage($scope.bottles);
-                }
-            },
-            $rootScope.unsuccessfulResponse
-        );
+        $scope.loadBottles = function() {
+            storeFactory.getAllBottles(
+                $routeParams.id,
+                function (response) {
+                    $scope.bottlesRequestEnds = true;
+                    $scope.bottles = response.data;
+                    $scope.toxicBottlesPercentage = '0';
+                    if($scope.bottles.length > 0) {
+                        $scope.toxicBottlesPercentage = $rootScope.getToxicBottlesPercentage($scope.bottles);
+                    }
+                },
+                $rootScope.unsuccessfulResponse
+            );
+        };
+        $scope.loadBottles();
+
+        $scope.markAsToxic = function(bottleId) {
+            bottleFactory.assignToLab(bottleId,
+                function (response) {
+                    $scope.loadBottles();
+                },
+                $rootScope.unsuccessfulResponse
+            );
+        };
     } else {
         storeFactory.getNontoxicBottles(
             $routeParams.id,
@@ -156,13 +168,14 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
     loggedUserFactory.getManufacturer(
         function (response) {
             if(response.data != null) {
-                $scope.loadBottleTypes(response.data.id);
+                $scope.manufacturer = response.data;
+                $scope.loadBottleTypes($scope.manufacturer.id);
             }
         },
         $rootScope.unsuccessfulResponse
     );
     $scope.loadBottleTypes = function(id) {
-        manufacturerFactory.getBottleTypes(id,
+        manufacturerFactory.getBottleTypesAll(id,
             function (response) {
                 $scope.bottleTypes = response.data;
             },

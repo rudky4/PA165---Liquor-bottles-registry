@@ -17,6 +17,8 @@ public interface LaboratoryFacade {
     LaboratoryDTO findById(Long id);
     
     LaboratoryDTO findByName(String name);
-    
+
+    LaboratoryDTO findWithLeastBottles();
+
     List<BottleDTO> getBottlesToCheck(Long id);
 }
