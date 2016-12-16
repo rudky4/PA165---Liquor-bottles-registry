@@ -186,7 +186,19 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
                 $scope.bottleType = {}
                 $scope.loadBottleTypes($scope.manufacturer.id);
             },
-            $rootScope.unsuccessfulResponse
+            function (response) {
+                if (response.status == 403) {
+                    $rootScope.page = $location.path();
+                    $location.path("/forbidden");
+                } else if (response.status == 401) {
+                    $window.location.href = "login.html"
+                } else if (response.status == 400) {
+                    document.getElementById('errorOutput').style.display = 'block';
+                    setTimeout(function(){
+                        document.getElementById('logoutOutput').style.display = 'none';
+                    }, 3000)
+                }
+            }
         );
     };
 

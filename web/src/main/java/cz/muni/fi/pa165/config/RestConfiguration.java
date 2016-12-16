@@ -17,10 +17,12 @@ import cz.muni.fi.pa165.mixin.StoreDTOMixin;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.validation.Validator;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -62,4 +64,10 @@ public class RestConfiguration extends WebMvcConfigurerAdapter {
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }
+
+    @Bean
+    public Validator validator() {
+        return new LocalValidatorFactoryBean();
+    }
+
 }

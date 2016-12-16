@@ -63,8 +63,7 @@ liquorServices.factory('bottleTypeFactory', ['$http',
             return $http.delete(finalUrl).then(success, error);
         };
         dataFactory.updateBottleType = function(bottleType, success, error) {
-            var finalUrl = urlWithId.replace("{id}", bottleType.id);
-            return $http.put(finalUrl, bottleType).then(success, error);
+            return $http.put(urlBottleType, bottleType).then(success, error);
         };
 
         return dataFactory;

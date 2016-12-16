@@ -3,6 +3,7 @@
 
 <div>
     <button class="btn btn-secondary" ng-click="showForm = !showForm" ngInit="showForm = false">Create new bottle type</button>
+    <div id="errorOutput" class="alert alert-danger" style="display: none;" role="alert">Submitted bottle type is not valid</div>
     <form name="formBottleType" ng-submit="create()" ng-show="showForm">
         <table>
             <tr>
