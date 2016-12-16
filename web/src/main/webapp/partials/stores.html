@@ -5,13 +5,11 @@
     <thead class="thead-inverse">
     <tr>
         <th>Name</th>
-        <th>Bottles</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="store in stores">
-        <th scope="row">{{store.name}}</td>
-        <td><a ng-href="#!/store/{{store.id}}/bottles">Show bottles</a></td>
+        <td scope="row"><a ng-href="#!/store/{{store.id}}/bottles">{{store.name}}</a></td>
     </tr>
     </tbody>
 </table>
