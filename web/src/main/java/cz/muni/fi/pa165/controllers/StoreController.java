@@ -44,9 +44,9 @@ public class StoreController {
 
     @RequestMapping(value = "/{id}/bottles/nontoxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getAllNontoxicBottles(@PathVariable("id") long id) {
-        List<BottleDTO> toxicBottles = bottleFacade.getAllNontoxicBottlesInStore(getStoreById(id));
-        if (toxicBottles != null) {
-            return toxicBottles;
+        List<BottleDTO> nontoxicBottles = bottleFacade.getAllNontoxicBottlesInStore(getStoreById(id));
+        if (nontoxicBottles != null) {
+            return nontoxicBottles;
         } else {
             throw new ResourceNotFound();
         }
@@ -54,9 +54,9 @@ public class StoreController {
 
     @RequestMapping(value = "/{id}/bottles/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getAllBottles(@PathVariable("id") long id) {
-        List<BottleDTO> toxicBottles = bottleFacade.getAllBottlesInStore(getStoreById(id));
-        if (toxicBottles != null) {
-            return toxicBottles;
+        List<BottleDTO> allBottles = bottleFacade.getAllBottlesInStore(getStoreById(id));
+        if (allBottles != null) {
+            return allBottles;
         } else {
             throw new ResourceNotFound();
         }
