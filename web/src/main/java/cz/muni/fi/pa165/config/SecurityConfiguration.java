@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.config;
 
-import cz.muni.fi.pa165.enums.PersonRole;
+    import cz.muni.fi.pa165.enums.PersonRole;
 import cz.muni.fi.pa165.security.CustomAuthenticationProvider;
 import cz.muni.fi.pa165.security.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/rest/lab/bottles").hasRole("LAB")
+                .antMatchers(HttpMethod.GET, "/rest/store/*/bottles/all").hasRole("POLICE")
                 .antMatchers(HttpMethod.GET, "/rest/store").permitAll()
                 .antMatchers(HttpMethod.GET, "/rest/store/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/rest/store/*/bottles").permitAll()

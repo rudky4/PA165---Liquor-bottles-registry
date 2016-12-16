@@ -68,6 +68,13 @@ public class BottleFacadeImpl implements BottleFacade {
     }
 
     @Override
+    public List<BottleDTO> getAllNontoxicBottlesInStore(StoreDTO storeDTO) {
+        Store store = beanMappingService.mapTo(storeDTO, Store.class);
+        List<Bottle> bottles = bottleService.getAllNontoxicBottlesInStore(store);
+        return bottles == null ? null : beanMappingService.mapTo(bottles, BottleDTO.class);
+    }
+
+    @Override
     public List<BottleDTO> findByBottleType(BottleTypeDTO type) {
         return beanMappingService.mapTo(bottleService.findByBottleType(beanMappingService.mapTo(type, BottleType.class)), BottleDTO.class);
     }

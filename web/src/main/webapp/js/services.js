@@ -117,6 +117,8 @@ liquorServices.factory('manufacturerFactory', ['$http',
 liquorServices.factory('storeFactory', ['$http',
     function($http){
         var urlStore = urlBase + "/store";
+        var urlNontoxicBottles = urlStore.concat("/{id}/bottles/nontoxic");
+        var urlAllBottles = urlStore.concat("/{id}//bottles/all");
 
         var dataFactory={};
 
@@ -128,8 +130,12 @@ liquorServices.factory('storeFactory', ['$http',
             return $http.get(urlStore + "/" + id).then(success, error);
         };
 
-        dataFactory.getBottles = function(id, success, error) {
-            return $http.get(urlStore + "/" + id + "/bottles").then(success, error);
+        dataFactory.getNontoxicBottles = function(id, success, error) {
+            return $http.get(urlNontoxicBottles.replace("{id}", id)).then(success, error);
+        };
+
+        dataFactory.getAllBottles = function(id, success, error) {
+            return $http.get(urlAllBottles.replace("{id}", id)).then(success, error);
         };
 
         dataFactory.gotStoreByBottleType = function(id, success, error) {

@@ -24,6 +24,8 @@ public interface BottleFacade {
 
     List<BottleDTO> getAllBottlesInStore(StoreDTO store);
 
+    List<BottleDTO> getAllNontoxicBottlesInStore(StoreDTO store);
+
     List<BottleDTO> findByBottleType(BottleTypeDTO type);
 
     boolean isToxic(Long id);
