@@ -47,6 +47,13 @@ public interface BottleDAO extends CrudRepository<Bottle, Long> {
     List<Bottle> getAllBottlesFromManufacturer(
             @Param("manufacturer") Manufacturer manufacturer);
 
+    @Query("SELECT b FROM Bottle b " +
+            "INNER JOIN b.bottleType bt " +
+            "WHERE bt.manufacturedBy=:manufacturer " +
+            "AND bt.deleted='0'")
+    List<Bottle> getAllBottlesFromManufacturerNotDeleted(
+            @Param("manufacturer") Manufacturer manufacturer);
+
     Bottle findByStickerID(String id);
 }
 

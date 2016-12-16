@@ -166,4 +166,23 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
             $rootScope.unsuccessfulResponse
         );
     };
+
+    $scope.setDeleted = function(bottleType) {
+        bottleType.deleted = true
+        bottleTypeFactory.updateBottleType(bottleType,
+            function (response) {
+                $scope.loadBottleTypes($scope.manufacturer.id);
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+    $scope.introduceType = function(bottleType) {
+        bottleType.deleted = false
+        bottleTypeFactory.updateBottleType(bottleType,
+            function (response) {
+                $scope.loadBottleTypes($scope.manufacturer.id);
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
 });

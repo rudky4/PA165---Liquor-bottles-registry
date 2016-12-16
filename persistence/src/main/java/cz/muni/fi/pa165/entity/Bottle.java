@@ -24,7 +24,7 @@ public class Bottle {
     @NotNull
     private Date produced;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
@@ -32,7 +32,7 @@ public class Bottle {
     @JoinColumn(name = "bottleType_id")
     private BottleType bottleType;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "laboratory_id")
     private Laboratory laboratory;
 

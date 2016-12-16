@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.BottleTypeDAO;
 import cz.muni.fi.pa165.entity.BottleType;
+import cz.muni.fi.pa165.entity.Manufacturer;
 import cz.muni.fi.pa165.enums.AlcoholType;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,26 @@ public class BottleTypeServiceImpl implements BottleTypeService {
 
     @Override
     public void createBottleType(BottleType type, long manufacturerId) {
+        Manufacturer manufacturer = manufacturerService.findById(manufacturerId);
+        if(manufacturer == null) {
+            throw new IllegalArgumentException("Manufacturer with id=" + manufacturerId + " does not exist.");
+        }
         BottleType stored = bottleTypeDAO.save(type);
-        stored.setManufacturedBy(manufacturerService.findById(manufacturerId));
+        stored.setManufacturedBy(manufacturer);
+    }
+
+    @Override
+    public void updateBottleType(BottleType bottleType) {
+        if(bottleType == null || !bottleTypeDAO.exists(bottleType.getId())) {
+            throw new IllegalArgumentException();
+        }
+        bottleTypeDAO.save(bottleType);
+    }
+
+    @Override
+    public void deleteBottleType(long id) {
+        BottleType bottleType = bottleTypeDAO.findOne(id);
+        bottleType.setDeleted(true);
     }
 
     @Override

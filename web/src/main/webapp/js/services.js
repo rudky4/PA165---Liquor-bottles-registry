@@ -6,21 +6,21 @@ var urlBase = "http://localhost:8080/pa165/rest";
 
 liquorServices.factory('bottleFactory', ['$http',
     function($http){
-        var urlBottle="http://localhost:8080/pa165/rest/bottle";
-        var urlBottleSetToxic="http://localhost:8080/pa165/rest/bottle/{id}/toxicity/{value}";
-        var dataFactory={};
-
+        var urlBottle = urlBase.concat("/bottle");
+        var urlToxic = urlBottle.concat("/{id}/toxicity/{value}");
+		var dataFactory={};
+		
         dataFactory.getAllBottles = function(success, error) {
             return $http.get(urlBottle).then(success, error);
         };
-
-        dataFactory.getAllToxicBottles = function(success, error) {
+		
+		dataFactory.getAllToxicBottles = function(success, error) {
             return $http.get(urlBottle.concat("/toxic")).then(success, error);
         };
-
-        dataFactory.setToxic = function(bottleId, toxicity, success, error) {
-            return $http.post(urlBottleSetToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
-        };
+				
+		dataFactory.setToxic = function(bottleId, toxicity, success, error) {
+			return $http.put(urlToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
+		};
 
         return dataFactory;
     }
@@ -46,7 +46,7 @@ liquorServices.factory('laboratoryFactory', ['$http',
 liquorServices.factory('bottleTypeFactory', ['$http',
     function($http){
         var urlBottleType = urlBase.concat("/bottleType");
-        var urlCreate = urlBottleType.concat("/create/{id}");
+        var urlWithId = urlBottleType.concat("/{id}");
         var dataFactory={};
 
         dataFactory.getAllBottleTypes = function(success, error) {
@@ -54,8 +54,17 @@ liquorServices.factory('bottleTypeFactory', ['$http',
         };
 
         dataFactory.createBottleType = function(bottleType, manufacturerId, success, error) {
-            var finalUrl = urlCreate.replace("{id}", manufacturerId);
+            var finalUrl = urlWithId.replace("{id}", manufacturerId);
             return $http.post(finalUrl, bottleType).then(success, error);
+        };
+
+        dataFactory.deleteBottleType = function(id, success, error) {
+            var finalUrl = urlWithId.replace("{id}", id);
+            return $http.delete(finalUrl).then(success, error);
+        };
+        dataFactory.updateBottleType = function(bottleType, success, error) {
+            var finalUrl = urlWithId.replace("{id}", bottleType.id);
+            return $http.put(finalUrl, bottleType).then(success, error);
         };
 
         return dataFactory;
