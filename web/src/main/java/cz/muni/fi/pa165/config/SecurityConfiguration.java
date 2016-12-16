@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.config;
 
+    import cz.muni.fi.pa165.enums.PersonRole;
 import cz.muni.fi.pa165.security.CustomAuthenticationProvider;
 import cz.muni.fi.pa165.security.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.ComponentScan;

@@ -84,6 +84,7 @@ module.run(function($rootScope, $location, $window, loggedUserFactory) {
         var isToxic = function(bottle) { return bottle.toxic; }
         var toxicBottlesLength = bottles.filter(isToxic).length;
         var allBottlesLength = bottles.length;
-        return (toxicBottlesLength / allBottlesLength) * 100;
+        var percentage = (toxicBottlesLength / allBottlesLength) * 100;
+        return Number((percentage).toFixed(2));
     };
 });

@@ -117,8 +117,8 @@ liquorServices.factory('manufacturerFactory', ['$http',
 liquorServices.factory('storeFactory', ['$http',
     function($http){
         var urlStore = urlBase + "/store";
-        var urlNontoxicBottles = urlStore.concat("/bottles/nontoxic");
-        var urlAllBottles = urlStore.concat("/bottles/all");
+        var urlNontoxicBottles = urlStore.concat("/{id}/bottles/nontoxic");
+        var urlAllBottles = urlStore.concat("/{id}//bottles/all");
 
         var dataFactory={};
 
