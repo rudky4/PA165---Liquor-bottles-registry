@@ -1,8 +1,9 @@
 package cz.muni.fi.pa165.controllers;
 
+import cz.muni.fi.pa165.ApiContract;
+import cz.muni.fi.pa165.dto.BottleCreateDTO;
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.LaboratoryDTO;
-import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.exceptions.ResourceConflict;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
 import cz.muni.fi.pa165.exceptions.ResourceNotValid;
@@ -24,7 +25,7 @@ import java.util.List;
  * @date 04/12/2016
  */
 @RestController
-@RequestMapping("/bottle")
+@RequestMapping(ApiContract.Bottle.BASE)
 public class BottleController {
 
     @Inject
@@ -42,7 +43,7 @@ public class BottleController {
         return result;
     }
     
-    @RequestMapping(value = "/toxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = ApiContract.Bottle.TOXIC, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getToxicBottles() {
         List<BottleDTO> result = bottleFacade.getAllToxicBottles();
         if(result == null) {
@@ -51,8 +52,8 @@ public class BottleController {
         return result;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final BottleDTO getBottleById(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Bottle.ID, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final BottleDTO getBottleById(@PathVariable(ApiContract.Bottle.PATH_ID) long id) {
         BottleDTO result = bottleFacade.findById(id);
         if(result != null) {
             return result;
@@ -61,8 +62,9 @@ public class BottleController {
         }
     }
     
-    @RequestMapping(value = "/{id}/toxicity/{value}", method = RequestMethod.PUT)
-    public final void setToxic(@PathVariable("id") long id, @PathVariable("value") int isToxic) {
+    @RequestMapping(value = ApiContract.Bottle.TOXICITY, method = RequestMethod.PUT)
+    public final void setToxic(@PathVariable(ApiContract.Bottle.PATH_ID) long id,
+                               @PathVariable(ApiContract.Bottle.PATH_VALUE) int isToxic) {
         BottleDTO result = bottleFacade.findById(id);
         if(result == null) {
             throw new ResourceNotFound();
@@ -72,8 +74,8 @@ public class BottleController {
         bottleFacade.updateBottle(result);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public final void assignToLab(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Bottle.ID, method = RequestMethod.PUT)
+    public final void assignToLab(@PathVariable(ApiContract.Bottle.PATH_ID) long id) {
         BottleDTO result = bottleFacade.findById(id);
         LaboratoryDTO laboratoryDTO = laboratoryFacade.findWithLeastBottles();
         if(result == null || laboratoryDTO == null) {
@@ -89,14 +91,14 @@ public class BottleController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public final void createBottle(@Valid @RequestBody BottleDTO bottle,
-                                   @RequestParam("store") long storeId,
+    public final void createBottle(@Valid @RequestBody BottleCreateDTO bottle,
                                    BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             throw new ResourceNotValid();
         }
+
         try {
-            bottleFacade.importBottleToStore(bottle, storeId);
+            bottleFacade.importBottleToStore(bottle);
         } catch (DataAccessException dae) {
             throw new ResourceConflict();
         } catch (IllegalArgumentException iae) {
@@ -104,8 +106,8 @@ public class BottleController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public final void deleteBottleType(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Bottle.ID, method = RequestMethod.DELETE)
+    public final void deleteBottleType(@PathVariable(ApiContract.Bottle.PATH_ID) long id) {
         try{
             bottleFacade.deleteBottle(id);
         } catch (DataAccessException dae) {

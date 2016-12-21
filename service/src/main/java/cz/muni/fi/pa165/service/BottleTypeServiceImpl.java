@@ -34,6 +34,7 @@ public class BottleTypeServiceImpl implements BottleTypeService {
         if(manufacturer == null) {
             throw new IllegalArgumentException("Manufacturer with id=" + manufacturerId + " does not exist.");
         }
+        type.setDeleted(false);
         BottleType stored = bottleTypeDAO.save(type);
         stored.setManufacturedBy(manufacturer);
     }

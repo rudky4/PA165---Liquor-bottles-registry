@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.controllers;
 
+import cz.muni.fi.pa165.ApiContract;
+import cz.muni.fi.pa165.dto.BottleTypeCreateDTO;
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
 import cz.muni.fi.pa165.exceptions.ResourceConflict;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
@@ -23,7 +25,7 @@ import java.util.List;
  * @date 04/12/2016
  */
 @RestController
-@RequestMapping("/bottleType")
+@RequestMapping(ApiContract.BottleType.BASE)
 public class BottleTypeController {
 
     @Inject
@@ -38,15 +40,15 @@ public class BottleTypeController {
         return result;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public final void createBottleType(@Valid @RequestBody BottleTypeDTO bottleType,
-                                       @PathVariable("id") long manufacturerId, BindingResult bindingResult) {
+    public final void createBottleType(@Valid @RequestBody BottleTypeCreateDTO bottleType,
+                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ResourceNotValid();
         }
         try{
-            bottleTypeFacade.createBottleType(bottleType, manufacturerId);
+            bottleTypeFacade.createBottleType(bottleType);
         } catch (DataAccessException dae) {
             throw new ResourceConflict();
         } catch (IllegalArgumentException iae) {
@@ -65,9 +67,4 @@ public class BottleTypeController {
             throw new ResourceNotFound();
         }
     }
-
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public final void deleteBottleType(@PathVariable("id") long id) {
-//        bottleTypeFacade.deleteBottleType(id);
-//    }
 }

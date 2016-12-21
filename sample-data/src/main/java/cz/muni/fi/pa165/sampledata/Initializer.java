@@ -1,4 +1,4 @@
-package cz.muni.fi.sampledata;
+package cz.muni.fi.pa165.sampledata;
 
 /**
  * @author Jakub Fiser

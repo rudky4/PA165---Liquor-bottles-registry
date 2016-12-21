@@ -1,8 +1,7 @@
-package cz.muni.fi.config;
+package cz.muni.fi.pa165.config;
 
-import cz.muni.fi.sampledata.Initializer;
-import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.sampledata.InitializerImpl;
+import cz.muni.fi.pa165.sampledata.Initializer;
+import cz.muni.fi.pa165.sampledata.InitializerImpl;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

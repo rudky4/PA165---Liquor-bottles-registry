@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa165.controllers;
 
+import cz.muni.fi.pa165.ApiContract;
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.LaboratoryDTO;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author rk
  */
 @RestController
-@RequestMapping("/laboratory")
+@RequestMapping(ApiContract.Laboratory.BASE)
 public class LabController {
     
     @Inject
@@ -34,7 +35,7 @@ public class LabController {
     @Inject
     private PersonFacade personFacade;
     
-    @RequestMapping(value = "/bottles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = ApiContract.Laboratory.BOTTLES, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<BottleDTO> getBottlesForLab(){
         String login = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {

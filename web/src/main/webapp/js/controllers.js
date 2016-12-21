@@ -191,7 +191,8 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
 
     $scope.bottleType = {}
     $scope.create = function() {
-        bottleTypeFactory.createBottleType($scope.bottleType, $scope.manufacturer.id,
+        $scope.bottleType.manufacturerId = $scope.manufacturer.id;
+        bottleTypeFactory.createBottleType($scope.bottleType,
             function (response) {
                 $scope.bottleType = {}
                 $scope.loadBottleTypes($scope.manufacturer.id);
@@ -274,11 +275,12 @@ liquorControllers.controller('storeManagementCtrl', function ($scope, $rootScope
         $rootScope.unsuccessfulResponse
     );
 
-    $scope.bottle = {"toxic": false}
+    $scope.bottle = {}
     $scope.importBottle = function() {
-        bottleFactory.createBottle($scope.bottle, $scope.store.id,
+        $scope.bottle.storeId = $scope.store.id;
+        bottleFactory.createBottle($scope.bottle,
             function (response) {
-                $scope.bottle = {"toxic": false}
+                $scope.bottle = {}
                 $scope.loadBottles($scope.store.id);
 //                $scope.loadBottleTypes($scope.store.id);
             },

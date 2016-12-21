@@ -11,7 +11,7 @@
     <tbody>
     <tr ng-repeat="manufacturer in manufacturers">
         <th scope="row"><a ng-href="#!/manufacturer/{{manufacturer.id}}">{{manufacturer.name}}</a></td>
-        <td ng-if="role != 'ROLE_ANONYMOUS'><a ng-href="#!/manufacturer/{{manufacturer.id}}/production">Show production</a></td>
+        <td ng-if="role != 'ROLE_ANONYMOUS'"><a ng-href="#!/manufacturer/{{manufacturer.id}}/production">Show production</a></td>
     </tr>
     </tbody>
 </table>

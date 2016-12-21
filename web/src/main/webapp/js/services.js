@@ -27,8 +27,8 @@ liquorServices.factory('bottleFactory', ['$http',
             return $http.put(urlBottleId.replace("{id}", bottleId)).then(success, error);
         };
 
-		dataFactory.createBottle = function(bottle, storeId, success, error) {
-   			return $http.post(urlBottle + "?store=" + storeId, bottle).then(success, error);
+		dataFactory.createBottle = function(bottle, success, error) {
+   			return $http.post(urlBottle, bottle).then(success, error);
    		};
 
    		dataFactory.deleteBottle = function(bottleId, success, error) {
@@ -66,15 +66,10 @@ liquorServices.factory('bottleTypeFactory', ['$http',
             return $http.get(urlBottleType).then(success, error);
         };
 
-        dataFactory.createBottleType = function(bottleType, manufacturerId, success, error) {
-            var finalUrl = urlWithId.replace("{id}", manufacturerId);
-            return $http.post(finalUrl, bottleType).then(success, error);
+        dataFactory.createBottleType = function(bottleType, success, error) {
+            return $http.post(urlBottleType, bottleType).then(success, error);
         };
 
-        dataFactory.deleteBottleType = function(id, success, error) {
-            var finalUrl = urlWithId.replace("{id}", id);
-            return $http.delete(finalUrl).then(success, error);
-        };
         dataFactory.updateBottleType = function(bottleType, success, error) {
             return $http.put(urlBottleType, bottleType).then(success, error);
         };
