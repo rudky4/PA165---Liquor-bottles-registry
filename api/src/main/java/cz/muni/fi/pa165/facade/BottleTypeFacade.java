@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.BottleTypeCreateDTO;
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
 import cz.muni.fi.pa165.dto.StoreDTO;
 import cz.muni.fi.pa165.enums.AlcoholType;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface BottleTypeFacade {
     void createBottleType(BottleTypeDTO type);
 
-    void createBottleType(BottleTypeDTO type, long manufacturerId);
+    void createBottleType(BottleTypeCreateDTO type);
 
     void updateBottleType(BottleTypeDTO bottleType);
 

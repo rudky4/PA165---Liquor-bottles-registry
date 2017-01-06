@@ -2,34 +2,58 @@
 <br/>
 
 <div>
-    <button class="btn btn-secondary" ng-click="showForm = !showForm" ngInit="showForm = false">Create new bottle type</button>
-    <div id="errorOutput" class="alert alert-danger" style="display: none;" role="alert">Submitted bottle type is not valid</div>
-    <form name="formBottleType" ng-submit="create()" ng-show="showForm">
-        <table>
-            <tr>
-                <td>Name:</td>
-                <td><input class="form-control" name="input" ng-model="bottleType.name" required></td>
-            </tr>
-            <tr>
-                <td>Size:</td>
-                <td><input class="form-control" name="input" ng-model="bottleType.size" required></td>
-            </tr>
-            <tr>
-                <td>Volume:</td>
-                <td><input class="form-control" name="input" ng-model="bottleType.volume" required></td>
-            </tr>
-            <tr>
-                <td>AlcoholType:</td>
-                <td>
-                    <select ng-model="bottleType.type" ng-options="type for type in ['RUM', 'VODKA', 'WHISKEY', 'COGNAC']">
-                        <option>Select</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <button class="btn btn-secondary" type="submit" ng-disabled="formBottleType.$invalid">Create</button>
-    </form>
+    <button class="btn btn-secondary" ng-show="!showForm" ng-click="showForm = true" ngInit="showForm = false">Create new bottle type</button>
+    <div ng-show="showForm">
+        <div id="errorOutput" class="alert alert-danger" style="display: none;" role="alert">Submitted bottle type is not valid</div>
+        <h5>New bottle type:</h5>
+        <form name="form" ng-submit="create()">
+            <table>
+                <tr class="form-group" ng-class="{'has-danger': form.name.$invalid && !form.name.$pristine}">
+                    <td class="control-label">Name:</td>
+                    <td>
+                        <input class="form-control" type="text" name="name" size="6" ng-model="bottleType.name" required>
+                    </td>
+                </tr>
+                <tr class="has-danger">
+                    <td><br/></td>
+                    <td class="form-control-feedback" ng-if="form.name.$invalid && !form.name.$pristine"><small>Name is required.</small></td>
+                </tr>
+                <tr class="form-group" ng-class="{'has-danger': form.size.$invalid && !form.size.$pristine}">
+                    <td class="control-label">Size:</td>
+                    <td>
+                        <input class="form-control" type="number" name="size" min="0.5" step="0.5" ng-model="bottleType.size" placeholder="liters" required>
+                    </td>
+                </tr>
+                <tr ng-class="{'has-danger': form.size.$invalid && !form.size.$pristine}">
+                    <td><br/></td>
+                    <td class="form-control-feedback" ng-if="form.size.$invalid && !form.size.$pristine"><small>Minimum acceptable size is 0,5.</small></td>
+                </tr>
+                <tr class="form-group" ng-class="{'has-danger': form.volume.$invalid && !form.volume.$pristine}">
+                    <td class="control-label">Volume:</td>
+                    <td>
+                        <input class="form-control" type="number" name="volume" min="0" max="100" ng-model="bottleType.volume" placeholder="&#8240;" required>
+                    </td>
+                </tr>
+                <tr class="has-danger">
+                    <td><br/></td>
+                    <td class="form-control-feedback" ng-if="form.volume.$invalid && !form.volume.$pristine"><small>Must be in range from 0 to 100.</small></td>
+                </tr>
+                <tr class="form-group">
+                    <td class="control-label">AlcoholType:</td>
+                    <td>
+                        <select class="form-control" ng-model="bottleType.type" ng-options="type for type in ['RUM', 'VODKA', 'WHISKEY', 'COGNAC']" required>
+                            <option value="">- Please select -</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <button class="btn btn-secondary" type="button" ng-click="showForm = false">Cancel</button>
+            <button class="btn btn-primary" type="submit" ng-disabled="form.$invalid">Create</button>
+        </form>
+    </div>
 </div>
+<br/>
 <br/>
 
 <h3>Your bottle types</h3>

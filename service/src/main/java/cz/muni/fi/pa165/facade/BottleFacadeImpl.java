@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.BottleDTO;
-import cz.muni.fi.pa165.dto.BottleTypeDTO;
-import cz.muni.fi.pa165.dto.ManufacturerDTO;
-import cz.muni.fi.pa165.dto.StoreDTO;
+import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.entity.Bottle;
 import cz.muni.fi.pa165.entity.BottleType;
 import cz.muni.fi.pa165.entity.Manufacturer;
@@ -36,8 +33,8 @@ public class BottleFacadeImpl implements BottleFacade {
     }
 
     @Override
-    public void importBottleToStore(BottleDTO bottle, long storeId) {
-        bottleService.importBottleToStore(beanMappingService.mapTo(bottle, Bottle.class), storeId);
+    public void importBottleToStore(BottleCreateDTO bottle) {
+        bottleService.importBottleToStore(beanMappingService.mapTo(bottle, Bottle.class), bottle.getStoreId());
     }
 
     @Override

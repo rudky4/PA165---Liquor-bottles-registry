@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.controllers;
 
+import cz.muni.fi.pa165.ApiContract;
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
 import cz.muni.fi.pa165.dto.StoreDTO;
@@ -22,7 +23,7 @@ import java.util.Set;
  * @author Martin Sumera
  */
 @RestController
-@RequestMapping("/store")
+@RequestMapping(ApiContract.Store.BASE)
 public class StoreController {
 
     @Inject
@@ -43,8 +44,8 @@ public class StoreController {
         return result;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final StoreDTO getStoreById(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Store.ID, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final StoreDTO getStoreById(@PathVariable(ApiContract.Store.PATH_ID) long id) {
         StoreDTO result = storeFacade.findById(id);
         if (result != null) {
             return result;
@@ -53,8 +54,8 @@ public class StoreController {
         }
     }
 
-    @RequestMapping(value = "/{id}/bottles/nontoxic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleDTO> getAllNontoxicBottles(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Store.BOTTLES_NONTOXIC, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleDTO> getAllNontoxicBottles(@PathVariable(ApiContract.Store.PATH_ID) long id) {
         List<BottleDTO> nontoxicBottles = bottleFacade.getAllNontoxicBottlesInStore(getStoreById(id));
         if (nontoxicBottles != null) {
             return nontoxicBottles;
@@ -63,8 +64,8 @@ public class StoreController {
         }
     }
 
-    @RequestMapping(value = "/{id}/bottles/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleDTO> getAllBottles(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Store.BOTTLES_ALL, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleDTO> getAllBottles(@PathVariable(ApiContract.Store.PATH_ID) long id) {
         List<BottleDTO> allBottles = bottleFacade.getAllBottlesInStore(getStoreById(id));
         if (allBottles != null) {
             return allBottles;
@@ -73,13 +74,13 @@ public class StoreController {
         }
     }
 
-    @RequestMapping(value = "bottleType/{id}", method = RequestMethod.GET)
-    public final Set<StoreDTO> getStoresByBottleType(@PathVariable("id") long bottleTypeId) {
+    @RequestMapping(value = ApiContract.Store.STORE_BY_BOTTLE_TYPE, method = RequestMethod.GET)
+    public final Set<StoreDTO> getStoresByBottleType(@PathVariable(ApiContract.Store.PATH_ID) long bottleTypeId) {
         return storeFacade.findByBottleType(bottleTypeId);
     }
 
-    @RequestMapping(value = "/{id}/bottleType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleTypeDTO> getStoreBottleTypes(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Store.STORE_BOTTLE_TYPES, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleTypeDTO> getStoreBottleTypes(@PathVariable(ApiContract.Store.PATH_ID) long id) {
         StoreDTO storeDTO = storeFacade.findById(id);
         if(storeDTO == null) {
             throw new ResourceNotFound();

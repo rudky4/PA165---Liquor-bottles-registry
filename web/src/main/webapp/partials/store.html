@@ -1,34 +1,46 @@
 <h3>{{store.name}}</h3>
 <br/>
 
-<button class="btn btn-secondary" ng-click="showForm = !showForm" ngInit="showForm = false">Import bottles</button>
 <div>
-    <form name="formBottle" ng-submit="importBottle()" ng-show="showForm">
-        <table>
-            <tr>
-                <td>Manufacturer:</td>
-                <td>
-                    <select ng-model="manufacturer" ng-options="manufacturer.name for manufacturer in manufacturers" ng-change="manufacturerSelected()" required>
-                        <option ng-if="!manufacturer" value="">Please select</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Bottle type:</td>
-                <td>
-                    <select ng-model="bottle.bottleType" ng-options="type.name for type in manufacturer.bottleTypes" required>
-                        <option ng-if="!manufacturer" value="">Please select Manufacturer</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Sticker ID:</td>
-                <td><input class="form-control" name="input" ng-model="bottle.stickerID" required></td>
-            </tr>
-        </table>
-        <button class="btn btn-secondary" type="submit" ng-disabled="formBottle.$invalid">Import</button>
-    </form>
+    <button class="btn btn-secondary" ng-show="!showForm" ng-click="showForm = true" ngInit="showForm = false">Import bottles</button>
+    <div ng-show="showForm">
+        <div id="errorOutput" class="alert alert-danger" style="display: none;" role="alert">Submitted bottle is not valid</div>
+        <h5>Import bottle:</h5>
+        <form name="form" ng-submit="importBottle()">
+            <table>
+                <tr class="form-group">
+                    <td class="control-label">Manufacturer:</td>
+                    <td>
+                        <select class="form-control" ng-model="manufacturer" ng-options="manufacturer.name for manufacturer in manufacturers" ng-change="manufacturerSelected()" required>
+                            <option ng-if="!manufacturer" value="">- Please select -</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td><br/></td></tr>
+                <tr class="form-group">
+                    <td class="control-label">Bottle type:</td>
+                    <td>
+                        <select class="form-control" ng-model="bottle.bottleType" ng-options="type.name for type in manufacturer.bottleTypes" required>
+                            <option value="">- Please select Manufacturer -</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td><br/></td></tr>
+                <tr class="form-group">
+                    <td class="control-label">Sticker ID:</td>
+                    <td><input class="form-control" name="sticker" ng-model="bottle.stickerID" required></td>
+                </tr>
+                <tr class="has-danger">
+                    <td><br/></td>
+                    <td class="form-control-feedback" ng-if="form.sticker.$invalid && !form.sticker.$pristine"><small>StickerID is required.</small></td>
+                </tr>
+            </table>
+            <button class="btn btn-secondary" type="button" ng-click="showForm = false">Cancel</button>
+            <button class="btn btn-primary" type="submit" ng-disabled="form.$invalid">Import</button>
+        </form>
+    </div>
 </div>
+<br/>
 <br/>
 
 <table class="table" >

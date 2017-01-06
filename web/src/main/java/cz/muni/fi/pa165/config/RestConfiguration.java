@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import cz.muni.fi.config.SampleDataConfiguration;
 import cz.muni.fi.pa165.controllers.BottleTypeController;
 import cz.muni.fi.pa165.dto.LaboratoryDTO;
 import cz.muni.fi.pa165.dto.ManufacturerDTO;

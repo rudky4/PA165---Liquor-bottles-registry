@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.BottleDTO;
-import cz.muni.fi.pa165.dto.BottleTypeDTO;
-import cz.muni.fi.pa165.dto.ManufacturerDTO;
-import cz.muni.fi.pa165.dto.StoreDTO;
+import cz.muni.fi.pa165.dto.*;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +11,7 @@ import java.util.List;
 public interface BottleFacade {
     void createBottle(BottleDTO bottle);
 
-    void importBottleToStore(BottleDTO bottle, long storeId);
+    void importBottleToStore(BottleCreateDTO bottle);
 
     List<BottleDTO> findAll();
 

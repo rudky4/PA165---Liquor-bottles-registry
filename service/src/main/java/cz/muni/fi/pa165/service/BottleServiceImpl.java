@@ -39,6 +39,8 @@ public class BottleServiceImpl implements BottleService {
             throw new IllegalArgumentException();
         }
         bottle.setStore(store);
+        bottle.setToxic(false);
+        bottle.setLaboratory(null);
         bottle.setProduced(timeService.getCurrentDate());
         bottleDAO.save(bottle);
     }

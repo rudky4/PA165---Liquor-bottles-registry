@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.config;
 
+import cz.muni.fi.pa165.ApiContract;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -19,7 +20,7 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/rest/*"};
+        return new String[]{ApiContract.REST + "/*"};
     }
 
     @Override

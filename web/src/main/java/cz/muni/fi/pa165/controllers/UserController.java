@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.controllers;
 
+import cz.muni.fi.pa165.ApiContract;
 import cz.muni.fi.pa165.dto.ManufacturerDTO;
 import cz.muni.fi.pa165.dto.PersonDTO;
 import cz.muni.fi.pa165.dto.StoreDTO;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
  * @author mhajas
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping(ApiContract.User.BASE)
 public class UserController {
 
     @Inject
@@ -32,14 +33,14 @@ public class UserController {
                 authorities.get(0) + "\"}";
     }
 
-    @RequestMapping(value = "/manufacturer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = ApiContract.User.MANUFACTURER, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ManufacturerDTO getPersonsManufacturer() {
         final String login = getLogin();
         PersonDTO personDTO = personFacade.findUserByLogin(login);
         return personDTO.getManufacturer();
     }
 
-    @RequestMapping(value = "/store", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = ApiContract.User.STORE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public StoreDTO getPersonsStore() {
         final String login = getLogin();
         PersonDTO personDTO = personFacade.findUserByLogin(login);

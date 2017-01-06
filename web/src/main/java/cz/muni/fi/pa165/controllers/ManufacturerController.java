@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.controllers;
 
+import cz.muni.fi.pa165.ApiContract;
 import cz.muni.fi.pa165.dto.BottleDTO;
 import cz.muni.fi.pa165.dto.BottleTypeDTO;
 import cz.muni.fi.pa165.dto.ManufacturerDTO;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  * @author Martin Sumera
  */
 @RestController
-@RequestMapping("/manufacturer")
+@RequestMapping(ApiContract.Manufacturer.BASE)
 public class ManufacturerController {
 
     @Inject
@@ -36,8 +37,8 @@ public class ManufacturerController {
         return result;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final ManufacturerDTO getManufacturerById(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Manufacturer.ID, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final ManufacturerDTO getManufacturerById(@PathVariable(ApiContract.Manufacturer.PATH_ID) long id) {
         ManufacturerDTO result = manufacturerFacade.findById(id);
         if (result != null) {
             return result;
@@ -46,8 +47,8 @@ public class ManufacturerController {
         }
     }
 
-    @RequestMapping(value = "/{id}/production", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleDTO> getManufacturerProduction(@PathVariable("id") long id) {
+    @RequestMapping(value = ApiContract.Manufacturer.PRODUCTION, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleDTO> getManufacturerProduction(@PathVariable(ApiContract.Manufacturer.PATH_ID) long id) {
         List<BottleDTO> bottles = bottleFacade.getAllBottlesFromManufacturer(getManufacturerById(id));
         if (bottles == null) {
             bottles = Collections.emptyList();
@@ -55,9 +56,9 @@ public class ManufacturerController {
         return bottles;
     }
 
-    @RequestMapping(value = "/{id}/bottleTypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<BottleTypeDTO> getManufacturerBottleTypes(@PathVariable("id") long id,
-                                                                @RequestParam(value = "deleted", defaultValue = "0") int showDeleted) {
+    @RequestMapping(value = ApiContract.Manufacturer.BOTTLE_TYPES, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<BottleTypeDTO> getManufacturerBottleTypes(@PathVariable(ApiContract.Manufacturer.PATH_ID) long id,
+                                                                @RequestParam(value = ApiContract.Manufacturer.PARAM_DELETED, defaultValue = "0") int showDeleted) {
         ManufacturerDTO manufacturerDTO = manufacturerFacade.findById(id);
         if (manufacturerDTO == null) {
             throw new ResourceNotFound();
