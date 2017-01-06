@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.dto;
 
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import cz.muni.fi.pa165.enums.AlcoholType;
 
@@ -27,6 +26,8 @@ public class BottleTypeDTO {
     private ManufacturerDTO manufacturedBy;
 
     private boolean deleted;
+
+    private int bottleCount = 0;
 
     public Long getId() {
         return id;
@@ -82,6 +83,14 @@ public class BottleTypeDTO {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public int getBottleCount() {
+        return bottleCount;
+    }
+
+    public void setBottleCount(int bottleCount) {
+        this.bottleCount = bottleCount;
     }
 
     @Override

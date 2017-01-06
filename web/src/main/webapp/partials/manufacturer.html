@@ -64,6 +64,7 @@
         <th>Type</th>
         <th>Size</th>
         <th>Volume</th>
+        <th>Bottles produced</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -73,6 +74,7 @@
         <td>{{type.type}}</td>
         <td>{{type.size}}</td>
         <td>{{type.volume}}</td>
+        <td>{{type.bottleCount}}</td>
         <td>
             <button class="btn btn-secondary" type="button" ng-if="!type.deleted" ng-click="setDeleted(type)">Delete</button>
             <button class="btn btn-secondary" type="button" ng-if="type.deleted" ng-click="introduceType(type)">Reintroduce</button>

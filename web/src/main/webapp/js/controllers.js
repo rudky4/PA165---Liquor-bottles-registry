@@ -194,7 +194,9 @@ liquorControllers.controller('manufacturerManagementCtrl', function ($scope, $ro
         $scope.bottleType.manufacturerId = $scope.manufacturer.id;
         bottleTypeFactory.createBottleType($scope.bottleType,
             function (response) {
-                $scope.bottleType = {}
+                $scope.showForm = false;
+                $scope.bottleType = {};
+                $scope.form.$setPristine();
                 $scope.loadBottleTypes($scope.manufacturer.id);
             },
             $rootScope.unsuccessfulResponse
@@ -268,7 +270,9 @@ liquorControllers.controller('storeManagementCtrl', function ($scope, $rootScope
         $scope.bottle.storeId = $scope.store.id;
         bottleFactory.createBottle($scope.bottle,
             function (response) {
-                $scope.bottle = {}
+                $scope.showForm = false;
+                $scope.bottle = {};
+                $scope.form.$setPristine();
                 $scope.loadBottles($scope.store.id);
 //                $scope.loadBottleTypes($scope.store.id);
             },
@@ -280,7 +284,7 @@ liquorControllers.controller('storeManagementCtrl', function ($scope, $rootScope
         bottleFactory.deleteBottle(bottleId,
             function (response) {
                 $scope.loadBottles($scope.store.id);
-//                $scope.loadBottleTypes($scope.manufacturer.id);
+//                $scope.loadBottleTypes($scope.store.id);
             },
             $rootScope.unsuccessfulResponse
         );

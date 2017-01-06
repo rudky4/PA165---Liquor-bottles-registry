@@ -66,6 +66,12 @@ public class ManufacturerController {
         List<BottleTypeDTO> result = manufacturerDTO.getTypesProduced();
         if(result == null) {
             result = Collections.emptyList();
+        } else {
+            List<BottleDTO> list;
+            for(BottleTypeDTO type : result) {
+                list = bottleFacade.findByBottleType(type);
+                type.setBottleCount(list != null ? list.size() : 0);
+            }
         }
 
         if(showDeleted == 1) {

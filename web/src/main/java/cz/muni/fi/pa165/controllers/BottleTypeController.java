@@ -11,8 +11,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -57,7 +55,8 @@ public class BottleTypeController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public final void updateBottleType(@Valid @RequestBody BottleTypeDTO bottleType, BindingResult bindingResult) {
+    public final void updateBottleType(@Valid @RequestBody BottleTypeDTO bottleType,
+                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ResourceNotValid();
         }

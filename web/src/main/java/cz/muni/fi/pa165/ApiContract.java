@@ -9,15 +9,15 @@ public abstract class ApiContract {
 
     public static final class BottleType {
         public static final String BASE = "/bottleType";
+        public static final String ID = "/{id}";
+        public static final String PATH_ID = "id";
     }
 
     public static final class Bottle {
         public static final String BASE = "/bottle";
         public static final String TOXIC = "/toxic";
         public static final String ID = "/{id}";
-        public static final String TOXICITY = "/{id}/toxicity/{value}";
         public static final String PATH_ID = "id";
-        public static final String PATH_VALUE = "value";
     }
 
     public static final class Laboratory {
