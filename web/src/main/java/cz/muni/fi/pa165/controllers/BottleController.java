@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.controllers;
 import cz.muni.fi.pa165.ApiContract;
 import cz.muni.fi.pa165.dto.BottleCreateDTO;
 import cz.muni.fi.pa165.dto.BottleDTO;
+import cz.muni.fi.pa165.dto.BottleToxicDTO;
 import cz.muni.fi.pa165.dto.LaboratoryDTO;
 import cz.muni.fi.pa165.exceptions.ResourceConflict;
 import cz.muni.fi.pa165.exceptions.ResourceNotFound;
@@ -62,14 +63,19 @@ public class BottleController {
         }
     }
     
-    @RequestMapping(value = ApiContract.Bottle.TOXICITY, method = RequestMethod.PUT)
-    public final void setToxic(@PathVariable(ApiContract.Bottle.PATH_ID) long id,
-                               @PathVariable(ApiContract.Bottle.PATH_VALUE) int isToxic) {
-        BottleDTO result = bottleFacade.findById(id);
+    @RequestMapping(value = ApiContract.Bottle.TOXIC, method = RequestMethod.PUT)
+    public final void setToxic(@Valid @RequestBody BottleToxicDTO bottleToxicDTO,
+                               BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            throw new ResourceNotValid();
+        }
+
+        // TODO: make method taking ID and Bool to mark bottle (non)toxic
+        BottleDTO result = bottleFacade.findById(bottleToxicDTO.getId());
         if(result == null) {
             throw new ResourceNotFound();
         }
-        result.setToxic(isToxic == 1);
+        result.setToxic(bottleToxicDTO.getToxic());
         result.setLaboratory(null);
         bottleFacade.updateBottle(result);
     }
@@ -107,7 +113,7 @@ public class BottleController {
     }
 
     @RequestMapping(value = ApiContract.Bottle.ID, method = RequestMethod.DELETE)
-    public final void deleteBottleType(@PathVariable(ApiContract.Bottle.PATH_ID) long id) {
+    public final void deleteBottle(@PathVariable(ApiContract.Bottle.PATH_ID) long id) {
         try{
             bottleFacade.deleteBottle(id);
         } catch (DataAccessException dae) {

@@ -8,7 +8,6 @@ liquorServices.factory('bottleFactory', ['$http',
     function($http){
         var urlBottle = urlBase.concat("/bottle");
         var urlBottleId = urlBottle.concat("/{id}");
-        var urlToxic = urlBottleId.concat("/toxicity/{value}");
 		var dataFactory={};
 		
         dataFactory.getAllBottles = function(success, error) {
@@ -20,7 +19,8 @@ liquorServices.factory('bottleFactory', ['$http',
         };
 				
 		dataFactory.setToxic = function(bottleId, toxicity, success, error) {
-			return $http.put(urlToxic.replace("{id}", bottleId).replace("{value}", toxicity)).then(success, error);
+		    var bottleToxicity = {"id": bottleId, "toxic": toxicity}
+			return $http.put(urlBottle.concat("/toxic"), bottleToxicity).then(success, error);
 		};
 
 		dataFactory.assignToLab = function(bottleId, success, error) {
@@ -59,7 +59,6 @@ liquorServices.factory('laboratoryFactory', ['$http',
 liquorServices.factory('bottleTypeFactory', ['$http',
     function($http){
         var urlBottleType = urlBase.concat("/bottleType");
-        var urlWithId = urlBottleType.concat("/{id}");
         var dataFactory={};
 
         dataFactory.getAllBottleTypes = function(success, error) {
